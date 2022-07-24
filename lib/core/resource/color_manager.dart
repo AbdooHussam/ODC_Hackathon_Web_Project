@@ -6,7 +6,7 @@ class ColorManager {
   static const Color backGround = Color(0xffFFFFFF);
   static const Color black = Colors.black;
 
-  static const Color headTextColor = Color(0xff000000);
+  static const Color headTextColor = Color(0xff492F24);
   static const Color captionTextColor = Color(0xff8F8F8F);
   static const Color disableTextColor = Color(0xffB7B7B7);
   static const Color paragraph = Color(0xff3A3A3A);
