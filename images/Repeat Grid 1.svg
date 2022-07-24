@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="232" height="56" viewBox="0 0 232 56">
+  <defs>
+    <clipPath id="clip-path">
+      <rect width="232" height="56" fill="none"/>
+    </clipPath>
+  </defs>
+  <g id="Repeat_Grid_1" data-name="Repeat Grid 1" clip-path="url(#clip-path)">
+    <g transform="translate(-159 -53)">
+      <text id="Petology" transform="translate(159 100)" fill="#ffe3c5" font-size="45" font-family="ShowcardGothic-Reg, Showcard Gothic"><tspan x="0" y="0">Petology</tspan></text>
+    </g>
+  </g>
+</svg>

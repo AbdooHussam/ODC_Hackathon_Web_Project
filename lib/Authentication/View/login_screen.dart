@@ -5,8 +5,14 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
+import 'package:odc_hackathon_web_project/core/resource/assets_manager.dart';
+import 'package:odc_hackathon_web_project/core/resource/text_manager.dart';
+import 'package:odc_hackathon_web_project/core/resource/value_manager.dart';
 
 import 'package:provider/provider.dart';
+
+import '../../core/constant/validator.dart';
+import '../../core/widgets/custom_text_button.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({Key? key}) : super(key: key);
@@ -29,6 +35,95 @@ class _LoginScreenState extends State<LoginScreen> {
     return SafeArea(
       child: Scaffold(
           appBar: AppBar(
+            flexibleSpace: Container(
+              decoration: const BoxDecoration(
+                gradient: LinearGradient(
+                  begin: Alignment(3, 1),
+                  end: Alignment(1, 1),
+                  colors: <Color>[
+                    Color(0xff56392D),
+
+                    Color(0xff180701),
+
+
+                  ], // Gradient from https://learnui.design/tools/gradient-generator.html
+                  tileMode: TileMode.mirror,
+                ),
+              ),
+              // child: Row(
+              //     mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              //     children: [
+              //       Flexible(
+              //         child: Row(
+              //           mainAxisAlignment: MainAxisAlignment.spaceAround,
+              //           children: [
+              //             Flexible(
+              //               child: Image.asset(
+              //                 ImageAssets.logoAppBar,
+              //                 fit: BoxFit.cover,
+              //               ),
+              //             ),
+              //             CustomTextButton(
+              //                 text: TextManager.aboutUs,
+              //                 function: () {
+              //                   print("AboutUs");
+              //                 }),
+              //             CustomTextButton(
+              //                 text: TextManager.categories,
+              //                 function: () {
+              //                   print("categories");
+              //                 }),
+              //             CustomTextButton(
+              //                 text: TextManager.services,
+              //                 function: () {
+              //                   print("services");
+              //                 }),
+              //             CustomTextButton(
+              //                 text: TextManager.request,
+              //                 function: () {
+              //                   print("request");
+              //                 }),
+              //           ],
+              //         ),
+              //       ),
+              //       SizedBox(
+              //         width: MediaQuery.of(context).size.width * .05,
+              //       ),
+              //       ElevatedButton(
+              //         onPressed: () {},
+              //         style: ButtonStyle(
+              //
+              //             shape:
+              //             MaterialStateProperty.all<RoundedRectangleBorder>(
+              //                 RoundedRectangleBorder(
+              //                     borderRadius:
+              //                     BorderRadius.circular(AppSize.s28),
+              //                     side:
+              //                     const BorderSide(color: Colors.white))),
+              //             backgroundColor: MaterialStateProperty.all<Color>(
+              //                 Colors.transparent)),
+              //         child: const AutoSizeText(TextManager.signUp),
+              //       ),
+              //       SizedBox(
+              //         width: MediaQuery.of(context).size.width * .05,
+              //       ),
+              //       ElevatedButton(
+              //         onPressed: () {},
+              //         style: ButtonStyle(
+              //             shape:
+              //             MaterialStateProperty.all<RoundedRectangleBorder>(
+              //                 RoundedRectangleBorder(
+              //                     borderRadius: BorderRadius.circular(18.0),
+              //                     side:
+              //                     const BorderSide(color: Colors.white))),
+              //             backgroundColor:
+              //             MaterialStateProperty.all<Color>(Colors.white)),
+              //         child: const AutoSizeText(TextManager.login,
+              //             style: TextStyle(
+              //                 color: Colors.black, fontWeight: FontWeight.bold)),
+              //       ),
+              //     ]),
+            ),
             backgroundColor: const Color(0xFF56392D),
             elevation: 0,
             title: Row(
@@ -40,54 +135,30 @@ class _LoginScreenState extends State<LoginScreen> {
                       children: [
                         Flexible(
                           child: Image.asset(
-                            "images/logo.png",
+                            ImageAssets.logoAppBar,
                             fit: BoxFit.cover,
                           ),
                         ),
-                        Flexible(
-                          child: TextButton(
-                            onPressed: () {},
-                            child: const AutoSizeText(
-                              "About us",
-                              maxLines: 1,
-                              style:
-                                  TextStyle(color: Colors.white, fontSize: 15),
-                            ),
-                          ),
-                        ),
-                        Flexible(
-                          child: TextButton(
-                            onPressed: () {},
-                            child: const AutoSizeText(
-                              "Categories",
-                              maxLines: 1,
-                              style:
-                                  TextStyle(color: Colors.white, fontSize: 15),
-                            ),
-                          ),
-                        ),
-                        Flexible(
-                          child: TextButton(
-                            onPressed: () {},
-                            child: const AutoSizeText(
-                              "Services",
-                              maxLines: 1,
-                              style:
-                                  TextStyle(color: Colors.white, fontSize: 15),
-                            ),
-                          ),
-                        ),
-                        Flexible(
-                          child: TextButton(
-                            onPressed: () {},
-                            child: const AutoSizeText(
-                              "Request",
-                              maxLines: 1,
-                              style:
-                                  TextStyle(color: Colors.white, fontSize: 15),
-                            ),
-                          ),
-                        ),
+                        CustomTextButton(
+                            text: TextManager.aboutUs,
+                            function: () {
+                              print("AboutUs");
+                            }),
+                        CustomTextButton(
+                            text: TextManager.categories,
+                            function: () {
+                              print("categories");
+                            }),
+                        CustomTextButton(
+                            text: TextManager.services,
+                            function: () {
+                              print("services");
+                            }),
+                        CustomTextButton(
+                            text: TextManager.request,
+                            function: () {
+                              print("request");
+                            }),
                       ],
                     ),
                   ),
@@ -97,15 +168,17 @@ class _LoginScreenState extends State<LoginScreen> {
                   ElevatedButton(
                     onPressed: () {},
                     style: ButtonStyle(
+
                         shape:
                             MaterialStateProperty.all<RoundedRectangleBorder>(
                                 RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(18.0),
+                                    borderRadius:
+                                        BorderRadius.circular(AppSize.s28),
                                     side:
                                         const BorderSide(color: Colors.white))),
                         backgroundColor: MaterialStateProperty.all<Color>(
                             Colors.transparent)),
-                    child: const AutoSizeText("Sign up"),
+                    child: const AutoSizeText(TextManager.signUp),
                   ),
                   SizedBox(
                     width: MediaQuery.of(context).size.width * .05,
@@ -121,7 +194,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                         const BorderSide(color: Colors.white))),
                         backgroundColor:
                             MaterialStateProperty.all<Color>(Colors.white)),
-                    child: const AutoSizeText("Login",
+                    child: const AutoSizeText(TextManager.login,
                         style: TextStyle(
                             color: Colors.black, fontWeight: FontWeight.bold)),
                   ),
@@ -143,18 +216,18 @@ class _LoginScreenState extends State<LoginScreen> {
                               height: MediaQuery.of(context).size.height * .05),
                           Row(
                             children: const [
-                              AutoSizeText("Welcome",
+                              AutoSizeText(TextManager.welcome,
                                   style: TextStyle(
                                       fontSize: 32,
                                       fontWeight: FontWeight.w700)),
-                              AutoSizeText(" Back!",
+                              AutoSizeText("Back!",
                                   style: TextStyle(
                                       fontSize: 32,
                                       fontWeight: FontWeight.w700,
                                       color: Color(0xFFFF6600))),
                             ],
                           ),
-                          const AutoSizeText("Login",
+                          const AutoSizeText(TextManager.login,
                               style: TextStyle(
                                   fontSize: 20,
                                   fontWeight: FontWeight.w600,
@@ -166,17 +239,7 @@ class _LoginScreenState extends State<LoginScreen> {
                             onChanged: (val) {
                               email = val;
                             },
-                            validator: (value) {
-                              if (value!.isEmpty) {
-                                return "Feild is Required";
-                              } else if (!RegExp(
-                                      r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
-                                  .hasMatch(email)) {
-                                return "Email not Valid";
-                              }
-
-                              return null;
-                            },
+                            validator: emailValidator,
                             decoration: InputDecoration(
                                 contentPadding:
                                     EdgeInsets.symmetric(vertical: h),

@@ -31,7 +31,7 @@ ThemeData getApplicationTheme() {
           style: ElevatedButton.styleFrom(
         textStyle: getSemiBoldStyle(
             color: ColorManager.whiteColor, fontSize: AppSize.s12),
-        fixedSize: const Size(154, 50),
+        fixedSize: const Size(208, 62),
         shadowColor: Colors.transparent.withOpacity(0.1),
         primary: ColorManager.primary,
         shape: RoundedRectangleBorder(
