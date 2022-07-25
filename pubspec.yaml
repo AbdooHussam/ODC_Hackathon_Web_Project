@@ -36,6 +36,8 @@ dependencies:
   mouse_parallax: ^1.1.0
   equatable:
   sprung:
+  image_picker: ^0.8.5+3
+  video_player: ^2.4.5
 
 
 dev_dependencies:
