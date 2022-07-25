@@ -21,7 +21,8 @@ dependencies:
 
   cupertino_icons: ^1.0.2
   change_app_package_name: ^0.1.3
-  provider:
+  bloc: ^8.0.3
+  flutter_bloc: ^8.0.1
   http: ^0.13.4
   auto_size_text: ^3.0.0
   modal_progress_hud_nsn:
@@ -33,6 +34,8 @@ dependencies:
   form_field_validator: ^1.1.0
   google_fonts: ^3.0.1
   mouse_parallax: ^1.1.0
+  equatable:
+  sprung:
 
 
 dev_dependencies:

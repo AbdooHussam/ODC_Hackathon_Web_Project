@@ -187,8 +187,9 @@ class _LoginScreenState extends State<LoginScreen> {
                   CustomButton(
                     text: TextManager.signUp,
                     function: (){},
-                    inColor: Color(0xffFFE3C5),
-                    outColor: Color(0xff56392D),
+                    inColor: Colors.transparent,
+                    outColor: Color(0xffFFE3C5),
+                    textColor: Colors.white,
                   ),
                   SizedBox(
                     width: MediaQuery.of(context).size.width * .05,
@@ -198,6 +199,7 @@ class _LoginScreenState extends State<LoginScreen> {
                      text: TextManager.login,
                      outColor: Color(0xffFFE3C5),
                      inColor: Colors.white,
+                     textColor: Colors.black,
                    ),
                 ]),
           ),

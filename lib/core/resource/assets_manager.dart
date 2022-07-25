@@ -3,6 +3,7 @@ class ImageAssets{
   static const String logoAppBar = "$imagePath/logo.png";
   static const String logoAppBarSvg = "$imagePath/logo.svg";
   static const String dogLoginScreen = "$imagePath/DogLoginScreen.svg";
+  static const String dogHomeScreen = "$imagePath/dogHome.png";
   static const String cursor  = "$imagePath/dog.png";
 
 
