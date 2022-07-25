@@ -48,475 +48,416 @@ class _LoginScreenState extends State<LoginScreen> {
     var height = MediaQuery.of(context).size.height;
     var width = MediaQuery.of(context).size.width;
     // var api = Provider.of<UserInformation>(context);
-    return SafeArea(
-        child: Scaffold(
-            appBar: AppBar(
-              flexibleSpace: Container(
-                decoration: const BoxDecoration(
-                  gradient: LinearGradient(
-                    begin: Alignment(3, 1),
-                    end: Alignment(1, 1),
-                    colors: <Color>[
-                      Color(0xff56392D),
-                      Color(0xff180701),
-                    ], // Gradient from https://learnui.design/tools/gradient-generator.html
-                    tileMode: TileMode.mirror,
-                  ),
-                ),
-                // child: Row(
-                //     mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                //     children: [
-                //       Flexible(
-                //         child: Row(
-                //           mainAxisAlignment: MainAxisAlignment.spaceAround,
-                //           children: [
-                //             Flexible(
-                //               child: Image.asset(
-                //                 ImageAssets.logoAppBar,
-                //                 fit: BoxFit.cover,
-                //               ),
-                //             ),
-                //             CustomTextButton(
-                //                 text: TextManager.aboutUs,
-                //                 function: () {
-                //                   print("AboutUs");
-                //                 }),
-                //             CustomTextButton(
-                //                 text: TextManager.categories,
-                //                 function: () {
-                //                   print("categories");
-                //                 }),
-                //             CustomTextButton(
-                //                 text: TextManager.services,
-                //                 function: () {
-                //                   print("services");
-                //                 }),
-                //             CustomTextButton(
-                //                 text: TextManager.request,
-                //                 function: () {
-                //                   print("request");
-                //                 }),
-                //           ],
-                //         ),
-                //       ),
-                //       SizedBox(
-                //         width: MediaQuery.of(context).size.width * .05,
-                //       ),
-                //       ElevatedButton(
-                //         onPressed: () {},
-                //         style: ButtonStyle(
-                //
-                //             shape:
-                //             MaterialStateProperty.all<RoundedRectangleBorder>(
-                //                 RoundedRectangleBorder(
-                //                     borderRadius:
-                //                     BorderRadius.circular(AppSize.s28),
-                //                     side:
-                //                     const BorderSide(color: Colors.white))),
-                //             backgroundColor: MaterialStateProperty.all<Color>(
-                //                 Colors.transparent)),
-                //         child: const AutoSizeText(TextManager.signUp),
-                //       ),
-                //       SizedBox(
-                //         width: MediaQuery.of(context).size.width * .05,
-                //       ),
-                //       ElevatedButton(
-                //         onPressed: () {},
-                //         style: ButtonStyle(
-                //             shape:
-                //             MaterialStateProperty.all<RoundedRectangleBorder>(
-                //                 RoundedRectangleBorder(
-                //                     borderRadius: BorderRadius.circular(18.0),
-                //                     side:
-                //                     const BorderSide(color: Colors.white))),
-                //             backgroundColor:
-                //             MaterialStateProperty.all<Color>(Colors.white)),
-                //         child: const AutoSizeText(TextManager.login,
-                //             style: TextStyle(
-                //                 color: Colors.black, fontWeight: FontWeight.bold)),
-                //       ),
-                //     ]),
-              ),
-              backgroundColor: const Color(0xFF56392D),
-              elevation: 0,
-              title: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Flexible(
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceAround,
-                        children: [
-                          Flexible(
-                            child: Image.asset(
-                              ImageAssets.logoAppBar,
-                              fit: BoxFit.cover,
-                            ),
+    return Scaffold(
+
+        body: ModalProgressHUD(
+            inAsyncCall: showSpinner,
+            child:Mouse(
+              widget:
+              SingleChildScrollView(
+                child: SizedBox(
+                  width: double.infinity,
+                  child: Column(
+                    children: [
+                      Container(
+                        decoration: const BoxDecoration(
+                          gradient: LinearGradient(
+                            begin: Alignment(3, 1),
+                            end: Alignment(1, 1),
+                            colors: <Color>[
+                              Color(0xff56392D),
+                              Color(0xff180701),
+                            ], // Gradient from https://learnui.design/tools/gradient-generator.html
+                            tileMode: TileMode.mirror,
                           ),
-                          CustomTextButton(
-                              text: TextManager.aboutUs,
-                              function: () {
-                                print("AboutUs");
-                              }),
-                          CustomTextButton(
-                              text: TextManager.categories,
-                              function: () {
-                                print("categories");
-                              }),
-                          CustomTextButton(
-                              text: TextManager.services,
-                              function: () {
-                                print("services");
-                              }),
-                          CustomTextButton(
-                              text: TextManager.request,
-                              function: () {
-                                print("request");
-                              }),
-                        ],
-                      ),
-                    ),
-                    SizedBox(
-                      width: MediaQuery.of(context).size.width * .05,
-                    ),
-                    CustomButton(
-                      text: TextManager.signUp,
-                      function: () {},
-                      inColor: Color(0xffFFE3C5),
-                      outColor: Color(0xff56392D),
-                    ),
-                    SizedBox(
-                      width: MediaQuery.of(context).size.width * .05,
-                    ),
-                    CustomButton(
-                      function: () {},
-                      text: TextManager.login,
-                      outColor: Color(0xffFFE3C5),
-                      inColor: Colors.white,
-                    ),
-                  ]),
-            ),
-            body: ModalProgressHUD(
-                inAsyncCall: showSpinner,
-                child:Mouse(
-                  widget:
-                  SingleChildScrollView(
-                    child: SizedBox(
-                      width: double.infinity,
-                      child: Padding(
-                        padding: const EdgeInsets.only(top: AppPadding.p50),
-                        child: Column(
-                          children: [
-                            SizedBox(
-                              height: height * 1.3,
-                              width: double.infinity,
-                              child: Stack(
-                                clipBehavior: Clip.none,
-                                alignment: Alignment.center,
-                                children: [
-                                  Positioned(
-                                    top: -18,
-                                    right: 650,
-                                    child: SvgPicture.asset(
-                                      ImageAssets.dogLoginScreen,
-                                      width: AppSize.s250,
-                                    ),
-                                  ),
-                                  Positioned(
-                                    top: -660,
-                                    right: 20,
-                                    child: Container(
-                                      width: width,
-                                      height: height * 2,
-                                      child: ParallaxStack(
-                                        useLocalPosition: true,
-                                        layers: [
-                                          ParallaxLayer(
-                                            offset: Offset(-18, 20),
-                                            yRotation: 0.2,
-                                            xRotation: 0.1,
-                                            yOffset: 9,
-                                            xOffset: 9,
-                                            child: Center(
-                                              child: Container(
-                                                width: 15,
-                                                height: 15,
-                                                decoration: BoxDecoration(
-                                                  borderRadius:
-                                                  BorderRadius.circular(
-                                                      200),
-                                                  color: Colors.black,
-                                                ),
-                                              ),
-                                            ),
-                                          ),
-                                          ParallaxLayer(
-                                            offset: const Offset(49, 10),
-                                            yRotation: 0.1,
-                                            xRotation: 0.1,
-                                            yOffset: 9,
-                                            xOffset: 9,
-                                            child: Center(
-                                              child: Container(
-                                                width: 15,
-                                                height: 15,
-                                                decoration: BoxDecoration(
-                                                  borderRadius:
-                                                  BorderRadius.circular(
-                                                      200),
-                                                  color: Colors.black,
-                                                ),
-                                              ),
-                                            ),
-                                          ),
-                                        ],
+                        ),
+                        child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Flexible(
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                  children: [
+                                    Flexible(
+                                      child: Image.asset(
+                                        ImageAssets.logoAppBar,
+                                        fit: BoxFit.cover,
                                       ),
                                     ),
+                                    CustomTextButton(
+                                        text: TextManager.aboutUs,
+                                        function: () {
+                                          print("AboutUs");
+                                        }),
+                                    CustomTextButton(
+                                        text: TextManager.categories,
+                                        function: () {
+                                          print("categories");
+                                        }),
+                                    CustomTextButton(
+                                        text: TextManager.services,
+                                        function: () {
+                                          print("services");
+                                        }),
+                                    CustomTextButton(
+                                        text: TextManager.request,
+                                        function: () {
+                                          print("request");
+                                        }),
+                                  ],
+                                ),
+                              ),
+                              SizedBox(
+                                width: MediaQuery.of(context).size.width * .05,
+                              ),
+                              ElevatedButton(
+                                onPressed: () {},
+                                style: ButtonStyle(
+
+                                    shape:
+                                    MaterialStateProperty.all<RoundedRectangleBorder>(
+                                        RoundedRectangleBorder(
+                                            borderRadius:
+                                            BorderRadius.circular(AppSize.s28),
+                                            side:
+                                            const BorderSide(color: Colors.white))),
+                                    backgroundColor: MaterialStateProperty.all<Color>(
+                                        Colors.transparent)),
+                                child: const AutoSizeText(TextManager.signUp),
+                              ),
+                              SizedBox(
+                                width: MediaQuery.of(context).size.width * .05,
+                              ),
+                              ElevatedButton(
+                                onPressed: () {},
+                                style: ButtonStyle(
+                                    shape:
+                                    MaterialStateProperty.all<RoundedRectangleBorder>(
+                                        RoundedRectangleBorder(
+                                            borderRadius: BorderRadius.circular(18.0),
+                                            side:
+                                            const BorderSide(color: Colors.white))),
+                                    backgroundColor:
+                                    MaterialStateProperty.all<Color>(Colors.white)),
+                                child: const AutoSizeText(TextManager.login,
+                                    style: TextStyle(
+                                        color: Colors.black, fontWeight: FontWeight.bold)),
+                              ),
+                            ]),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.only(top: 50.0),
+                        child: SizedBox(
+                          height: height * 1.3,
+                          width: double.infinity,
+                          child: Stack(
+                            clipBehavior: Clip.none,
+                            alignment: Alignment.center,
+                            children: [
+                              Positioned(
+                                top: -18,
+                                right: 650,
+                                child: SvgPicture.asset(
+                                  ImageAssets.dogLoginScreen,
+                                  width: AppSize.s250,
+                                ),
+                              ),
+                              Positioned(
+                                top: -660,
+                                right: 20,
+                                child: Container(
+                                  width: width,
+                                  height: height * 2,
+                                  child: ParallaxStack(
+                                    useLocalPosition: true,
+                                    layers: [
+                                      ParallaxLayer(
+                                        offset: Offset(-18, 20),
+                                        yRotation: 0.2,
+                                        xRotation: 0.1,
+                                        yOffset: 9,
+                                        xOffset: 9,
+                                        child: Center(
+                                          child: Container(
+                                            width: 15,
+                                            height: 15,
+                                            decoration: BoxDecoration(
+                                              borderRadius:
+                                              BorderRadius.circular(
+                                                  200),
+                                              color: Colors.black,
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                      ParallaxLayer(
+                                        offset: const Offset(49, 10),
+                                        yRotation: 0.1,
+                                        xRotation: 0.1,
+                                        yOffset: 9,
+                                        xOffset: 9,
+                                        child: Center(
+                                          child: Container(
+                                            width: 15,
+                                            height: 15,
+                                            decoration: BoxDecoration(
+                                              borderRadius:
+                                              BorderRadius.circular(
+                                                  200),
+                                              color: Colors.black,
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                    ],
                                   ),
-                                  Positioned(
-                                    child: Container(
-                                      height: height * 0.8,
-                                      width: width * 0.5,
-                                      decoration: BoxDecoration(
-                                          color: Colors.white,
-                                          border: Border.all(width: 2),
-                                          borderRadius:
-                                          BorderRadius.circular(30)),
-                                      child: Column(
-                                        children: [
-                                          SizedBox(
-                                            height: height*.05,
-                                          ),
-                                          AutoSizeText(
-                                            TextManager.login,
-                                            style: GoogleFonts.lato(
-                                                fontSize: AppSize.s40),
-                                          ),
-                                          Form(
-                                            key: _formKey,
-                                              child: Padding(
-                                                padding: const EdgeInsets.all(20.0),
-                                                child: Column(
+                                ),
+                              ),
+                              Positioned(
+                                child: Container(
+                                  height: height * 0.8,
+                                  width: width * 0.5,
+                                  decoration: BoxDecoration(
+                                      color: Colors.white,
+                                      border: Border.all(width: 2),
+                                      borderRadius:
+                                      BorderRadius.circular(30)),
+                                  child: Column(
+                                    children: [
+                                      SizedBox(
+                                        height: height*.05,
+                                      ),
+                                      AutoSizeText(
+                                        TextManager.login,
+                                        style: GoogleFonts.lato(
+                                            fontSize: AppSize.s40),
+                                      ),
+                                      Form(
+                                        key: _formKey,
+                                          child: Padding(
+                                            padding: const EdgeInsets.all(20.0),
+                                            child: Column(
 
+                                              children: [
+
+                                                CustomTextFormField(
+                                                  controller: emailController,
+                                                  hitText: "Email",
+                                                  fieldValidator: emailValidator,
+                                                ),
+                                                CustomTextFormField(
+                                                  controller: passController,
+                                                  hitText: "password",
+                                                  fieldValidator: passwordValidator,
+                                                  password: true,
+                                                ),
+                                                ElevatedButton(onPressed: (){
+
+                                                }, style:  ElevatedButton.styleFrom
+                                                  (
+                                                  primary:const Color(0xff492F24) ,
+                                                  fixedSize: Size(width/2, 60),
+                                                  shape:  RoundedRectangleBorder(
+                                                    borderRadius:  BorderRadius.circular(30.0),
+                                                  ),
+
+                                                ), child: AutoSizeText("Sign In " ,style :
+                                                  GoogleFonts.lato(
+                                                      color: const Color(0xffFFE3C5),
+                                                    fontSize: AppSize.s28,
+                                                    fontWeight: FontWeight.bold
+                                                  )
+                                                  ,) , ),
+                                                Align( alignment: Alignment.topRight,child: TextButton(onPressed: (){}, child: AutoSizeText
+                                                  ("Forget Password?" , style: GoogleFonts.lato(
+                                                  color: Color(0xff492F24),
+                                                  fontSize: 10,
+                                                  fontWeight: FontWeight.bold
+                                                ), )  ,)),
+                                                SizedBox(
+                                                  height: height*.02,
+                                                ),
+                                                divider(),
+                                                SizedBox(
+                                                  height: height*.02,
+                                                ),
+                                                Row(
+                                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                                   children: [
-
-                                                    CustomTextFormField(
-                                                      controller: emailController,
-                                                      hitText: "Email",
-                                                      fieldValidator: emailValidator,
-                                                    ),
-                                                    CustomTextFormField(
-                                                      controller: passController,
-                                                      hitText: "password",
-                                                      fieldValidator: passwordValidator,
-                                                      password: true,
-                                                    ),
-                                                    ElevatedButton(onPressed: (){
-
-                                                    }, style:  ElevatedButton.styleFrom
-                                                      (
-                                                      primary:Color(0xff492F24) ,
-                                                      fixedSize: Size(width/2, 60),
+                                                    ElevatedButton(onPressed: (){}, style:  ElevatedButton.styleFrom(
+                                                      primary: Color(0xff2F4582),
+                                                      fixedSize: Size(width/5, 60),
                                                       shape:  RoundedRectangleBorder(
                                                         borderRadius:  BorderRadius.circular(30.0),
                                                       ),
 
-                                                    ), child: AutoSizeText("Sign In " ,style :
-                                                      GoogleFonts.lato(
-                                                          color: Color(0xffFFE3C5),
-                                                        fontSize: AppSize.s28,
-                                                        fontWeight: FontWeight.bold
-                                                      )
-                                                      ,) , ),
-                                                    Align( alignment: Alignment.topRight,child: TextButton(onPressed: (){}, child: AutoSizeText
-                                                      ("Forget Password?" , style: GoogleFonts.lato(
-                                                      color: Color(0xff492F24),
-                                                      fontSize: 10,
-                                                      fontWeight: FontWeight.bold
-                                                    ), )  ,)),
-                                                    SizedBox(
-                                                      height: height*.02,
-                                                    ),
-                                                    divider(),
-                                                    SizedBox(
-                                                      height: height*.02,
-                                                    ),
-                                                    Row(
-                                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                                    ), child: Row(
                                                       children: [
-                                                        ElevatedButton(onPressed: (){}, child: Row(
-                                                          children: [
-                                                            SvgPicture.asset(ImageAssets.faceBookLogo),
-                                                            AutoSizeText("FaceBook" ,style: GoogleFonts.lato(
-                                                                fontSize: 28,
-                                                                color: Colors.white,
-                                                                fontWeight: FontWeight.bold
-                                                            ),)
-
-                                                          ],
-                                                        ) , style:  ElevatedButton.styleFrom(
-                                                          primary: Color(0xff2F4582),
-                                                          fixedSize: Size(width/5, 60),
-                                                          shape:  RoundedRectangleBorder(
-                                                            borderRadius:  BorderRadius.circular(30.0),
-                                                          ),
-
-                                                        ), ),
-                                                        ElevatedButton(onPressed: (){},
-                                                          style:  ElevatedButton.styleFrom(
-                                                          fixedSize: Size(width/5, 60),
-                                                          primary: Colors.white,
-                                                          shape:  RoundedRectangleBorder(
-
-                                                            borderRadius:  BorderRadius.circular(30.0),
-                                                          ),
-
-                                                        ), child: Row(
-                                                          mainAxisAlignment: MainAxisAlignment.spaceAround,
-                                                          children: [
-                                                            SvgPicture.asset(ImageAssets.googleLogo),
-                                                            AutoSizeText("Google" ,style: GoogleFonts.lato(
-                                                              fontSize: 28,
-                                                              color: Colors.black,
-                                                              fontWeight: FontWeight.bold
-                                                            ),)
-                                                          ],
-                                                        ), ),
+                                                        SvgPicture.asset(ImageAssets.faceBookLogo),
+                                                        AutoSizeText("FaceBook" ,style: GoogleFonts.lato(
+                                                            fontSize: 28,
+                                                            color: Colors.white,
+                                                            fontWeight: FontWeight.bold
+                                                        ),)
 
                                                       ],
-                                                    ),
+                                                    ) , ),
+                                                    ElevatedButton(onPressed: (){},
+                                                      style:  ElevatedButton.styleFrom(
+                                                      fixedSize: Size(width/5, 60),
+                                                      primary: Colors.white,
+                                                      shape:  RoundedRectangleBorder(
 
-                                                    Padding(
-                                                      padding: const EdgeInsets.all(15.0),
-                                                      child: TextButton(onPressed: (){}, child:  Text("Don`t have account ? SignUp" ,style: GoogleFonts.lato(
-                                                          color: Color(0xff492F24),
-                                                          fontSize: 10,
+                                                        borderRadius:  BorderRadius.circular(30.0),
+                                                      ),
+
+                                                    ), child: Row(
+                                                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                                      children: [
+                                                        SvgPicture.asset(ImageAssets.googleLogo),
+                                                        AutoSizeText("Google" ,style: GoogleFonts.lato(
+                                                          fontSize: 28,
+                                                          color: Colors.black,
                                                           fontWeight: FontWeight.bold
-                                                      ))),
-                                                    )
+                                                        ),)
+                                                      ],
+                                                    ), ),
 
                                                   ],
                                                 ),
-                                              ))
-                                        ],
-                                      ),
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                            Container(
-                              width: double.infinity,
-                              height: height * .5,
-                              decoration: const BoxDecoration(
-                                gradient: LinearGradient(
-                                  begin: Alignment(3, 1),
-                                  end: Alignment(1, 1),
-                                  colors: <Color>[
-                                    Color(0xff56392D),
-                                    Color(0xff180701),
-                                  ], // Gradient from https://learnui.design/tools/gradient-generator.html
-                                  tileMode: TileMode.mirror,
-                                ),
-                              ),
-                              child: Stack(
-                                clipBehavior: Clip.none,
-                                children: [
-                                  Row(
-                                    crossAxisAlignment: CrossAxisAlignment.start,
-                                    mainAxisAlignment: MainAxisAlignment.spaceAround,
-                                    children: [
-                                      SvgPicture.asset(ImageAssets.logoFotter)
-                                      ,SvgPicture.asset(ImageAssets.logoFotter)
 
+                                                Padding(
+                                                  padding: const EdgeInsets.all(15.0),
+                                                  child: TextButton(onPressed: (){}, child:  Text("Don`t have account ? SignUp" ,style: GoogleFonts.lato(
+                                                      color: Color(0xff492F24),
+                                                      fontSize: 10,
+                                                      fontWeight: FontWeight.bold
+                                                  ))),
+                                                )
+
+                                              ],
+                                            ),
+                                          ))
                                     ],
                                   ),
-
-                                Row(
-                                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                                  children: [
-                                    Column(
-                                      mainAxisAlignment: MainAxisAlignment.spaceAround,
-                                      children: [
-                                        AutoSizeText("For any questions" ,style: GoogleFonts.lato(
-                                            fontSize: 54,
-                                            fontWeight: FontWeight.bold,
-                                            color: Color(0xffFFE3C5)
-                                        ),)  ,
-                                        Row(
-                                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                          children: [
-                                            SvgPicture.asset(ImageAssets.emailIcon ,),
-                                            SizedBox(width: 20,),
-                                            AutoSizeText("For any questions" ,style: GoogleFonts.lato(
-                                                fontSize: 41,
-                                                fontWeight: FontWeight.bold,
-                                                color: Color(0xffAE957B)
-                                            ),),
-                                          ],
-                                        )  ,
-                                        Row(
-                                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                          children: [
-                                            SvgPicture.asset(ImageAssets.phoneIcon ,),
-                                            SizedBox(width: 20,),
-                                            AutoSizeText("For any questions" ,style: GoogleFonts.lato(
-                                                fontSize: 41,
-                                                fontWeight: FontWeight.bold,
-                                                color: Color(0xffAE957B)
-                                            ),),
-                                          ],
-                                        )  ,
-                                      ],),
-                                    Column(                                      mainAxisAlignment: MainAxisAlignment.spaceAround,
-                                        children: [
-                                      Text("We are waiting you" ,style: GoogleFonts.lato(
-                                          fontSize: 54,
-                                          fontWeight: FontWeight.bold,
-                                          color: Color(0xffFFE3C5)
-                                      ),)  ,
-                                          Row(
-                                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                            children: [
-                                              SvgPicture.asset(ImageAssets.locationIcon ,),
-                                              SizedBox(width: 20,),
-                                              AutoSizeText("For any questions" ,style: GoogleFonts.lato(
-                                                  fontSize: 41,
-                                                  fontWeight: FontWeight.bold,
-                                                  color: Color(0xffAE957B)
-                                              ),),
-                                            ],
-                                          )  ,
-                                          Row(
-                                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                            children: [
-                                              SvgPicture.asset(ImageAssets.locationIcon ,),
-                                              SizedBox(width: 20,),
-                                              AutoSizeText("For any questions" ,style: GoogleFonts.lato(
-                                                  fontSize: 41,
-                                                  fontWeight: FontWeight.bold,
-                                                  color: Color(0xffAE957B)
-                                              ),),
-                                            ],
-                                          )  ,
-                                    ],),
-
-                                    const Align(
-                                      alignment: Alignment.bottomRight,
-                                      child: Image(image:AssetImage(
-                                          ImageAssets.dog
-                                      )),
-                                    ),
-                                  ],
                                 ),
-
-                                ],
                               ),
-                            )
-                          ],
+                            ],
+                          ),
                         ),
                       ),
-                    ),
-                  ),))));
+                      Container(
+                        width: double.infinity,
+                        height: height * .5,
+                        decoration: const BoxDecoration(
+                          gradient: LinearGradient(
+                            begin: Alignment(3, 1),
+                            end: Alignment(1, 1),
+                            colors: <Color>[
+                              Color(0xff56392D),
+                              Color(0xff180701),
+                            ], // Gradient from https://learnui.design/tools/gradient-generator.html
+                            tileMode: TileMode.mirror,
+                          ),
+                        ),
+                        child: Stack(
+                          clipBehavior: Clip.none,
+                          children: [
+                            Row(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              mainAxisAlignment: MainAxisAlignment.spaceAround,
+                              children: [
+                                SvgPicture.asset(ImageAssets.logoFotter)
+                                ,SvgPicture.asset(ImageAssets.logoFotter)
+
+                              ],
+                            ),
+
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceAround,
+                            children: [
+                              Column(
+                                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                children: [
+                                  AutoSizeText("For any questions" ,style: GoogleFonts.lato(
+                                      fontSize: 54,
+                                      fontWeight: FontWeight.bold,
+                                      color: Color(0xffFFE3C5)
+                                  ),)  ,
+                                  Row(
+                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      SvgPicture.asset(ImageAssets.emailIcon ,),
+                                      SizedBox(width: 20,),
+                                      AutoSizeText("For any questions" ,style: GoogleFonts.lato(
+                                          fontSize: 41,
+                                          fontWeight: FontWeight.bold,
+                                          color: Color(0xffAE957B)
+                                      ),),
+                                    ],
+                                  )  ,
+                                  Row(
+                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      SvgPicture.asset(ImageAssets.phoneIcon ,),
+                                      SizedBox(width: 20,),
+                                      AutoSizeText("For any questions" ,style: GoogleFonts.lato(
+                                          fontSize: 41,
+                                          fontWeight: FontWeight.bold,
+                                          color: Color(0xffAE957B)
+                                      ),),
+                                    ],
+                                  )  ,
+                                ],),
+                              Column(                                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                  children: [
+                                Text("We are waiting you" ,style: GoogleFonts.lato(
+                                    fontSize: 54,
+                                    fontWeight: FontWeight.bold,
+                                    color: Color(0xffFFE3C5)
+                                ),)  ,
+                                    Row(
+                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        SvgPicture.asset(ImageAssets.locationIcon ,),
+                                        SizedBox(width: 20,),
+                                        AutoSizeText("For any questions" ,style: GoogleFonts.lato(
+                                            fontSize: 41,
+                                            fontWeight: FontWeight.bold,
+                                            color: Color(0xffAE957B)
+                                        ),),
+                                      ],
+                                    )  ,
+                                    Row(
+                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        SvgPicture.asset(ImageAssets.locationIcon ,),
+                                        SizedBox(width: 20,),
+                                        AutoSizeText("For any questions" ,style: GoogleFonts.lato(
+                                            fontSize: 41,
+                                            fontWeight: FontWeight.bold,
+                                            color: Color(0xffAE957B)
+                                        ),),
+                                      ],
+                                    )  ,
+                              ],),
+
+                              const Align(
+                                alignment: Alignment.bottomRight,
+                                child: Image(image:AssetImage(
+                                    ImageAssets.dog
+                                )),
+                              ),
+                            ],
+                          ),
+
+                          ],
+                        ),
+                      )
+                    ],
+                  ),
+                ),
+              ),)));
   }
 
 

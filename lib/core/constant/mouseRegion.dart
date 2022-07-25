@@ -38,7 +38,7 @@ class _MouseState extends State<Mouse> {
               // Custom dot in Cursor
                 duration: const Duration(milliseconds: 100),
                 left: pointer.dx,
-                top: pointer.dy -54,
+                top: pointer.dy +10,
                 child: Container(
                   width: 50,
                   color: Colors.transparent,
