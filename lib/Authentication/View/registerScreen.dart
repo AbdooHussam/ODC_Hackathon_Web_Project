@@ -1,64 +1,69 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
-
+import 'package:fluttertoast/fluttertoast.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 import 'package:mouse_parallax/mouse_parallax.dart';
 import 'package:odc_hackathon_web_project/Authentication/View/widget/componats.dart';
-import 'package:odc_hackathon_web_project/Authentication/auth_cubit.dart';
 import 'package:odc_hackathon_web_project/core/resource/assets_manager.dart';
+import 'package:odc_hackathon_web_project/core/resource/color_manager.dart';
 import 'package:odc_hackathon_web_project/core/resource/text_manager.dart';
 import 'package:odc_hackathon_web_project/core/resource/value_manager.dart';
 
+import 'package:provider/provider.dart';
 
 import '../../core/constant/mouseRegion.dart';
 import '../../core/constant/text_FormField.dart';
 import '../../core/constant/validator.dart';
 import '../../core/widgets/custom_text_button.dart';
 
-class LoginScreen extends StatefulWidget {
-  const LoginScreen({Key? key}) : super(key: key);
+
+
+class RegisterScreen extends StatefulWidget {
+  const RegisterScreen({Key? key}) : super(key: key);
 
   @override
-  State<LoginScreen> createState() => _LoginScreenState();
+  State<RegisterScreen> createState() => _RegisterScreenState();
 }
 
-class _LoginScreenState extends State<LoginScreen> {
-  TextEditingController emailController = TextEditingController();
-  TextEditingController passController = TextEditingController();
-  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+class _RegisterScreenState extends State<RegisterScreen> {
+  TextEditingController firstNameController =  TextEditingController();
+  TextEditingController lastNameController  =  TextEditingController();
+  TextEditingController emailController =  TextEditingController();
+  TextEditingController passController  =  TextEditingController();
+  TextEditingController rePasswordController  =  TextEditingController();
+  TextEditingController county       =  TextEditingController();
 
+
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+  var items = [
+    'Item 1',
+    'Item 2',
+    'Item 3',
+    'Item 4',
+    'Item 5',
+  ];
   int mainItemHover = 0;
   bool securePass = true;
   String name = "", email = "", pass = "", phone = "", address = "";
   bool showSpinner = false;
   final _key = GlobalKey<FormState>();
-@override
-  void initState() {
-  
-    // TODO: implement initState
-    super.initState();
-  }
+  String dropdownvalue = 'Item 1';
+
   @override
   Widget build(BuildContext context) {
+    final iskeyboard = MediaQuery.of(context).viewInsets.bottom != 0;
     double h = MediaQuery.of(context).size.height * .02;
     var size = MediaQuery.of(context).size;
     var height = MediaQuery.of(context).size.height;
     var width = MediaQuery.of(context).size.width;
     // var api = Provider.of<UserInformation>(context);
     return Scaffold(
-        body: BlocConsumer<AuthCubit, AuthState>(
-  listener: (context, state) {
-    // TODO: implement listener
-  },
-  builder: (context, state) {
-    var cubit = AuthCubit.get(context);
-
-    return ModalProgressHUD(
+        body: ModalProgressHUD(
             inAsyncCall: showSpinner,
             child: Mouse(
               widget: SingleChildScrollView(
@@ -85,7 +90,7 @@ class _LoginScreenState extends State<LoginScreen> {
                               Flexible(
                                 child: Row(
                                   mainAxisAlignment:
-                                      MainAxisAlignment.spaceAround,
+                                  MainAxisAlignment.spaceAround,
                                   children: [
                                     Flexible(
                                       child: Image.asset(
@@ -123,15 +128,15 @@ class _LoginScreenState extends State<LoginScreen> {
                                 onPressed: () {},
                                 style: ButtonStyle(
                                     shape: MaterialStateProperty.all<
-                                            RoundedRectangleBorder>(
+                                        RoundedRectangleBorder>(
                                         RoundedRectangleBorder(
                                             borderRadius: BorderRadius.circular(
                                                 AppSize.s28),
                                             side: const BorderSide(
                                                 color: Colors.white))),
                                     backgroundColor:
-                                        MaterialStateProperty.all<Color>(
-                                            Colors.transparent)),
+                                    MaterialStateProperty.all<Color>(
+                                        Colors.transparent)),
                                 child: const AutoSizeText(TextManager.signUp),
                               ),
                               SizedBox(
@@ -141,15 +146,15 @@ class _LoginScreenState extends State<LoginScreen> {
                                 onPressed: () {},
                                 style: ButtonStyle(
                                     shape: MaterialStateProperty.all<
-                                            RoundedRectangleBorder>(
+                                        RoundedRectangleBorder>(
                                         RoundedRectangleBorder(
                                             borderRadius:
-                                                BorderRadius.circular(18.0),
+                                            BorderRadius.circular(18.0),
                                             side: const BorderSide(
                                                 color: Colors.white))),
                                     backgroundColor:
-                                        MaterialStateProperty.all<Color>(
-                                            Colors.white)),
+                                    MaterialStateProperty.all<Color>(
+                                        Colors.white)),
                                 child: const AutoSizeText(TextManager.login,
                                     style: TextStyle(
                                         color: Colors.black,
@@ -158,270 +163,259 @@ class _LoginScreenState extends State<LoginScreen> {
                             ]),
                       ),
                       Padding(
-                        padding: const EdgeInsets.only(top: 50.0),
+                        padding: const EdgeInsets.all(20.0),
                         child: SizedBox(
-                          height: height * 1.3,
-                          width: double.infinity,
-                          child: Stack(
-                            clipBehavior: Clip.none,
-                            alignment: Alignment.center,
-                            children: [
-                              Positioned(
-                                top: -18,
-                                right: 650,
-                                child: SvgPicture.asset(
-                                  ImageAssets.dogLoginScreen,
-                                  width: AppSize.s250,
-                                ),
-                              ),
-                              Positioned(
-                                top: -660,
-                                right: 20,
-                                child: Container(
-                                  width: width,
-                                  height: height * 2,
-                                  child: ParallaxStack(
-                                    useLocalPosition: true,
-                                    layers: [
-                                      ParallaxLayer(
-                                        offset: Offset(-18, 20),
-                                        yRotation: 0.2,
-                                        xRotation: 0.1,
-                                        yOffset: 9,
-                                        xOffset: 9,
-                                        child: Center(
-                                          child: Container(
-                                            width: 15,
-                                            height: 15,
-                                            decoration: BoxDecoration(
-                                              borderRadius:
-                                                  BorderRadius.circular(200),
-                                              color: Colors.black,
-                                            ),
-                                          ),
-                                        ),
-                                      ),
-                                      ParallaxLayer(
-                                        offset: const Offset(49, 10),
-                                        yRotation: 0.1,
-                                        xRotation: 0.1,
-                                        yOffset: 9,
-                                        xOffset: 9,
-                                        child: Center(
-                                          child: Container(
-                                            width: 15,
-                                            height: 15,
-                                            decoration: BoxDecoration(
-                                              borderRadius:
-                                                  BorderRadius.circular(200),
-                                              color: Colors.black,
-                                            ),
-                                          ),
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                              ),
-                              Positioned(
-                                child: Container(
-                                  height: height * 0.8,
-                                  width: width * 0.5,
-                                  decoration: BoxDecoration(
-                                      color: Colors.white,
-                                      border: Border.all(width: 2),
-                                      borderRadius: BorderRadius.circular(30)),
-                                  child: Column(
-                                    children: [
-                                      SizedBox(
-                                        height: height * .02,
-                                      ),
-                                      AutoSizeText(
-                                        TextManager.login,
-                                        style: GoogleFonts.lato(
-                                            fontSize: AppSize.s40),
-                                      ),
-                                      Form(
-                                          key: _formKey,
-                                          child: Padding(
-                                            padding: const EdgeInsets.all(20.0),
-                                            child: Column(
-                                              children: [
-                                                CustomTextFormField(
-                                                  controller: emailController,
-                                                  hitText: "Email",
-                                                  fieldValidator:
-                                                      emailValidator,
-                                                ),
-                                                CustomTextFormField(
-                                                  controller: passController,
-                                                  hitText: "password",
-                                                  fieldValidator:
-                                                      passwordValidator,
-                                                  password: true,
-                                                ),
-                                                ElevatedButton(
-                                                  onPressed: () async
-                                                  {
-                                                    if(_formKey.currentState!.validate()){
-                                                     await cubit.login(
-                                                         email: emailController.text,
-                                                         password: passController.text,
-                                                        context: context
-                                                     );
-                                                    }
-                                                  },
-                                                  style:
-                                                      ElevatedButton.styleFrom(
-                                                    primary:
-                                                        const Color(0xff492F24),
-                                                    fixedSize:
-                                                        Size(width / 2, 60),
-                                                    shape:
-                                                        RoundedRectangleBorder(
-                                                      borderRadius:
-                                                          BorderRadius.circular(
-                                                              30.0),
+
+                          child: Container(
+                            width: width * 0.5,
+                            decoration: BoxDecoration(
+                                color: Colors.white,
+                                border: Border.all(width: 2),
+                                borderRadius: BorderRadius.circular(30)),
+                            child: Stack(
+                              clipBehavior: Clip.none,
+                              children: [
+                                Column(
+                                  children: [
+                                    SizedBox(
+                                      height: height * .05,
+                                    ),
+                                    AutoSizeText(
+                                      TextManager.signUp,
+                                      style: GoogleFonts.lato(
+                                          fontSize: AppSize.s40,fontWeight: FontWeight.bold),
+                                    ),
+                                    Form(
+                                        key: _formKey,
+                                        child: Padding(
+                                          padding: const EdgeInsets.all(20.0),
+                                          child: Column(
+                                            children: [
+                                              SizedBox(
+                                                height: height * .02,
+                                              ),
+                                              Row(
+                                                mainAxisAlignment:
+                                                MainAxisAlignment
+                                                    .spaceBetween,
+                                                children: [
+                                                  ElevatedButton(
+                                                    onPressed: () {},
+                                                    style: ElevatedButton
+                                                        .styleFrom(
+                                                      primary:
+                                                      Color(0xff2F4582),
+                                                      fixedSize:
+                                                      Size(width / 5, 60),
+                                                      shape:
+                                                      RoundedRectangleBorder(
+                                                        borderRadius:
+                                                        BorderRadius
+                                                            .circular(
+                                                            30.0),
+                                                      ),
+                                                    ),
+                                                    child: Row(
+                                                      children: [
+                                                        SvgPicture.asset(
+                                                            ImageAssets
+                                                                .faceBookLogo),
+                                                        AutoSizeText(
+                                                          "FaceBook",
+                                                          style: GoogleFonts.lato(
+                                                              fontSize: 28,
+                                                              color: Colors
+                                                                  .white,
+                                                              fontWeight:
+                                                              FontWeight
+                                                                  .bold),
+                                                        )
+                                                      ],
                                                     ),
                                                   ),
-                                                  child: AutoSizeText(
-                                                    "Sign In ",
-                                                    style: GoogleFonts.lato(
-                                                        color: const Color(
-                                                            0xffFFE3C5),
-                                                        fontSize: AppSize.s28,
-                                                        fontWeight:
-                                                            FontWeight.bold),
-                                                  ),
-                                                ),
-                                                Align(
-                                                    alignment:
-                                                        Alignment.topRight,
-                                                    child: TextButton(
-                                                      onPressed: () {},
-                                                      child: AutoSizeText(
-                                                        "Forget Password?",
-                                                        style: GoogleFonts.lato(
-                                                            color: const Color(
-                                                                0xff492F24),
-                                                            fontSize: 10,
-                                                            fontWeight:
-                                                                FontWeight
-                                                                    .bold),
+                                                  ElevatedButton(
+                                                    onPressed: () {},
+                                                    style: ElevatedButton
+                                                        .styleFrom(
+                                                      fixedSize:
+                                                      Size(width / 5, 60),
+                                                      primary: Colors.white,
+                                                      shape:
+                                                      RoundedRectangleBorder(
+                                                        borderRadius:
+                                                        BorderRadius
+                                                            .circular(
+                                                            30.0),
                                                       ),
-                                                    )),
-                                                SizedBox(
-                                                  height: height * .02,
-                                                ),
-                                                divider(),
-                                                SizedBox(
-                                                  height: height * .02,
-                                                ),
-                                                Row(
-                                                  mainAxisAlignment:
+                                                    ),
+                                                    child: Row(
+                                                      mainAxisAlignment:
                                                       MainAxisAlignment
-                                                          .spaceBetween,
-                                                  children: [
-                                                    ElevatedButton(
-                                                      onPressed: () async{
-                                                        await   cubit.loginFaceBook(context: context);
-
-
-                                                      },
-                                                      style: ElevatedButton
-                                                          .styleFrom(
-                                                        primary:
-                                                            const Color(0xff2F4582),
-                                                        fixedSize:
-                                                            Size(width / 5, 60),
-                                                        shape:
-                                                            RoundedRectangleBorder(
-                                                          borderRadius:
-                                                              BorderRadius
-                                                                  .circular(
-                                                                      30.0),
-                                                        ),
-                                                      ),
-                                                      child: Row(
-                                                        children: [
-                                                          SvgPicture.asset(
-                                                              ImageAssets
-                                                                  .faceBookLogo),
-                                                          AutoSizeText(
-                                                            "FaceBook",
-                                                            style: GoogleFonts.lato(
-                                                                fontSize: 28,
-                                                                color: Colors
-                                                                    .white,
-                                                                fontWeight:
-                                                                    FontWeight
-                                                                        .bold),
-                                                          )
-                                                        ],
-                                                      ),
+                                                          .spaceAround,
+                                                      children: [
+                                                        SvgPicture.asset(
+                                                            ImageAssets
+                                                                .googleLogo),
+                                                        AutoSizeText(
+                                                          "Google",
+                                                          style: GoogleFonts.lato(
+                                                              fontSize: 28,
+                                                              color: Colors
+                                                                  .black,
+                                                              fontWeight:
+                                                              FontWeight
+                                                                  .bold),
+                                                        )
+                                                      ],
                                                     ),
-                                                    ElevatedButton(
-                                                      onPressed: () {
-                                                      },
-                                                      style: ElevatedButton
-                                                          .styleFrom(
-                                                        fixedSize:
-                                                            Size(width / 5, 60),
-                                                        primary: Colors.white,
-                                                        shape:
-                                                            RoundedRectangleBorder(
-                                                          borderRadius:
-                                                              BorderRadius
-                                                                  .circular(
-                                                                      30.0),
-                                                        ),
-                                                      ),
-                                                      child: Row(
-                                                        mainAxisAlignment:
-                                                            MainAxisAlignment
-                                                                .spaceAround,
-                                                        children: [
-                                                          SvgPicture.asset(
-                                                              ImageAssets
-                                                                  .googleLogo),
-                                                          AutoSizeText(
-                                                            "Google",
-                                                            style: GoogleFonts.lato(
-                                                                fontSize: 28,
-                                                                color: Colors
-                                                                    .black,
-                                                                fontWeight:
-                                                                    FontWeight
-                                                                        .bold),
-                                                          )
-                                                        ],
-                                                      ),
+                                                  ),
+                                                ],
+                                              ),
+                                              divider(),
+                                              SizedBox(
+                                                height: height * .02,
+                                              ),
+                                              CustomTextFormField(
+                                                controller: firstNameController,
+                                                hitText: "First Name",
+                                                fieldValidator:
+                                                requireValidator,
+                                              ),
+                                              CustomTextFormField(
+                                                controller: lastNameController,
+                                                hitText: "Last Name",
+                                                fieldValidator:
+                                                passwordValidator,
+                                                password: true,
+                                              ),
+                                              CustomTextFormField(
+                                                controller: emailController,
+                                                hitText: "Email",
+                                                fieldValidator:
+                                                emailValidator,
+                                              ),
+                                              CustomTextFormField(
+                                                controller: passController,
+                                                hitText: "password",
+                                                fieldValidator:
+                                                passwordValidator,
+                                                password: true,
+                                              ),
+                                              CustomTextFormField(
+                                                controller: rePasswordController,
+                                                hitText: "Re-Enter Password",
+                                                fieldValidator:(val){
+                                                  if(val.isEmpty) {
+                                                    return 'Empty';
+                                                  }
+                                                  if(val != passController.text) {
+                                                    return 'Not Match';
+                                                  }
+                                                  return null;
+                                                },
+                                              ),
+                                            Padding(
+                                              padding:
+                                              const EdgeInsets.symmetric(vertical: 20),
+                                              child: Container(
+                                                decoration:
+                                                 BoxDecoration(
+                                                  color: Colors.white,
+                                                  borderRadius: BorderRadius.circular(32),
+                                                  boxShadow: const [
+                                                    BoxShadow(
+                                                      color: Colors.black38,
+                                                      blurRadius: 15,
+                                                      offset: Offset(0, 10),
                                                     ),
                                                   ],
                                                 ),
-                                                Padding(
-                                                  padding: const EdgeInsets.all(
-                                                      15.0),
-                                                  child: TextButton(
-                                                      onPressed: () {},
-                                                      child: Text(
-                                                          "Don`t have account ? SignUp",
-                                                          style: GoogleFonts.lato(
-                                                              color: const Color(
-                                                                  0xff492F24),
-                                                              fontSize: 10,
-                                                              fontWeight:
-                                                                  FontWeight
-                                                                      .bold))),
-                                                )
-                                              ],
-                                            ),
-                                          ))
-                                    ],
-                                  ),
+                                                child:  Padding(
+                                                  padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                                                  child: DropdownButton(
+                                                    isExpanded: true,
+                                                    isDense: false,
+                                                    underline: SizedBox(),
+
+                                                    // Initial Value
+                                                    value: dropdownvalue,
+
+                                                    // Down Arrow Icon
+                                                    icon: const Icon(Icons.keyboard_arrow_down),
+
+                                                    // Array list of items
+                                                    items: items.map((String items) {
+                                                      return DropdownMenuItem(
+                                                        value: items,
+                                                        child: Text(items),
+                                                      );
+                                                    }).toList(),
+                                                    // After selecting the desired option,it will
+                                                    // change button value to selected value
+                                                    onChanged: (newValue) {
+                                                      setState(() {
+                                                        dropdownvalue = newValue.toString();
+                                                      });
+                                                    },
+                                                  ),
+                                                ), )),
+                                              ElevatedButton(
+                                                onPressed: () {},
+                                                style:
+                                                ElevatedButton.styleFrom(
+                                                  primary:
+                                                  const Color(0xff492F24),
+                                                  fixedSize:
+                                                  Size(width / 2, 60),
+                                                  shape:
+                                                  RoundedRectangleBorder(
+                                                    borderRadius:
+                                                    BorderRadius.circular(
+                                                        30.0),
+                                                  ),
+                                                ),
+                                                child: AutoSizeText(
+                                                  "Sign In ",
+                                                  style: GoogleFonts.lato(
+                                                      color: const Color(
+                                                          0xffFFE3C5),
+                                                      fontSize: AppSize.s28,
+                                                      fontWeight:
+                                                      FontWeight.bold),
+                                                ),
+                                              ),
+
+                                              Padding(
+                                                padding: const EdgeInsets.all(
+                                                    15.0),
+                                                child: TextButton(
+                                                    onPressed: () {},
+                                                    child: Text(
+                                                        "Already have an account? Login",
+                                                        style: GoogleFonts.lato(
+                                                            color: Color(
+                                                                0xff492F24),
+                                                            fontSize: 10,
+                                                            fontWeight:
+                                                            FontWeight
+                                                                .bold))),
+                                              )
+                                            ],
+                                          ),
+                                        ))
+                                  ],
                                 ),
-                              ),
-                            ],
+                                Positioned(
+                                left:-16,
+                                top: -10
+                                ,child: Align( alignment: Alignment.topLeft,child: SvgPicture.asset(ImageAssets.dogHand ,width: 40,))),
+                                Positioned(
+                                    right:-16,
+                                    bottom: -10
+                                    ,child: Align( alignment: Alignment.bottomRight,child: SvgPicture.asset(ImageAssets.dogHandDown ,width: 40,))),
+
+                              ],
+                            ),
                           ),
                         ),
                       ),
@@ -456,23 +450,23 @@ class _LoginScreenState extends State<LoginScreen> {
                               children: [
                                 Column(
                                   mainAxisAlignment:
-                                      MainAxisAlignment.spaceAround,
+                                  MainAxisAlignment.spaceAround,
                                   children: [
                                     AutoSizeText(
                                       "For any questions",
                                       style: GoogleFonts.lato(
                                           fontSize: 54,
                                           fontWeight: FontWeight.bold,
-                                          color: const Color(0xffFFE3C5)),
+                                          color: Color(0xffFFE3C5)),
                                     ),
                                     Row(
                                       mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
+                                      MainAxisAlignment.spaceBetween,
                                       children: [
                                         SvgPicture.asset(
                                           ImageAssets.emailIcon,
                                         ),
-                                        const SizedBox(
+                                        SizedBox(
                                           width: 20,
                                         ),
                                         AutoSizeText(
@@ -486,12 +480,12 @@ class _LoginScreenState extends State<LoginScreen> {
                                     ),
                                     Row(
                                       mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
+                                      MainAxisAlignment.spaceBetween,
                                       children: [
                                         SvgPicture.asset(
                                           ImageAssets.phoneIcon,
                                         ),
-                                        const SizedBox(
+                                        SizedBox(
                                           width: 20,
                                         ),
                                         AutoSizeText(
@@ -499,7 +493,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                           style: GoogleFonts.lato(
                                               fontSize: 41,
                                               fontWeight: FontWeight.bold,
-                                              color: const Color(0xffAE957B)),
+                                              color: Color(0xffAE957B)),
                                         ),
                                       ],
                                     ),
@@ -507,7 +501,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                 ),
                                 Column(
                                   mainAxisAlignment:
-                                      MainAxisAlignment.spaceAround,
+                                  MainAxisAlignment.spaceAround,
                                   children: [
                                     Text(
                                       "We are waiting you",
@@ -518,7 +512,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                     ),
                                     Row(
                                       mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
+                                      MainAxisAlignment.spaceBetween,
                                       children: [
                                         SvgPicture.asset(
                                           ImageAssets.locationIcon,
@@ -537,7 +531,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                     ),
                                     Row(
                                       mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
+                                      MainAxisAlignment.spaceBetween,
                                       children: [
                                         SvgPicture.asset(
                                           ImageAssets.locationIcon,
@@ -559,7 +553,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                 const Align(
                                   alignment: Alignment.bottomRight,
                                   child:
-                                      Image(image: AssetImage(ImageAssets.dog)),
+                                  Image(image: AssetImage(ImageAssets.dog)),
                                 ),
                               ],
                             ),
@@ -570,9 +564,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   ),
                 ),
               ),
-            ));
-  },
-));
+            )));
   }
 
   MouseRegion buildMouseRegion(BuildContext context, Widget widget) {
@@ -599,7 +591,7 @@ class _LoginScreenState extends State<LoginScreen> {
           children: [
             widget,
             AnimatedPositioned(
-                // Custom dot in Cursor
+              // Custom dot in Cursor
                 duration: const Duration(milliseconds: 100),
                 left: pointer.dx,
                 top: pointer.dy - 70,

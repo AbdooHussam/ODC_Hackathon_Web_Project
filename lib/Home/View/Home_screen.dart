@@ -429,6 +429,147 @@ class _HomeScreenState extends State<HomeScreen> {
                       ],
                     ),
                   ),
+                  Container(
+                    width: double.infinity,
+                    height: height * .5,
+                    decoration: const BoxDecoration(
+                      gradient: LinearGradient(
+                        begin: Alignment(3, 1),
+                        end: Alignment(1, 1),
+                        colors: <Color>[
+                          Color(0xff56392D),
+                          Color(0xff180701),
+                        ],
+                        // Gradient from https://learnui.design/tools/gradient-generator.html
+                        tileMode: TileMode.mirror,
+                      ),
+                    ),
+                    child: Stack(
+                      clipBehavior: Clip.none,
+                      children: [
+                        Row(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          mainAxisAlignment: MainAxisAlignment.spaceAround,
+                          children: [
+                            SvgPicture.asset(ImageAssets.logoFotter),
+                            SvgPicture.asset(ImageAssets.logoFotter)
+                          ],
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceAround,
+                          children: [
+                            Column(
+                              mainAxisAlignment:
+                              MainAxisAlignment.spaceAround,
+                              children: [
+                                AutoSizeText(
+                                  "For any questions",
+                                  style: GoogleFonts.lato(
+                                      fontSize: 54,
+                                      fontWeight: FontWeight.bold,
+                                      color: const Color(0xffFFE3C5)),
+                                ),
+                                Row(
+                                  mainAxisAlignment:
+                                  MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    SvgPicture.asset(
+                                      ImageAssets.emailIcon,
+                                    ),
+                                    const SizedBox(
+                                      width: 20,
+                                    ),
+                                    AutoSizeText(
+                                      "For any questions",
+                                      style: GoogleFonts.lato(
+                                          fontSize: 41,
+                                          fontWeight: FontWeight.bold,
+                                          color: Color(0xffAE957B)),
+                                    ),
+                                  ],
+                                ),
+                                Row(
+                                  mainAxisAlignment:
+                                  MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    SvgPicture.asset(
+                                      ImageAssets.phoneIcon,
+                                    ),
+                                    const SizedBox(
+                                      width: 20,
+                                    ),
+                                    AutoSizeText(
+                                      "For any questions",
+                                      style: GoogleFonts.lato(
+                                          fontSize: 41,
+                                          fontWeight: FontWeight.bold,
+                                          color: const Color(0xffAE957B)),
+                                    ),
+                                  ],
+                                ),
+                              ],
+                            ),
+                            Column(
+                              mainAxisAlignment:
+                              MainAxisAlignment.spaceAround,
+                              children: [
+                                Text(
+                                  "We are waiting you",
+                                  style: GoogleFonts.lato(
+                                      fontSize: 54,
+                                      fontWeight: FontWeight.bold,
+                                      color: Color(0xffFFE3C5)),
+                                ),
+                                Row(
+                                  mainAxisAlignment:
+                                  MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    SvgPicture.asset(
+                                      ImageAssets.locationIcon,
+                                    ),
+                                    SizedBox(
+                                      width: 20,
+                                    ),
+                                    AutoSizeText(
+                                      "For any questions",
+                                      style: GoogleFonts.lato(
+                                          fontSize: 41,
+                                          fontWeight: FontWeight.bold,
+                                          color: Color(0xffAE957B)),
+                                    ),
+                                  ],
+                                ),
+                                Row(
+                                  mainAxisAlignment:
+                                  MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    SvgPicture.asset(
+                                      ImageAssets.locationIcon,
+                                    ),
+                                    SizedBox(
+                                      width: 20,
+                                    ),
+                                    AutoSizeText(
+                                      "For any questions",
+                                      style: GoogleFonts.lato(
+                                          fontSize: 41,
+                                          fontWeight: FontWeight.bold,
+                                          color: Color(0xffAE957B)),
+                                    ),
+                                  ],
+                                ),
+                              ],
+                            ),
+                            const Align(
+                              alignment: Alignment.bottomRight,
+                              child:
+                              Image(image: AssetImage(ImageAssets.dog)),
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
+                  )
                 ],
               ),
             ),

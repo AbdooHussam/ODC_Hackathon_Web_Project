@@ -21,10 +21,9 @@ class _MouseState extends State<Mouse> {
           pointer = eve.position;
         });
         if (kDebugMode) {
-          print(pointer.dx);
         }
         if (kDebugMode) {
-          print(pointer.dy);
+
         }
       },
       child: AnimatedContainer(

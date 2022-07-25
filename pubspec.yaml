@@ -36,6 +36,9 @@ dependencies:
   mouse_parallax: ^1.1.0
   equatable:
   sprung:
+  go_router: ^4.2.0
+  html: ^0.15.0
+  google_sign_in: ^5.4.0
   image_picker: ^0.8.5+3
   video_player: ^2.4.5
 

@@ -13,6 +13,9 @@ class ImageAssets{
   static const String locationIcon  = "$imagePath/locationIcon.svg";
   static const String emailIcon  = "$imagePath/emilIcon.svg";
   static const String phoneIcon  = "$imagePath/phoneIcon.svg";
+  static const String dogHand  = "$imagePath/dogHand.svg";
+  static const String dogHandDown = "$imagePath/dogHandDowan.svg";
+
 
 
 
