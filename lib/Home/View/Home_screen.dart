@@ -16,6 +16,7 @@ import 'package:odc_hackathon_web_project/core/widgets/on_hover_button.dart';
 
 import 'package:provider/provider.dart';
 
+import '../../core/constant/mouseRegion.dart';
 import '../../core/constant/validator.dart';
 import '../../core/widgets/custom_button.dart';
 import '../../core/widgets/custom_text_button.dart';
@@ -51,92 +52,92 @@ class _HomeScreenState extends State<HomeScreen> {
 
     return SafeArea(
         child: Scaffold(
-            appBar: AppBar(
-              flexibleSpace: Container(
-                decoration: const BoxDecoration(
-                  gradient: LinearGradient(
-                    begin: Alignment(3, 1),
-                    end: Alignment(1, 1),
-                    colors: <Color>[
-                      Color(0xff56392D),
-                      Color(0xff180701),
-                    ],
-                    // Gradient from https://learnui.design/tools/gradient-generator.html
-                    tileMode: TileMode.mirror,
-                  ),
-                ),
-              ),
-              backgroundColor: const Color(0xFF56392D),
-              elevation: 0,
-              title: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Flexible(
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceAround,
-                        children: [
-                          Flexible(
-                            child: Image.asset(
-                              ImageAssets.logoAppBar,
-                              fit: BoxFit.cover,
-                            ),
-                          ),
-                          CustomTextButton(
-                              text: TextManager.aboutUs,
-                              textStyle: const TextStyle(
-                                  decoration: TextDecoration.underline,
-                                  color: Colors.white),
-                              function: () {
-                                print("AboutUs");
-                              }),
-                          CustomTextButton(
-                              text: TextManager.categories,
-                              function: () {
-                                print("categories");
-                              }),
-                          CustomTextButton(
-                              text: TextManager.services,
-                              function: () {
-                                print("services");
-                              }),
-                          CustomTextButton(
-                              text: TextManager.request,
-                              function: () {
-                                print("request");
-                              }),
-                        ],
-                      ),
-                    ),
-                    SizedBox(
-                      width: MediaQuery.of(context).size.width * .05,
-                    ),
-                    CustomButton(
-                      text: TextManager.signUp,
-                      function: () {},
-                      inColor: Colors.transparent,
-                      outColor: const Color(0xffFFE3C5),
-                      textColor: Colors.white,
-                    ),
-                    SizedBox(
-                      width: MediaQuery.of(context).size.width * .05,
-                    ),
-                    CustomButton(
-                      function: () {},
-                      text: TextManager.login,
-                      outColor: const Color(0xffFFE3C5),
-                      inColor: Colors.white,
-                      textColor: Colors.black,
-                    ),
-                  ]),
-            ),
-            body: ListView(
+
+            body: Mouse(widget: ListView(
               children: [
                 Container(
+                  decoration: const BoxDecoration(
+                    gradient: LinearGradient(
+
+                      begin: Alignment(3, 1),
+                      end: Alignment(1, 1),
+                      colors: <Color>[
+                        Color(0xff56392D),
+                        Color(0xff180701),
+                      ],
+                      // Gradient from https://learnui.design/tools/gradient-generator.html
+                      tileMode: TileMode.mirror,
+                    ),
+                  ),
+                  child:Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Flexible(
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceAround,
+                            children: [
+                              Flexible(
+                                child: Image.asset(
+                                  ImageAssets.logoAppBar,
+                                  fit: BoxFit.cover,
+                                ),
+                              ),
+                              CustomTextButton(
+                                  text: TextManager.aboutUs,
+                                  textStyle: const TextStyle(
+                                      decoration: TextDecoration.underline,
+                                      color: Colors.white),
+                                  function: () {
+                                    print("AboutUs");
+                                  }),
+                              CustomTextButton(
+                                  text: TextManager.categories,
+                                  function: () {
+                                    print("categories");
+                                  }),
+                              CustomTextButton(
+                                  text: TextManager.services,
+                                  function: () {
+                                    print("services");
+                                  }),
+                              CustomTextButton(
+                                  text: TextManager.request,
+                                  function: () {
+                                    print("request");
+                                  }),
+                            ],
+                          ),
+                        ),
+                        SizedBox(
+                          width: MediaQuery.of(context).size.width * .05,
+                        ),
+                        CustomButton(
+                          text: TextManager.signUp,
+                          function: () {},
+                          inColor: Colors.transparent,
+                          outColor: const Color(0xffFFE3C5),
+                          textColor: Colors.white,
+                        ),
+                        SizedBox(
+                          width: MediaQuery.of(context).size.width * .05,
+                        ),
+                        CustomButton(
+                          function: () {},
+                          text: TextManager.login,
+                          outColor: const Color(0xffFFE3C5),
+                          inColor: Colors.white,
+                          textColor: Colors.black,
+                        ),
+                      ]) ,
+                ),
+                Container(
                   height: height * .55,
+
                   decoration: const BoxDecoration(
                     gradient: LinearGradient(
                       begin: Alignment(3, 1),
                       end: Alignment(1, 1),
+
                       colors: <Color>[
                         Color(0xff56392D),
                         Color(0xff180701),
@@ -176,17 +177,17 @@ class _HomeScreenState extends State<HomeScreen> {
                                       onPressed: () {},
                                       style: ButtonStyle(
                                           shape: MaterialStateProperty.all<
-                                                  RoundedRectangleBorder>(
+                                              RoundedRectangleBorder>(
                                               RoundedRectangleBorder(
-                                            borderRadius:
+                                                borderRadius:
                                                 BorderRadius.circular(18.0),
-                                          )),
+                                              )),
                                           backgroundColor:
-                                              MaterialStateProperty.all<Color>(
-                                                  Colors.white)),
+                                          MaterialStateProperty.all<Color>(
+                                              Colors.white)),
                                       child: Row(
                                         mainAxisAlignment:
-                                            MainAxisAlignment.spaceBetween,
+                                        MainAxisAlignment.spaceBetween,
                                         children: const [
                                           SizedBox(),
                                           AutoSizeText("Help them",
@@ -216,9 +217,9 @@ class _HomeScreenState extends State<HomeScreen> {
                 Container(
                   decoration: const BoxDecoration(
                       image: DecorationImage(
-                    image: AssetImage('images/Home2.png'),
-                    fit: BoxFit.fill,
-                  )),
+                        image: AssetImage('images/Home2.png'),
+                        fit: BoxFit.fill,
+                      )),
                   child: Column(
                     children: [
                       SizedBox(height: height * .02),
@@ -242,7 +243,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                   SizedBox(height: height * .03),
                                   const AutoSizeText(
                                     "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy "
-                                    "eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata",
+                                        "eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata",
                                     maxLines: 7,
                                     style: TextStyle(
                                         color: Color(0xffC3C3C3), fontSize: 19),
@@ -257,9 +258,9 @@ class _HomeScreenState extends State<HomeScreen> {
                 Container(
                   decoration: const BoxDecoration(
                       image: DecorationImage(
-                    image: AssetImage('images/Home3.png'),
-                    fit: BoxFit.fill,
-                  )),
+                        image: AssetImage('images/Home3.png'),
+                        fit: BoxFit.fill,
+                      )),
                   child: Column(
                     children: [
                       SizedBox(height: height * .06),
@@ -348,6 +349,6 @@ class _HomeScreenState extends State<HomeScreen> {
                   ),
                 ),
               ],
-            )));
+            ),) ,));
   }
 }
