@@ -1,4 +1,5 @@
 import 'package:auto_size_text/auto_size_text.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -6,6 +7,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
+import 'package:mouse_parallax/mouse_parallax.dart';
 import 'package:odc_hackathon_web_project/core/resource/assets_manager.dart';
 import 'package:odc_hackathon_web_project/core/resource/color_manager.dart';
 import 'package:odc_hackathon_web_project/core/resource/text_manager.dart';
@@ -25,6 +27,15 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
+  Offset pointer = Offset(300, 300);
+  Color backgroundColor = Colors.yellow;
+  bool isLogoHovering = false;
+  bool isInfoHovering = false;
+  bool isTwitterHovering = false;
+  bool isGithubHovering = false;
+  bool isCodePenHovering = false;
+  bool isLinkedinHovering = false;
+  int mainItemHover = 0;
   bool securePass = true;
   String name = "", email = "", pass = "", phone = "", address = "";
   bool showSpinner = false;
@@ -37,7 +48,6 @@ class _LoginScreenState extends State<LoginScreen> {
     var size = MediaQuery.of(context).size;
     var height = MediaQuery.of(context).size.height;
     var width = MediaQuery.of(context).size.width;
-
     // var api = Provider.of<UserInformation>(context);
     return SafeArea(
       child: Scaffold(
@@ -134,6 +144,7 @@ class _LoginScreenState extends State<LoginScreen> {
             backgroundColor: const Color(0xFF56392D),
             elevation: 0,
             title: Row(
+
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Flexible(
@@ -190,102 +201,201 @@ class _LoginScreenState extends State<LoginScreen> {
                    ),
                 ]),
           ),
-          body: SingleChildScrollView(
-            child: ModalProgressHUD(
-              inAsyncCall: showSpinner,
+          body: ModalProgressHUD(
+            inAsyncCall: showSpinner,
+            child: buildMouseRegion(context ,
+              SingleChildScrollView(
               child: SizedBox(
                 width: double.infinity,
+              
                 child: Padding(
                   padding: const EdgeInsets.only(top: AppPadding.p50),
                   child: Column(
                     children: [
-              SizedBox(
-                height: height*1.3,
-                width: double.infinity,
-                child: Stack(
-                  clipBehavior: Clip.none,
-                  alignment: Alignment.center,
-                  children: [
-                    Positioned(
 
-                      child: Container(
-                        height:height*0.8 ,
-                        width: width*0.5,
-                        decoration: BoxDecoration(
-                            color: Colors.white,
-                            border: Border.all(
-                                width: 2
-                            ),
-                            borderRadius: BorderRadius.circular(30)
-                        ),
-                        child: Column(
+                      SizedBox(
+                        height: height*1.3,
+                        width: double.infinity,
+                        child: Stack(
+                          clipBehavior: Clip.none,
+                          alignment: Alignment.center,
                           children: [
-                            AutoSizeText(
-                                TextManager.login,
-                              style: GoogleFonts.lato(
-                                fontSize: AppSize.s40
+
+
+
+
+
+                            Positioned(
+                              top: -18,
+                              right: 650,
+                              child: SvgPicture.asset(
+                                ImageAssets.dogLoginScreen,
+                                width: AppSize.s250,
 
                               ),
                             ),
-                            Form(child: Column(
-                              children: [
-                                Padding(
-                                  padding: EdgeInsets.all(20),
-                                  child: Container(
-                                    decoration: BoxDecoration(
 
-                                      boxShadow: [
-                                        BoxShadow(
-                                          color: Colors.black38,
-                                          blurRadius: 15,
-                                          offset: const Offset(0, 10),
-                                        ),
-                                      ],
-                                    ),
-                                    child: TextFormField(
-                                        decoration: InputDecoration(
-                                          fillColor: Colors.white,
-                                          filled: true,
+                            Positioned(
+                              top: -660,
+                              right: 20,
+                              child: Container(
+                                width: width,
+                                height: height*2,
+                                child: ParallaxStack(
 
-                                          border:
-                                          OutlineInputBorder(borderRadius: BorderRadius.circular(32.0) ,
-                                          ),
-                                          focusedBorder: OutlineInputBorder(
-                                            borderRadius: BorderRadius.circular(25.0),
-                                            borderSide: BorderSide(
-                                            ),
-                                          ),
-                                          enabledBorder: OutlineInputBorder(
-                                            borderRadius: BorderRadius.circular(25.0),
-                                            borderSide: BorderSide(
-                                              color: Colors.white,
-                                              width: 2.0,
-                                            ),
-                                          ),
+                                  useLocalPosition: true,
+                                  layers: [
 
+                                    ParallaxLayer(
+                                      offset: Offset(-18,20),
+                                      yRotation:0.2,
+                                      xRotation: 0.1 ,
+                                      yOffset: 9,
+                                      xOffset: 9,
+                                      child: Center(
+                                        child: Container(
+                                          width: 15,
+                                          height: 15,
+                                          decoration:  BoxDecoration(
+                                            borderRadius: BorderRadius.circular(200),
+                                            color: Colors.black,
+                                          ),
                                         ),
                                       ),
-                                  ),
-                                  ),
+                                    ),
+                                    ParallaxLayer(
+                                      offset: const Offset(49,10),
+                                      yRotation:0.1,
+                                      xRotation: 0.1 ,
 
-                                TextFormField(),
-                              ],
-                            ))
+                                      yOffset: 9,
+                                      xOffset: 9,
+                                      child: Center(
+                                        child: Container(
+                                          width: 15,
+                                          height: 15,
+                                          decoration:  BoxDecoration(
+                                            borderRadius: BorderRadius.circular(200),
+                                            color: Colors.black,
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ),
+                            Positioned(
+
+                              child: Container(
+                                height:height*0.8 ,
+                                width: width*0.5,
+                                decoration: BoxDecoration(
+                                    color: Colors.white,
+                                    border: Border.all(
+                                        width: 2
+                                    ),
+                                    borderRadius: BorderRadius.circular(30)
+                                ),
+                                child: Column(
+                                  children: [
+                                    AutoSizeText(
+                                      TextManager.login,
+                                      style: GoogleFonts.lato(
+                                          fontSize: AppSize.s40
+
+                                      ),
+                                    ),
+                                    Form(
+                                        child: Column(
+                                      children: [
+                                        Padding(
+                                          padding: const EdgeInsets.all(20),
+                                          child: Container(
+                                            decoration: const BoxDecoration(
+
+                                              boxShadow: [
+                                                BoxShadow(
+                                                  color: Colors.black38,
+                                                  blurRadius: 15,
+                                                  offset: Offset(0, 10),
+                                                ),
+                                              ],
+                                            ),
+                                            child: TextFormField(
+                                              decoration: InputDecoration(
+                                                fillColor: Colors.white,
+                                                filled: true,
+
+                                                border:
+                                                OutlineInputBorder(borderRadius: BorderRadius.circular(32.0) ,
+                                                ),
+                                                focusedBorder: OutlineInputBorder(
+                                                  borderRadius: BorderRadius.circular(25.0),
+                                                  borderSide: const BorderSide(
+                                                  ),
+                                                ),
+                                                enabledBorder: OutlineInputBorder(
+                                                  borderRadius: BorderRadius.circular(25.0),
+                                                  borderSide: const BorderSide(
+                                                    color: Colors.white,
+                                                    width: 2.0,
+                                                  ),
+                                                ),
+
+                                              ),
+                                            ),
+                                          ),
+                                        ),
+                                        Padding(
+                                          padding: EdgeInsets.all(20),
+                                          child: Container(
+                                            decoration: const BoxDecoration(
+
+                                              boxShadow: [
+                                                BoxShadow(
+                                                  color: Colors.black38,
+                                                  blurRadius: 15,
+                                                  offset: Offset(0, 10),
+                                                ),
+                                              ],
+                                            ),
+                                            child: TextFormField(
+                                              decoration: InputDecoration(
+                                                fillColor: Colors.white,
+                                                filled: true,
+
+                                                border:
+                                                OutlineInputBorder(borderRadius: BorderRadius.circular(32.0) ,
+                                                ),
+                                                focusedBorder: OutlineInputBorder(
+                                                  borderRadius: BorderRadius.circular(25.0),
+                                                  borderSide: const BorderSide(
+                                                  ),
+                                                ),
+                                                enabledBorder: OutlineInputBorder(
+                                                  borderRadius: BorderRadius.circular(25.0),
+                                                  borderSide: const BorderSide(
+                                                    color: Colors.white,
+                                                    width: 2.0,
+                                                  ),
+                                                ),
+
+                                              ),
+                                            ),
+                                          ),
+                                        ),
+                                      ],
+                                    ))
+                                  ],
+                                ),
+                              ),
+                            ),
+
                           ],
                         ),
                       ),
-                    ),
-                    Positioned(
-                      top: -18,
-                      child: SvgPicture.asset(
-                        ImageAssets.dogLoginScreen,
-                        width: AppSize.s250,
 
-                      ),
-                    ),
-                  ],
-                ),
-              ),
                       Container(
                         width: double.infinity,
                         height: height*.3,
@@ -294,10 +404,51 @@ class _LoginScreenState extends State<LoginScreen> {
                     ],
                   ),
                 ),
-    ),
-    ),
-          )));
+              ),
+            ),)
+    )));
   }
+  MouseRegion buildMouseRegion(BuildContext context , Widget widget) {
+    return MouseRegion(
+      cursor: SystemMouseCursors.none,
+      onHover: (eve) {
+        setState(() {
+          pointer = eve.position;
+        });
+        if (kDebugMode) {
+          print(pointer.dx);
+        }
+        if (kDebugMode) {
+          print(pointer.dy);
+        }
+
+      },
+      child: AnimatedContainer(
+        height: MediaQuery.of(context).size.height,
+        width: MediaQuery.of(context).size.width,
+        duration: Duration(milliseconds: 100),
+
+        child: Stack(
+          children: [
+            widget,
+
+            AnimatedPositioned(   // Custom dot in Cursor
+                duration: const Duration(milliseconds: 100),
+                left: pointer.dx,
+                top: pointer.dy-70,
+                child: Container(
+                  width: 50 ,
+                  color: Colors.transparent,
+                  child: Image.asset(ImageAssets.cursor),
+                )),
+
+
+          ],
+        ),
+      ),
+    );
+  }
+
 }
 
 
