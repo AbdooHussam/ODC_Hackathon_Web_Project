@@ -326,6 +326,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                 child: Padding(
                                   padding: const EdgeInsets.all(15),
                                   child: Column(
+
                                     children: [
                                       SvgPicture.asset("images/catHome3.svg",
                                           height: height * .1),

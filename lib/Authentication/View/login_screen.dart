@@ -32,7 +32,7 @@ class LoginScreen extends StatefulWidget {
 class _LoginScreenState extends State<LoginScreen> {
   TextEditingController emailController = TextEditingController();
   TextEditingController passController = TextEditingController();
-  final GlobalKey<FormState> _formKey =  GlobalKey<FormState>();
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
   int mainItemHover = 0;
   bool securePass = true;
@@ -49,12 +49,10 @@ class _LoginScreenState extends State<LoginScreen> {
     var width = MediaQuery.of(context).size.width;
     // var api = Provider.of<UserInformation>(context);
     return Scaffold(
-
         body: ModalProgressHUD(
             inAsyncCall: showSpinner,
-            child:Mouse(
-              widget:
-              SingleChildScrollView(
+            child: Mouse(
+              widget: SingleChildScrollView(
                 child: SizedBox(
                   width: double.infinity,
                   child: Column(
@@ -67,7 +65,8 @@ class _LoginScreenState extends State<LoginScreen> {
                             colors: <Color>[
                               Color(0xff56392D),
                               Color(0xff180701),
-                            ], // Gradient from https://learnui.design/tools/gradient-generator.html
+                            ],
+                            // Gradient from https://learnui.design/tools/gradient-generator.html
                             tileMode: TileMode.mirror,
                           ),
                         ),
@@ -76,7 +75,8 @@ class _LoginScreenState extends State<LoginScreen> {
                             children: [
                               Flexible(
                                 child: Row(
-                                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceAround,
                                   children: [
                                     Flexible(
                                       child: Image.asset(
@@ -113,16 +113,16 @@ class _LoginScreenState extends State<LoginScreen> {
                               ElevatedButton(
                                 onPressed: () {},
                                 style: ButtonStyle(
-
-                                    shape:
-                                    MaterialStateProperty.all<RoundedRectangleBorder>(
+                                    shape: MaterialStateProperty.all<
+                                            RoundedRectangleBorder>(
                                         RoundedRectangleBorder(
-                                            borderRadius:
-                                            BorderRadius.circular(AppSize.s28),
-                                            side:
-                                            const BorderSide(color: Colors.white))),
-                                    backgroundColor: MaterialStateProperty.all<Color>(
-                                        Colors.transparent)),
+                                            borderRadius: BorderRadius.circular(
+                                                AppSize.s28),
+                                            side: const BorderSide(
+                                                color: Colors.white))),
+                                    backgroundColor:
+                                        MaterialStateProperty.all<Color>(
+                                            Colors.transparent)),
                                 child: const AutoSizeText(TextManager.signUp),
                               ),
                               SizedBox(
@@ -131,17 +131,20 @@ class _LoginScreenState extends State<LoginScreen> {
                               ElevatedButton(
                                 onPressed: () {},
                                 style: ButtonStyle(
-                                    shape:
-                                    MaterialStateProperty.all<RoundedRectangleBorder>(
+                                    shape: MaterialStateProperty.all<
+                                            RoundedRectangleBorder>(
                                         RoundedRectangleBorder(
-                                            borderRadius: BorderRadius.circular(18.0),
-                                            side:
-                                            const BorderSide(color: Colors.white))),
+                                            borderRadius:
+                                                BorderRadius.circular(18.0),
+                                            side: const BorderSide(
+                                                color: Colors.white))),
                                     backgroundColor:
-                                    MaterialStateProperty.all<Color>(Colors.white)),
+                                        MaterialStateProperty.all<Color>(
+                                            Colors.white)),
                                 child: const AutoSizeText(TextManager.login,
                                     style: TextStyle(
-                                        color: Colors.black, fontWeight: FontWeight.bold)),
+                                        color: Colors.black,
+                                        fontWeight: FontWeight.bold)),
                               ),
                             ]),
                       ),
@@ -183,8 +186,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                             height: 15,
                                             decoration: BoxDecoration(
                                               borderRadius:
-                                              BorderRadius.circular(
-                                                  200),
+                                                  BorderRadius.circular(200),
                                               color: Colors.black,
                                             ),
                                           ),
@@ -202,8 +204,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                             height: 15,
                                             decoration: BoxDecoration(
                                               borderRadius:
-                                              BorderRadius.circular(
-                                                  200),
+                                                  BorderRadius.circular(200),
                                               color: Colors.black,
                                             ),
                                           ),
@@ -220,12 +221,11 @@ class _LoginScreenState extends State<LoginScreen> {
                                   decoration: BoxDecoration(
                                       color: Colors.white,
                                       border: Border.all(width: 2),
-                                      borderRadius:
-                                      BorderRadius.circular(30)),
+                                      borderRadius: BorderRadius.circular(30)),
                                   child: Column(
                                     children: [
                                       SizedBox(
-                                        height: height*.05,
+                                        height: height * .05,
                                       ),
                                       AutoSizeText(
                                         TextManager.login,
@@ -233,108 +233,164 @@ class _LoginScreenState extends State<LoginScreen> {
                                             fontSize: AppSize.s40),
                                       ),
                                       Form(
-                                        key: _formKey,
+                                          key: _formKey,
                                           child: Padding(
                                             padding: const EdgeInsets.all(20.0),
                                             child: Column(
-
                                               children: [
-
                                                 CustomTextFormField(
                                                   controller: emailController,
                                                   hitText: "Email",
-                                                  fieldValidator: emailValidator,
+                                                  fieldValidator:
+                                                      emailValidator,
                                                 ),
                                                 CustomTextFormField(
                                                   controller: passController,
                                                   hitText: "password",
-                                                  fieldValidator: passwordValidator,
+                                                  fieldValidator:
+                                                      passwordValidator,
                                                   password: true,
                                                 ),
-                                                ElevatedButton(onPressed: (){
-
-                                                }, style:  ElevatedButton.styleFrom
-                                                  (
-                                                  primary:const Color(0xff492F24) ,
-                                                  fixedSize: Size(width/2, 60),
-                                                  shape:  RoundedRectangleBorder(
-                                                    borderRadius:  BorderRadius.circular(30.0),
+                                                ElevatedButton(
+                                                  onPressed: () {},
+                                                  style:
+                                                      ElevatedButton.styleFrom(
+                                                    primary:
+                                                        const Color(0xff492F24),
+                                                    fixedSize:
+                                                        Size(width / 2, 60),
+                                                    shape:
+                                                        RoundedRectangleBorder(
+                                                      borderRadius:
+                                                          BorderRadius.circular(
+                                                              30.0),
+                                                    ),
                                                   ),
-
-                                                ), child: AutoSizeText("Sign In " ,style :
-                                                  GoogleFonts.lato(
-                                                      color: const Color(0xffFFE3C5),
-                                                    fontSize: AppSize.s28,
-                                                    fontWeight: FontWeight.bold
-                                                  )
-                                                  ,) , ),
-                                                Align( alignment: Alignment.topRight,child: TextButton(onPressed: (){}, child: AutoSizeText
-                                                  ("Forget Password?" , style: GoogleFonts.lato(
-                                                  color: Color(0xff492F24),
-                                                  fontSize: 10,
-                                                  fontWeight: FontWeight.bold
-                                                ), )  ,)),
+                                                  child: AutoSizeText(
+                                                    "Sign In ",
+                                                    style: GoogleFonts.lato(
+                                                        color: const Color(
+                                                            0xffFFE3C5),
+                                                        fontSize: AppSize.s28,
+                                                        fontWeight:
+                                                            FontWeight.bold),
+                                                  ),
+                                                ),
+                                                Align(
+                                                    alignment:
+                                                        Alignment.topRight,
+                                                    child: TextButton(
+                                                      onPressed: () {},
+                                                      child: AutoSizeText(
+                                                        "Forget Password?",
+                                                        style: GoogleFonts.lato(
+                                                            color: Color(
+                                                                0xff492F24),
+                                                            fontSize: 10,
+                                                            fontWeight:
+                                                                FontWeight
+                                                                    .bold),
+                                                      ),
+                                                    )),
                                                 SizedBox(
-                                                  height: height*.02,
+                                                  height: height * .02,
                                                 ),
                                                 divider(),
                                                 SizedBox(
-                                                  height: height*.02,
+                                                  height: height * .02,
                                                 ),
                                                 Row(
-                                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment
+                                                          .spaceBetween,
                                                   children: [
-                                                    ElevatedButton(onPressed: (){}, style:  ElevatedButton.styleFrom(
-                                                      primary: Color(0xff2F4582),
-                                                      fixedSize: Size(width/5, 60),
-                                                      shape:  RoundedRectangleBorder(
-                                                        borderRadius:  BorderRadius.circular(30.0),
+                                                    ElevatedButton(
+                                                      onPressed: () {},
+                                                      style: ElevatedButton
+                                                          .styleFrom(
+                                                        primary:
+                                                            Color(0xff2F4582),
+                                                        fixedSize:
+                                                            Size(width / 5, 60),
+                                                        shape:
+                                                            RoundedRectangleBorder(
+                                                          borderRadius:
+                                                              BorderRadius
+                                                                  .circular(
+                                                                      30.0),
+                                                        ),
                                                       ),
-
-                                                    ), child: Row(
-                                                      children: [
-                                                        SvgPicture.asset(ImageAssets.faceBookLogo),
-                                                        AutoSizeText("FaceBook" ,style: GoogleFonts.lato(
-                                                            fontSize: 28,
-                                                            color: Colors.white,
-                                                            fontWeight: FontWeight.bold
-                                                        ),)
-
-                                                      ],
-                                                    ) , ),
-                                                    ElevatedButton(onPressed: (){},
-                                                      style:  ElevatedButton.styleFrom(
-                                                      fixedSize: Size(width/5, 60),
-                                                      primary: Colors.white,
-                                                      shape:  RoundedRectangleBorder(
-
-                                                        borderRadius:  BorderRadius.circular(30.0),
+                                                      child: Row(
+                                                        children: [
+                                                          SvgPicture.asset(
+                                                              ImageAssets
+                                                                  .faceBookLogo),
+                                                          AutoSizeText(
+                                                            "FaceBook",
+                                                            style: GoogleFonts.lato(
+                                                                fontSize: 28,
+                                                                color: Colors
+                                                                    .white,
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .bold),
+                                                          )
+                                                        ],
                                                       ),
-
-                                                    ), child: Row(
-                                                      mainAxisAlignment: MainAxisAlignment.spaceAround,
-                                                      children: [
-                                                        SvgPicture.asset(ImageAssets.googleLogo),
-                                                        AutoSizeText("Google" ,style: GoogleFonts.lato(
-                                                          fontSize: 28,
-                                                          color: Colors.black,
-                                                          fontWeight: FontWeight.bold
-                                                        ),)
-                                                      ],
-                                                    ), ),
-
+                                                    ),
+                                                    ElevatedButton(
+                                                      onPressed: () {},
+                                                      style: ElevatedButton
+                                                          .styleFrom(
+                                                        fixedSize:
+                                                            Size(width / 5, 60),
+                                                        primary: Colors.white,
+                                                        shape:
+                                                            RoundedRectangleBorder(
+                                                          borderRadius:
+                                                              BorderRadius
+                                                                  .circular(
+                                                                      30.0),
+                                                        ),
+                                                      ),
+                                                      child: Row(
+                                                        mainAxisAlignment:
+                                                            MainAxisAlignment
+                                                                .spaceAround,
+                                                        children: [
+                                                          SvgPicture.asset(
+                                                              ImageAssets
+                                                                  .googleLogo),
+                                                          AutoSizeText(
+                                                            "Google",
+                                                            style: GoogleFonts.lato(
+                                                                fontSize: 28,
+                                                                color: Colors
+                                                                    .black,
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .bold),
+                                                          )
+                                                        ],
+                                                      ),
+                                                    ),
                                                   ],
                                                 ),
-
                                                 Padding(
-                                                  padding: const EdgeInsets.all(15.0),
-                                                  child: TextButton(onPressed: (){}, child:  Text("Don`t have account ? SignUp" ,style: GoogleFonts.lato(
-                                                      color: Color(0xff492F24),
-                                                      fontSize: 10,
-                                                      fontWeight: FontWeight.bold
-                                                  ))),
+                                                  padding: const EdgeInsets.all(
+                                                      15.0),
+                                                  child: TextButton(
+                                                      onPressed: () {},
+                                                      child: Text(
+                                                          "Don`t have account ? SignUp",
+                                                          style: GoogleFonts.lato(
+                                                              color: Color(
+                                                                  0xff492F24),
+                                                              fontSize: 10,
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .bold))),
                                                 )
-
                                               ],
                                             ),
                                           ))
@@ -356,7 +412,8 @@ class _LoginScreenState extends State<LoginScreen> {
                             colors: <Color>[
                               Color(0xff56392D),
                               Color(0xff180701),
-                            ], // Gradient from https://learnui.design/tools/gradient-generator.html
+                            ],
+                            // Gradient from https://learnui.design/tools/gradient-generator.html
                             tileMode: TileMode.mirror,
                           ),
                         ),
@@ -367,100 +424,131 @@ class _LoginScreenState extends State<LoginScreen> {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               mainAxisAlignment: MainAxisAlignment.spaceAround,
                               children: [
+                                SvgPicture.asset(ImageAssets.logoFotter),
                                 SvgPicture.asset(ImageAssets.logoFotter)
-                                ,SvgPicture.asset(ImageAssets.logoFotter)
-
                               ],
                             ),
-
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceAround,
-                            children: [
-                              Column(
-                                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                                children: [
-                                  AutoSizeText("For any questions" ,style: GoogleFonts.lato(
-                                      fontSize: 54,
-                                      fontWeight: FontWeight.bold,
-                                      color: Color(0xffFFE3C5)
-                                  ),)  ,
-                                  Row(
-                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                    children: [
-                                      SvgPicture.asset(ImageAssets.emailIcon ,),
-                                      SizedBox(width: 20,),
-                                      AutoSizeText("For any questions" ,style: GoogleFonts.lato(
-                                          fontSize: 41,
-                                          fontWeight: FontWeight.bold,
-                                          color: Color(0xffAE957B)
-                                      ),),
-                                    ],
-                                  )  ,
-                                  Row(
-                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                    children: [
-                                      SvgPicture.asset(ImageAssets.phoneIcon ,),
-                                      SizedBox(width: 20,),
-                                      AutoSizeText("For any questions" ,style: GoogleFonts.lato(
-                                          fontSize: 41,
-                                          fontWeight: FontWeight.bold,
-                                          color: Color(0xffAE957B)
-                                      ),),
-                                    ],
-                                  )  ,
-                                ],),
-                              Column(                                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceAround,
+                              children: [
+                                Column(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceAround,
                                   children: [
-                                Text("We are waiting you" ,style: GoogleFonts.lato(
-                                    fontSize: 54,
-                                    fontWeight: FontWeight.bold,
-                                    color: Color(0xffFFE3C5)
-                                ),)  ,
+                                    AutoSizeText(
+                                      "For any questions",
+                                      style: GoogleFonts.lato(
+                                          fontSize: 54,
+                                          fontWeight: FontWeight.bold,
+                                          color: Color(0xffFFE3C5)),
+                                    ),
                                     Row(
-                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
                                       children: [
-                                        SvgPicture.asset(ImageAssets.locationIcon ,),
-                                        SizedBox(width: 20,),
-                                        AutoSizeText("For any questions" ,style: GoogleFonts.lato(
-                                            fontSize: 41,
-                                            fontWeight: FontWeight.bold,
-                                            color: Color(0xffAE957B)
-                                        ),),
+                                        SvgPicture.asset(
+                                          ImageAssets.emailIcon,
+                                        ),
+                                        SizedBox(
+                                          width: 20,
+                                        ),
+                                        AutoSizeText(
+                                          "For any questions",
+                                          style: GoogleFonts.lato(
+                                              fontSize: 41,
+                                              fontWeight: FontWeight.bold,
+                                              color: Color(0xffAE957B)),
+                                        ),
                                       ],
-                                    )  ,
+                                    ),
                                     Row(
-                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
                                       children: [
-                                        SvgPicture.asset(ImageAssets.locationIcon ,),
-                                        SizedBox(width: 20,),
-                                        AutoSizeText("For any questions" ,style: GoogleFonts.lato(
-                                            fontSize: 41,
-                                            fontWeight: FontWeight.bold,
-                                            color: Color(0xffAE957B)
-                                        ),),
+                                        SvgPicture.asset(
+                                          ImageAssets.phoneIcon,
+                                        ),
+                                        SizedBox(
+                                          width: 20,
+                                        ),
+                                        AutoSizeText(
+                                          "For any questions",
+                                          style: GoogleFonts.lato(
+                                              fontSize: 41,
+                                              fontWeight: FontWeight.bold,
+                                              color: Color(0xffAE957B)),
+                                        ),
                                       ],
-                                    )  ,
-                              ],),
-
-                              const Align(
-                                alignment: Alignment.bottomRight,
-                                child: Image(image:AssetImage(
-                                    ImageAssets.dog
-                                )),
-                              ),
-                            ],
-                          ),
-
+                                    ),
+                                  ],
+                                ),
+                                Column(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceAround,
+                                  children: [
+                                    Text(
+                                      "We are waiting you",
+                                      style: GoogleFonts.lato(
+                                          fontSize: 54,
+                                          fontWeight: FontWeight.bold,
+                                          color: Color(0xffFFE3C5)),
+                                    ),
+                                    Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        SvgPicture.asset(
+                                          ImageAssets.locationIcon,
+                                        ),
+                                        SizedBox(
+                                          width: 20,
+                                        ),
+                                        AutoSizeText(
+                                          "For any questions",
+                                          style: GoogleFonts.lato(
+                                              fontSize: 41,
+                                              fontWeight: FontWeight.bold,
+                                              color: Color(0xffAE957B)),
+                                        ),
+                                      ],
+                                    ),
+                                    Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        SvgPicture.asset(
+                                          ImageAssets.locationIcon,
+                                        ),
+                                        SizedBox(
+                                          width: 20,
+                                        ),
+                                        AutoSizeText(
+                                          "For any questions",
+                                          style: GoogleFonts.lato(
+                                              fontSize: 41,
+                                              fontWeight: FontWeight.bold,
+                                              color: Color(0xffAE957B)),
+                                        ),
+                                      ],
+                                    ),
+                                  ],
+                                ),
+                                const Align(
+                                  alignment: Alignment.bottomRight,
+                                  child:
+                                      Image(image: AssetImage(ImageAssets.dog)),
+                                ),
+                              ],
+                            ),
                           ],
                         ),
                       )
                     ],
                   ),
                 ),
-              ),)));
+              ),
+            )));
   }
-
-
 
   MouseRegion buildMouseRegion(BuildContext context, Widget widget) {
     Offset pointer = Offset(300, 300);
@@ -501,8 +589,6 @@ class _LoginScreenState extends State<LoginScreen> {
     );
   }
 }
-
-
 
 // Form(
 // key: _key,
