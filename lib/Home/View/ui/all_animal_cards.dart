@@ -3,13 +3,13 @@ import 'dart:convert';
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:odc_hackathon_web_project/Home/Model/all_pets.dart';
+import 'package:odc_hackathon_web_project/Home/Model/all_pets_model.dart';
 
 import '../../../core/widgets/custom_button.dart';
 
 class AllAnimalCards extends StatelessWidget {
   const AllAnimalCards({Key? key, required this.allPets}) : super(key: key);
-  final AllPets allPets;
+  final AllPetsModel allPets;
 
   // Image imageFromBase64String(String base64String) {
   //   return Image.memory(base64Decode(base64String));
@@ -31,7 +31,7 @@ class AllAnimalCards extends StatelessWidget {
         padding: const EdgeInsets.all(10),
         child: Column(
           children: [
-            allPets.image![0].isEmpty
+            (allPets.image!.isEmpty)
                 ? const AutoSizeText(
                     "Image Error",
                     maxLines: 1,
