@@ -42,6 +42,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   var items = [
     'Egypt',
+    'sudia Arabia',
     'sudia Arabia'
   ];
   int mainItemHover = 0;
