@@ -64,6 +64,12 @@ class Home extends StatelessWidget {
         builder: (BuildContext context, GoRouterState state) =>
         const HomeScreen(),
       ),
+
+      GoRoute(
+        path: '/SignUp',
+        builder: (BuildContext context, GoRouterState state) =>
+        const RegisterScreen(),
+      ),
     ],
   );
 }

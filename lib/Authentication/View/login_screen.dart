@@ -3,6 +3,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:go_router/go_router.dart';
 
 import 'package:google_fonts/google_fonts.dart';
 
@@ -31,6 +32,7 @@ class _LoginScreenState extends State<LoginScreen> {
   TextEditingController emailController = TextEditingController();
   TextEditingController passController = TextEditingController();
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+
 
   int mainItemHover = 0;
   bool securePass = true;
@@ -120,7 +122,10 @@ class _LoginScreenState extends State<LoginScreen> {
                                 width: MediaQuery.of(context).size.width * .05,
                               ),
                               ElevatedButton(
-                                onPressed: () {},
+                                onPressed: () {
+
+                                  GoRouter.of(context).replace('/signUp');
+                                },
                                 style: ButtonStyle(
                                     shape: MaterialStateProperty.all<
                                             RoundedRectangleBorder>(
@@ -403,7 +408,9 @@ class _LoginScreenState extends State<LoginScreen> {
                                                   padding: const EdgeInsets.all(
                                                       15.0),
                                                   child: TextButton(
-                                                      onPressed: () {},
+                                                      onPressed: () {
+                                                        GoRouter.of(context).replace('/signUp');
+                                                      },
                                                       child: Text(
                                                           "Don`t have account ? SignUp",
                                                           style: GoogleFonts.lato(
