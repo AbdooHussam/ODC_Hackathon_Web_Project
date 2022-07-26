@@ -71,11 +71,6 @@ class Home extends StatelessWidget {
         builder: (BuildContext context, GoRouterState state) =>
             const HelpThemScreen(),
       ),
-      GoRoute(
-        path: '/hhhh',
-        builder: (BuildContext context, GoRouterState state) =>
-            const MyHomePage(),
-      ),
     ],
   );
 }
