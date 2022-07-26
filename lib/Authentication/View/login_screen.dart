@@ -3,6 +3,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:go_router/go_router.dart';
 
 import 'package:google_fonts/google_fonts.dart';
 
@@ -121,7 +122,9 @@ class _LoginScreenState extends State<LoginScreen> {
                                     width: MediaQuery.of(context).size.width * .05,
                                   ),
                                   ElevatedButton(
-                                    onPressed: () {},
+                                    onPressed: () {
+                                      GoRouter.of(context).go('/Register');
+                                    },
                                     style: ButtonStyle(
                                         shape: MaterialStateProperty.all<
                                             RoundedRectangleBorder>(
@@ -167,6 +170,71 @@ class _LoginScreenState extends State<LoginScreen> {
                                 alignment: Alignment.center,
                                 children: [
 
+
+
+
+
+
+
+
+
+                                  Positioned(
+                                    top: -18,
+                                    right: 650,
+                                    child: SvgPicture.asset(
+                                      ImageAssets.dogLoginScreen,
+                                      width: AppSize.s250,
+                                    ),
+                                  ),
+                                  Positioned(
+                                    top: -660,
+                                    right: 20,
+                                    child: Container(
+                                      width: width,
+                                      height: height * 2,
+                                      child: ParallaxStack(
+                                        useLocalPosition: true,
+                                        layers: [
+                                          ParallaxLayer(
+                                            offset: Offset(-18, 20),
+                                            yRotation: 0.2,
+                                            xRotation: 0.1,
+                                            yOffset: 9,
+                                            xOffset: 9,
+                                            child: Center(
+                                              child: Container(
+                                                width: 15,
+                                                height: 15,
+                                                decoration: BoxDecoration(
+                                                  borderRadius:
+                                                  BorderRadius.circular(200),
+                                                  color: Colors.black,
+                                                ),
+                                              ),
+                                            ),
+                                          ),
+                                          ParallaxLayer(
+                                            offset: const Offset(49, 10),
+                                            yRotation: 0.1,
+                                            xRotation: 0.1,
+                                            yOffset: 9,
+                                            xOffset: 9,
+                                            child: Center(
+                                              child: Container(
+                                                width: 15,
+                                                height: 15,
+                                                decoration: BoxDecoration(
+                                                  borderRadius:
+                                                  BorderRadius.circular(200),
+                                                  color: Colors.black,
+                                                ),
+                                              ),
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                  ),
                                   Positioned(
                                     child: Container(
                                       height: height * 0.8,
@@ -347,7 +415,9 @@ class _LoginScreenState extends State<LoginScreen> {
                                                       padding: const EdgeInsets.all(
                                                           15.0),
                                                       child: TextButton(
-                                                          onPressed: () {},
+                                                          onPressed: () {
+                                                            GoRouter.of(context).go('/Register');
+                                                          },
                                                           child: Text(
                                                               "Don`t have account ? SignUp",
                                                               style: GoogleFonts.lato(
@@ -365,63 +435,8 @@ class _LoginScreenState extends State<LoginScreen> {
                                       ),
                                     ),
                                   ),
-                                  Positioned(
-                                    top: -18,
-                                    right: 650,
-                                    child: SvgPicture.asset(
-                                      ImageAssets.dogLoginScreen,
-                                      width: AppSize.s250,
-                                    ),
-                                  ),
-                                  Positioned(
-                                    top: -660,
-                                    right: 20,
-                                    child: Container(
-                                      width: width,
-                                      height: height * 2,
-                                      child: ParallaxStack(
-                                        useLocalPosition: true,
-                                        layers: [
-                                          ParallaxLayer(
-                                            offset: Offset(-18, 20),
-                                            yRotation: 0.2,
-                                            xRotation: 0.1,
-                                            yOffset: 9,
-                                            xOffset: 9,
-                                            child: Center(
-                                              child: Container(
-                                                width: 15,
-                                                height: 15,
-                                                decoration: BoxDecoration(
-                                                  borderRadius:
-                                                  BorderRadius.circular(200),
-                                                  color: Colors.black,
-                                                ),
-                                              ),
-                                            ),
-                                          ),
-                                          ParallaxLayer(
-                                            offset: const Offset(49, 10),
-                                            yRotation: 0.1,
-                                            xRotation: 0.1,
-                                            yOffset: 9,
-                                            xOffset: 9,
-                                            child: Center(
-                                              child: Container(
-                                                width: 15,
-                                                height: 15,
-                                                decoration: BoxDecoration(
-                                                  borderRadius:
-                                                  BorderRadius.circular(200),
-                                                  color: Colors.black,
-                                                ),
-                                              ),
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                  ),
+
+
                                 ],
                               ),
                             ),

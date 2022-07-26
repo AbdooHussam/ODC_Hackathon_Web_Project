@@ -87,5 +87,49 @@ class AuthCubit extends Cubit<AuthState> {
   //
   //
   }
+  Future<void> register({
+    required String email,
+    required String password,
+    required String firstName,
+    required String lastName,
+    required String county,
+    required BuildContext context
+  }) async{
+    try{
+      var response = await Dio().post('https://petology.orangedigitalcenteregypt.com/auth/register',
+        data: {
+          'email' :email,
+          'password':password,
+          "firstName": firstName,
+          "lastName": lastName,
+          "phoneNumber":'010010',
+          "country": county
+        },
+        options: Options(
+          headers: {
+            'Accept': "application/json",
+            // 'Authorization': 'Bearer  $token',
+          },
+        ),
+      ).then((value) {
+        print(value.data);
+        GoRouter.of(context).replace('/HomeScreen')  ;
+      });
+    } on DioError catch(e){
+      Fluttertoast.showToast(
+          msg: e.response!.data['error']['message'].toString(),
+          toastLength: Toast.LENGTH_SHORT,
+          gravity: ToastGravity.CENTER,
+          timeInSecForIosWeb: 5,
+          backgroundColor: Colors.red,
+          webBgColor: "#F44336FF",
+          textColor: Colors.white,
+          fontSize: 16.0
+      );
+      print(e.response!.data);
+    }
+
+
+  }
 
 }
