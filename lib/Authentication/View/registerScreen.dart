@@ -41,11 +41,11 @@ class _RegisterScreenState extends State<RegisterScreen> {
 
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   var items = [
-    'Item 1',
-    'Item 2',
-    'Item 3',
-    'Item 4',
-    'Item 5',
+    'Egypt',
+    'sudia Arabia',
+    'sudia Arabia',
+    'sudia Arabia'
+
   ];
   int mainItemHover = 0;
   bool securePass = true;
