@@ -1,9 +1,11 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:go_router/go_router.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
@@ -20,6 +22,7 @@ import '../../core/constant/mouseRegion.dart';
 import '../../core/constant/text_FormField.dart';
 import '../../core/constant/validator.dart';
 import '../../core/widgets/custom_text_button.dart';
+import '../auth_cubit.dart';
 
 
 
@@ -41,18 +44,14 @@ class _RegisterScreenState extends State<RegisterScreen> {
 
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   var items = [
-    'Egypt',
-    'sudia Arabia',
-    'sudia Arabia',
-    'sudia Arabia'
-
+   'Egypt', "Sudia arabia"
   ];
   int mainItemHover = 0;
   bool securePass = true;
   String name = "", email = "", pass = "", phone = "", address = "";
   bool showSpinner = false;
   final _key = GlobalKey<FormState>();
-  String dropdownvalue = 'Item 1';
+  String dropdownvalue = 'Egypt';
 
   @override
   Widget build(BuildContext context) {
@@ -63,7 +62,13 @@ class _RegisterScreenState extends State<RegisterScreen> {
     var width = MediaQuery.of(context).size.width;
     // var api = Provider.of<UserInformation>(context);
     return Scaffold(
-        body: ModalProgressHUD(
+        body: BlocConsumer<AuthCubit, AuthState>(
+  listener: (context, state) {
+    // TODO: implement listener
+  },
+  builder: (context, state) {
+    var cubit = AuthCubit.get(context);
+    return ModalProgressHUD(
             inAsyncCall: showSpinner,
             child: Mouse(
               widget: SingleChildScrollView(
@@ -285,8 +290,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                                 controller: lastNameController,
                                                 hitText: "Last Name",
                                                 fieldValidator:
-                                                passwordValidator,
-                                                password: true,
+                                                requireValidator,
                                               ),
                                               CustomTextFormField(
                                                 controller: emailController,
@@ -304,6 +308,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                               CustomTextFormField(
                                                 controller: rePasswordController,
                                                 hitText: "Re-Enter Password",
+                                                password: true,
+
                                                 fieldValidator:(val){
                                                   if(val.isEmpty) {
                                                     return 'Empty';
@@ -360,7 +366,16 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                                   ),
                                                 ), )),
                                               ElevatedButton(
-                                                onPressed: () {},
+                                                onPressed: () async{
+                                                  if(_formKey.currentState!.validate()) {
+                                                   await cubit.register(email: emailController.text,
+                                                       password: passController.text,
+                                                       firstName: firstNameController.text,
+                                                       lastName: lastNameController.text,
+                                                       county: dropdownvalue,
+                                                       context: context);
+                                                  }
+                                                },
                                                 style:
                                                 ElevatedButton.styleFrom(
                                                   primary:
@@ -389,7 +404,10 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                                 padding: const EdgeInsets.all(
                                                     15.0),
                                                 child: TextButton(
-                                                    onPressed: () {},
+                                                    onPressed: () {
+                                                      GoRouter.of(context).go('/loginScreen');
+
+                                                    },
                                                     child: Text(
                                                         "Already have an account? Login",
                                                         style: GoogleFonts.lato(
@@ -564,7 +582,9 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   ),
                 ),
               ),
-            )));
+            ));
+  },
+));
   }
 
   MouseRegion buildMouseRegion(BuildContext context, Widget widget) {

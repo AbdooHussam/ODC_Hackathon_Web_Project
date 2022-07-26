@@ -49,7 +49,7 @@ class Home extends StatelessWidget {
 
   final GoRouter _router = GoRouter(
     urlPathStrategy: UrlPathStrategy.path,
-    initialLocation: '/HlepThemScreen',
+    initialLocation: '/LoginScreen',
     routes: <GoRoute>[
       GoRoute(
         path: '/LoginScreen',
@@ -68,6 +68,12 @@ class Home extends StatelessWidget {
         path: '/HlepThemScreen',
         builder: (BuildContext context, GoRouterState state) =>
             const HelpThemScreen(),
+      ),
+
+      GoRoute(
+        path: '/Register',
+        builder: (BuildContext context, GoRouterState state) =>
+        const RegisterScreen(),
       ),
     ],
   );
