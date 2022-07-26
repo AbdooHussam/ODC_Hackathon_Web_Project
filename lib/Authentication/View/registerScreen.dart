@@ -43,7 +43,9 @@ class _RegisterScreenState extends State<RegisterScreen> {
   var items = [
     'Egypt',
     'sudia Arabia',
+    'sudia Arabia',
     'sudia Arabia'
+
   ];
   int mainItemHover = 0;
   bool securePass = true;
