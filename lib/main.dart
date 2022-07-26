@@ -49,7 +49,7 @@ class Home extends StatelessWidget {
 
   final GoRouter _router = GoRouter(
     urlPathStrategy: UrlPathStrategy.path,
-    initialLocation: '/LoginScreen',
+    initialLocation: '/homescreen',
     routes: <GoRoute>[
       GoRoute(
         path: '/LoginScreen',
