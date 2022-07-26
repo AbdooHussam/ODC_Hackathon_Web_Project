@@ -1,6 +1,5 @@
 import 'dart:convert';
 import 'dart:typed_data';
-
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -89,61 +88,7 @@ class _HelpThemScreenState extends State<HelpThemScreen> {
     }
   }
 
-  bottomsheet() {
-    return Container(
-      height: 125,
-      width: MediaQuery.of(context).size.width,
-      margin: const EdgeInsets.symmetric(vertical: 20, horizontal: 20),
-      child: Column(
-        children: [
-          const Text(
-            "Choose your photo",
-            style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
-          ),
-          const SizedBox(
-            height: 10,
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: [
-              TextButton.icon(
-                onPressed: () {
-                  takePhoto(ImageSource.gallery);
-                },
-                icon: const Icon(
-                  Icons.image,
-                  size: 30,
-                  color: Colors.blueAccent,
-                ),
-                label: const Text(
-                  "Gallery",
-                  style: TextStyle(
-                    fontSize: 22,
-                    color: Colors.blueAccent,
-                  ),
-                ),
-              ),
-              TextButton.icon(
-                onPressed: () {
-                  takePhoto(ImageSource.camera);
-                },
-                icon: Icon(
-                  Icons.camera,
-                  color: Colors.orange[900],
-                  size: 30,
-                ),
-                label: Text("Camera",
-                    style: TextStyle(
-                      fontSize: 22,
-                      color: Colors.orange[900],
-                    )),
-              ),
-            ],
-          ),
-        ],
-      ),
-    );
-  }
+
 
   @override
   Widget build(BuildContext context) {
@@ -243,6 +188,8 @@ class _HelpThemScreenState extends State<HelpThemScreen> {
                               ),
                             ]),
                       ),
+
+
                       Container(
                         margin: EdgeInsets.symmetric(vertical: 50),
                         width: width * 0.4,
@@ -375,7 +322,8 @@ class _HelpThemScreenState extends State<HelpThemScreen> {
                           ),
                         ),
                       ),
-                      FooterSection(height: height, width: width)
+                      FooterSection(height: height, width: width),
+                      SizedBox(),
                     ],
                   ),
                 ),

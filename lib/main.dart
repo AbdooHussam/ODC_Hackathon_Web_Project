@@ -31,11 +31,9 @@ class Home extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiBlocProvider(
       providers: [
-        BlocProvider<AuthCubit>(
-          create: (BuildContext context) => AuthCubit(),
+        BlocProvider<AuthCubit>(create: (BuildContext context) => AuthCubit(),
         ),
-        BlocProvider<Home1Cubit>(
-          create: (BuildContext context) => Home1Cubit(),
+        BlocProvider<Home1Cubit>(create: (BuildContext context) => Home1Cubit(),
         ),
       ],
       child: MaterialApp.router(
