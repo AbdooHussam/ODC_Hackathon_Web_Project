@@ -14,7 +14,6 @@ import 'package:odc_hackathon_web_project/core/resource/assets_manager.dart';
 import 'package:odc_hackathon_web_project/core/resource/text_manager.dart';
 import 'package:odc_hackathon_web_project/core/resource/value_manager.dart';
 
-
 import '../../core/constant/mouseRegion.dart';
 import '../../core/constant/text_FormField.dart';
 import '../../core/constant/validator.dart';
@@ -37,28 +36,23 @@ class _LoginScreenState extends State<LoginScreen> {
   String name = "", email = "", pass = "", phone = "", address = "";
   bool showSpinner = false;
   final _key = GlobalKey<FormState>();
-@override
-  void initState() {
-  
-    // TODO: implement initState
-    super.initState();
-  }
+
   @override
   Widget build(BuildContext context) {
-    double h = MediaQuery.of(context).size.height * .02;
-    var size = MediaQuery.of(context).size;
-    var height = MediaQuery.of(context).size.height;
+    final height = MediaQuery.of(context).size.height -
+        MediaQuery.of(context).padding.top -
+        kToolbarHeight;
     var width = MediaQuery.of(context).size.width;
     // var api = Provider.of<UserInformation>(context);
     return Scaffold(
         body: BlocConsumer<AuthCubit, AuthState>(
-  listener: (context, state) {
-    // TODO: implement listener
-  },
-  builder: (context, state) {
-    var cubit = AuthCubit.get(context);
+      listener: (context, state) {
+        // TODO: implement listener
+      },
+      builder: (context, state) {
+        var cubit = AuthCubit.get(context);
 
-    return ModalProgressHUD(
+        return ModalProgressHUD(
             inAsyncCall: showSpinner,
             child: Mouse(
               widget: SingleChildScrollView(
@@ -261,14 +255,16 @@ class _LoginScreenState extends State<LoginScreen> {
                                                   password: true,
                                                 ),
                                                 ElevatedButton(
-                                                  onPressed: () async
-                                                  {
-                                                    if(_formKey.currentState!.validate()){
-                                                     await cubit.login(
-                                                         email: emailController.text,
-                                                         password: passController.text,
-                                                        context: context
-                                                     );
+                                                  onPressed: () async {
+                                                    if (_formKey.currentState!
+                                                        .validate()) {
+                                                      await cubit.login(
+                                                          email: emailController
+                                                              .text,
+                                                          password:
+                                                              passController
+                                                                  .text,
+                                                          context: context);
                                                     }
                                                   },
                                                   style:
@@ -323,15 +319,16 @@ class _LoginScreenState extends State<LoginScreen> {
                                                           .spaceBetween,
                                                   children: [
                                                     ElevatedButton(
-                                                      onPressed: () async{
-                                                        await   cubit.loginFaceBook(context: context);
-
-
+                                                      onPressed: () async {
+                                                        await cubit
+                                                            .loginFaceBook(
+                                                                context:
+                                                                    context);
                                                       },
                                                       style: ElevatedButton
                                                           .styleFrom(
-                                                        primary:
-                                                            const Color(0xff2F4582),
+                                                        primary: const Color(
+                                                            0xff2F4582),
                                                         fixedSize:
                                                             Size(width / 5, 60),
                                                         shape:
@@ -361,8 +358,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                                       ),
                                                     ),
                                                     ElevatedButton(
-                                                      onPressed: () {
-                                                      },
+                                                      onPressed: () {},
                                                       style: ElevatedButton
                                                           .styleFrom(
                                                         fixedSize:
@@ -571,8 +567,8 @@ class _LoginScreenState extends State<LoginScreen> {
                 ),
               ),
             ));
-  },
-));
+      },
+    ));
   }
 
   MouseRegion buildMouseRegion(BuildContext context, Widget widget) {

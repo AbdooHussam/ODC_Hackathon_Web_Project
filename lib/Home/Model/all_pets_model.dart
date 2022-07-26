@@ -4,12 +4,12 @@
 
 import 'dart:convert';
 
-List<AllPets> allPetsFromJson(String str) => List<AllPets>.from(json.decode(str).map((x) => AllPets.fromJson(x)));
+List<AllPetsModel> allPetsFromJson(String str) => List<AllPetsModel>.from(json.decode(str).map((x) => AllPetsModel.fromJson(x)));
 
-String allPetsToJson(List<AllPets> data) => json.encode(List<dynamic>.from(data.map((x) => x.toJson())));
+String allPetsToJson(List<AllPetsModel> data) => json.encode(List<dynamic>.from(data.map((x) => x.toJson())));
 
-class AllPets {
-  AllPets({
+class AllPetsModel {
+  AllPetsModel({
     this.id,
     this.name,
     this.image,
@@ -53,7 +53,7 @@ class AllPets {
   String? category;
   User? user;
 
-  factory AllPets.fromJson(Map<String, dynamic> json) => AllPets(
+  factory AllPetsModel.fromJson(Map<String, dynamic> json) => AllPetsModel(
     id: json["id"],
     name: json["name"],
     image: List<String>.from(json["image"].map((x) => x)),

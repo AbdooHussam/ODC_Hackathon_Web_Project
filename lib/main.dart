@@ -2,6 +2,8 @@ import 'package:bloc/bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
+import 'package:odc_hackathon_web_project/Home/View/Help_them_screen.dart';
+import 'package:odc_hackathon_web_project/test.dart';
 
 import 'Authentication/View/login_screen.dart';
 import 'Authentication/View/registerScreen.dart';
@@ -49,7 +51,7 @@ class Home extends StatelessWidget {
 
   final GoRouter _router = GoRouter(
     urlPathStrategy: UrlPathStrategy.path,
-    initialLocation: '/homescreen',
+    initialLocation: '/HlepThemScreen',
     routes: <GoRoute>[
       GoRoute(
         path: '/LoginScreen',
@@ -60,9 +62,19 @@ class Home extends StatelessWidget {
         ),
       ),
       GoRoute(
-        path: '/homescreen',
+        path: '/HomeScreen',
         builder: (BuildContext context, GoRouterState state) =>
             const HomeScreen(),
+      ),
+      GoRoute(
+        path: '/HlepThemScreen',
+        builder: (BuildContext context, GoRouterState state) =>
+            const HelpThemScreen(),
+      ),
+      GoRoute(
+        path: '/hhhh',
+        builder: (BuildContext context, GoRouterState state) =>
+            const MyHomePage(),
       ),
     ],
   );
