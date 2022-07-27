@@ -1,5 +1,8 @@
 import 'package:bloc/bloc.dart';
+import 'package:dio/dio.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:meta/meta.dart';
 
 import '../Model/all_pets_model.dart';
@@ -18,8 +21,8 @@ class Home1Cubit extends Cubit<Home1State> {
 
   List<AllPetsModel> allPetsList = [];
   List<PetNeedsModel> petNeedsList = [];
-  FirstSectionModel firstSection = FirstSectionModel(body: "",title: "");
-  SecondSectionModel secondSection = SecondSectionModel(body: "",title: "");
+  FirstSectionModel firstSection = FirstSectionModel(body: "", title: "");
+  SecondSectionModel secondSection = SecondSectionModel(body: "", title: "");
 
   Future<void> getAllPets() async {
     try {
@@ -72,5 +75,51 @@ class Home1Cubit extends Cubit<Home1State> {
     }
   }
 
-
+  Future<void> postPets({
+    required int categoryId,
+    required String imageBase64,
+    required String location,
+    required String phoneNumber,
+  }) async {
+    try {
+      var response = await Dio()
+          .post(
+        'https://petology.orangedigitalcenteregypt.com/pets/request',
+        data: {
+          "categoryId": categoryId,
+          "imageBase64": imageBase64,
+          "location": location,
+          "phoneNumber": phoneNumber,
+        },
+        options: Options(
+          headers: {
+            'Accept': "application/json",
+            // 'Authorization': 'Bearer  $token',
+          },
+        ),
+      ).then((value) {
+        Fluttertoast.showToast(
+            msg: value.data['message'].toString(),
+            toastLength: Toast.LENGTH_SHORT,
+            gravity: ToastGravity.CENTER,
+            timeInSecForIosWeb: 5,
+            backgroundColor: Colors.red,
+            webBgColor: "#F44336FF",
+            textColor: Colors.white,
+            fontSize: 16.0);
+        print(value.data);
+      });
+    } on DioError catch (e) {
+      Fluttertoast.showToast(
+          msg: e.response!.data['error']['message'].toString(),
+          toastLength: Toast.LENGTH_SHORT,
+          gravity: ToastGravity.CENTER,
+          timeInSecForIosWeb: 5,
+          backgroundColor: Colors.red,
+          webBgColor: "#F44336FF",
+          textColor: Colors.white,
+          fontSize: 16.0);
+      print(e.response!.data);
+    }
+  }
 }

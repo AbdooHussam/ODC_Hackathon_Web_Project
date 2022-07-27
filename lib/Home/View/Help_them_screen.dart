@@ -9,6 +9,7 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:mime/mime.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 import 'package:mouse_parallax/mouse_parallax.dart';
 import 'package:odc_hackathon_web_project/Home/View/ui/all_animal_cards.dart';
@@ -37,42 +38,27 @@ class HelpThemScreen extends StatefulWidget {
 }
 
 class _HelpThemScreenState extends State<HelpThemScreen> {
-  int moreAnimal = 0;
-  TextEditingController emailController = TextEditingController();
-  TextEditingController passController = TextEditingController();
-  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
-  bool securePass = true;
-  String name = "", email = "", pass = "", phone = "", address = "";
-  bool showSpinner = false;
-  late Future _future;
+  final items = ["Dog", "Cat"];
+  String selectedValue = 'Dog';
+  TextEditingController phoneController = TextEditingController();
 
-  // Future<void> prepareData() async {
-  //   var bloc = Home1Cubit.get(context);
-  //   (bloc.firstSection.body!.isEmpty) ? await bloc.getFirstSection() : null;
-  //   (bloc.secondSection.body!.isEmpty) ? await bloc.getSecondSection() : null;
-  //   (bloc.allPetsList.isEmpty) ? await bloc.getAllPets() : null;
-  //   (bloc.petNeedsList.isEmpty) ? await bloc.getPetNeeds() : null;
-  // }
-  //
-  // @override
-  // void initState() {
-  //   _future = prepareData();
-  //   super.initState();
-  // }
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
   late PickedFile _image;
   late String picPath = "empty";
   final picker = ImagePicker();
   String base64string = "empty";
 
-  Future takePhoto(ImageSource source) async {
-    final pickedFile = await picker.getImage(source: source);
+  Future takePhoto() async {
+    final pickedFile = await picker.getImage(source: ImageSource.gallery);
     if (pickedFile != null) {
       _image = pickedFile;
       picPath = _image.path;
+
       Uint8List imagebytes = await pickedFile.readAsBytes(); //convert to bytes
       base64string = base64.encode(imagebytes); //convert bytes to base64 string
       print(base64string);
+
       setState(() {});
     } else {
       ScaffoldMessenger.of(context).showSnackBar(
@@ -88,246 +74,303 @@ class _HelpThemScreenState extends State<HelpThemScreen> {
     }
   }
 
-
-
   @override
   Widget build(BuildContext context) {
-    // var bloc = BlocProvider.of<Home1Cubit>(context);
-
     final height = MediaQuery.of(context).size.height -
         MediaQuery.of(context).padding.top -
         kToolbarHeight;
     final width = MediaQuery.of(context).size.width;
-
     return Scaffold(
-        body: ModalProgressHUD(
-            inAsyncCall: showSpinner,
-            child: Mouse(
-              widget: Container(
-                decoration: const BoxDecoration(
-                    image: DecorationImage(
-                  image: AssetImage('images/backHelp.png'),
-                  fit: BoxFit.fill,
-                )),
-                child: SingleChildScrollView(
-                  child: Column(
-                    children: [
-                      Container(
-                        decoration: const BoxDecoration(
-                          gradient: LinearGradient(
-                            begin: Alignment(3, 1),
-                            end: Alignment(1, 1),
-                            colors: <Color>[
-                              Color(0xff56392D),
-                              Color(0xff180701),
-                            ],
-                            // Gradient from https://learnui.design/tools/gradient-generator.html
-                            tileMode: TileMode.mirror,
+        body: BlocConsumer<Home1Cubit, Home1State>(
+      listener: (context, state) {},
+      builder: (context, state) {
+        var bloc = Home1Cubit.get(context);
+        return Mouse(
+          widget: Container(
+            decoration: const BoxDecoration(
+                image: DecorationImage(
+              image: AssetImage('images/backHelp.png'),
+              fit: BoxFit.fill,
+            )),
+            child: SingleChildScrollView(
+              child: Column(
+                children: [
+                  Container(
+                    decoration: const BoxDecoration(
+                      gradient: LinearGradient(
+                        begin: Alignment(3, 1),
+                        end: Alignment(1, 1),
+                        colors: <Color>[
+                          Color(0xff56392D),
+                          Color(0xff180701),
+                        ],
+                        // Gradient from https://learnui.design/tools/gradient-generator.html
+                        tileMode: TileMode.mirror,
+                      ),
+                    ),
+                    child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Flexible(
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceAround,
+                              children: [
+                                Flexible(
+                                  child: Image.asset(
+                                    ImageAssets.logoAppBar,
+                                    fit: BoxFit.cover,
+                                  ),
+                                ),
+                                CustomTextButton(
+                                    text: TextManager.aboutUs,
+                                    textStyle: const TextStyle(
+                                        decoration: TextDecoration.underline,
+                                        color: Colors.white),
+                                    function: () {
+                                      print("AboutUs");
+                                    }),
+                                CustomTextButton(
+                                    text: TextManager.categories,
+                                    function: () {
+                                      print("categories");
+                                    }),
+                                CustomTextButton(
+                                    text: TextManager.services,
+                                    function: () {
+                                      print("services");
+                                    }),
+                                CustomTextButton(
+                                    text: TextManager.request,
+                                    function: () {
+                                      print("request");
+                                    }),
+                              ],
+                            ),
                           ),
-                        ),
-                        child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Flexible(
-                                child: Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceAround,
+                          SizedBox(
+                            width: MediaQuery.of(context).size.width * .05,
+                          ),
+                          CustomButton(
+                            text: TextManager.signUp,
+                            function: () {},
+                            inColor: Colors.transparent,
+                            outColor: const Color(0xffFFE3C5),
+                            textColor: Colors.white,
+                          ),
+                          SizedBox(
+                            width: MediaQuery.of(context).size.width * .05,
+                          ),
+                          CustomButton(
+                            function: () {},
+                            text: TextManager.login,
+                            outColor: const Color(0xffFFE3C5),
+                            inColor: Colors.white,
+                            textColor: Colors.black,
+                          ),
+                        ]),
+                  ),
+                  Container(
+                    margin: EdgeInsets.symmetric(vertical: 50),
+                    width: width * 0.4,
+                    decoration: BoxDecoration(
+                        color: Colors.transparent,
+                        border: Border.all(width: 2),
+                        borderRadius: BorderRadius.circular(30)),
+                    child: Padding(
+                      padding: const EdgeInsets.all(25),
+                      child: Column(
+                        children: [
+                          SizedBox(
+                            height: height * .02,
+                          ),
+                          AutoSizeText(
+                            "Help your friend",
+                            style: GoogleFonts.lato(fontSize: AppSize.s40),
+                          ),
+                          SizedBox(
+                            height: height * .02,
+                          ),
+                          Center(
+                            child: (picPath == "empty")
+                                ? IconButton(
+                                    iconSize: 60,
+                                    onPressed: () {
+                                      takePhoto();
+                                    },
+                                    icon: const Icon(
+                                      Icons.photo_camera,
+                                      color: Colors.black,
+                                    ),
+                                  )
+                                : Image.memory(
+                                    base64Decode(base64string),
+                                    height: height * .3,
+                                  ),
+                          ),
+                          Form(
+                              key: _formKey,
+                              child: Padding(
+                                padding: const EdgeInsets.all(20.0),
+                                child: Column(
                                   children: [
-                                    Flexible(
-                                      child: Image.asset(
-                                        ImageAssets.logoAppBar,
-                                        fit: BoxFit.cover,
+                                    Card(
+                                      elevation: 20,
+                                      shape: RoundedRectangleBorder(
+                                          borderRadius:
+                                              BorderRadius.circular(22)),
+                                      child: DropdownButtonFormField<String>(
+                                        decoration: InputDecoration(
+                                            labelText: "Category",
+                                            enabledBorder: OutlineInputBorder(
+                                                borderRadius:
+                                                    BorderRadius.circular(20),
+                                                borderSide: BorderSide(
+                                                    width: 0,
+                                                    color:
+                                                        Colors.transparent))),
+                                        value: selectedValue,
+                                        onChanged: (newValue) => setState(
+                                            () => selectedValue = newValue!),
+                                        items: items
+                                            .map<DropdownMenuItem<String>>(
+                                                (String value) =>
+                                                    DropdownMenuItem<String>(
+                                                      value: value,
+                                                      child: Text(value),
+                                                    ))
+                                            .toList(),
+
+                                        // add extra sugar..
+                                        icon: Icon(Icons.arrow_drop_down),
+                                        iconSize: 42,
                                       ),
                                     ),
-                                    CustomTextButton(
-                                        text: TextManager.aboutUs,
-                                        textStyle: const TextStyle(
-                                            decoration:
-                                                TextDecoration.underline,
-                                            color: Colors.white),
-                                        function: () {
-                                          print("AboutUs");
-                                        }),
-                                    CustomTextButton(
-                                        text: TextManager.categories,
-                                        function: () {
-                                          print("categories");
-                                        }),
-                                    CustomTextButton(
-                                        text: TextManager.services,
-                                        function: () {
-                                          print("services");
-                                        }),
-                                    CustomTextButton(
-                                        text: TextManager.request,
-                                        function: () {
-                                          print("request");
-                                        }),
+                                    SizedBox(
+                                      height: height * .02,
+                                    ),
+                                    Container(
+                                      height: height * .08,
+                                      decoration: BoxDecoration(
+                                        boxShadow: const [
+                                          BoxShadow(
+                                            color: Colors.black38,
+                                            blurRadius: 15,
+                                            offset: Offset(0, 10),
+                                          ),
+                                        ],
+                                        color: Colors.white,
+                                        borderRadius:
+                                            BorderRadius.circular(32.0),
+                                      ),
+                                      child: Padding(
+                                        padding: const EdgeInsets.symmetric(
+                                            horizontal: 20),
+                                        child: Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.spaceBetween,
+                                            children: [
+                                              AutoSizeText(
+                                                "Location",
+                                                style: TextStyle(
+                                                  color: Colors.grey,
+                                                  fontSize: 18,
+                                                ),
+                                              ),
+                                              IconButton(
+                                                  onPressed: () {},
+                                                  icon: Icon(Icons.location_on))
+                                            ]),
+                                      ),
+                                    ),
+                                    CustomTextFormField(
+                                      controller: phoneController,
+                                      hitText: "Phone numbrt",
+                                      fieldValidator: requireValidator,
+                                    ),
+                                    ElevatedButton(
+                                      onPressed: () async {
+                                        if (_formKey.currentState!.validate()) {
+                                          int categoryId11;
+                                          String base64string22;
+                                          (selectedValue == "Dog")
+                                              ? categoryId11 = 1
+                                              : categoryId11 = 2;
+
+                                          base64string22 =
+                                              "data:image/png;base64,${base64string}";
+                                          await bloc.postPets(
+                                              categoryId: categoryId11,
+                                              imageBase64: base64string22,
+                                              location: "Cairo",
+                                              phoneNumber:
+                                                  phoneController.text);
+                                        }
+                                      },
+                                      style: ElevatedButton.styleFrom(
+                                        primary: const Color(0xff492F24),
+                                        fixedSize: Size(width / 2, 60),
+                                        shape: RoundedRectangleBorder(
+                                          borderRadius:
+                                              BorderRadius.circular(30.0),
+                                        ),
+                                      ),
+                                      child: AutoSizeText(
+                                        "Send",
+                                        style: GoogleFonts.lato(
+                                            color: const Color(0xffFFE3C5),
+                                            fontSize: AppSize.s28,
+                                            fontWeight: FontWeight.bold),
+                                      ),
+                                    ),
+                                    SizedBox(
+                                      height: height * .02,
+                                    ),
+                                    ElevatedButton(
+                                      onPressed: () async {
+                                        if (_formKey.currentState!.validate()) {
+                                          // await cubit.login(
+                                          //     email: emailController
+                                          //         .text,
+                                          //     password:
+                                          //     passController
+                                          //         .text,
+                                          //     context: context);
+                                        }
+                                      },
+                                      style: ElevatedButton.styleFrom(
+                                        primary: const Color(0xffFFE3C5),
+                                        fixedSize: Size(width / 2, 60),
+                                        shape: RoundedRectangleBorder(
+                                          borderRadius:
+                                              BorderRadius.circular(30.0),
+                                        ),
+                                      ),
+                                      child: AutoSizeText(
+                                        "Call",
+                                        style: GoogleFonts.lato(
+                                            color: const Color(0xff492F24),
+                                            fontSize: AppSize.s28,
+                                            fontWeight: FontWeight.bold),
+                                      ),
+                                    ),
+                                    SizedBox(
+                                      height: height * .02,
+                                    ),
                                   ],
                                 ),
-                              ),
-                              SizedBox(
-                                width: MediaQuery.of(context).size.width * .05,
-                              ),
-                              CustomButton(
-                                text: TextManager.signUp,
-                                function: () {},
-                                inColor: Colors.transparent,
-                                outColor: const Color(0xffFFE3C5),
-                                textColor: Colors.white,
-                              ),
-                              SizedBox(
-                                width: MediaQuery.of(context).size.width * .05,
-                              ),
-                              CustomButton(
-                                function: () {},
-                                text: TextManager.login,
-                                outColor: const Color(0xffFFE3C5),
-                                inColor: Colors.white,
-                                textColor: Colors.black,
-                              ),
-                            ]),
+                              ))
+                        ],
                       ),
-
-
-                      Container(
-                        margin: EdgeInsets.symmetric(vertical: 50),
-                        width: width * 0.4,
-                        decoration: BoxDecoration(
-                            color: Colors.transparent,
-                            border: Border.all(width: 2),
-                            borderRadius: BorderRadius.circular(30)),
-                        child: Padding(
-                          padding: const EdgeInsets.all(25),
-                          child: Column(
-                            children: [
-                              SizedBox(
-                                height: height * .02,
-                              ),
-                              AutoSizeText(
-                                "Help your friend",
-                                style: GoogleFonts.lato(fontSize: AppSize.s40),
-                              ),
-                              SizedBox(
-                                height: height * .02,
-                              ),
-                              Center(
-                                child: (picPath == "empty")
-                                    ? TextButton.icon(
-                                        onPressed: () {
-                                          takePhoto(ImageSource.gallery);
-                                        },
-                                        icon: const Icon(
-                                          Icons.image,
-                                          size: 30,
-                                          color: Colors.blueAccent,
-                                        ),
-                                        label: const Text(
-                                          "Gallery",
-                                          style: TextStyle(
-                                            fontSize: 22,
-                                            color: Colors.blueAccent,
-                                          ),
-                                        ),
-                                      )
-                                    : Image.memory(
-                                        base64Decode(base64string),
-                                      ),
-                              ),
-                              Form(
-                                  key: _formKey,
-                                  child: Padding(
-                                    padding: const EdgeInsets.all(20.0),
-                                    child: Column(
-                                      children: [
-                                        CustomTextFormField(
-                                          controller: emailController,
-                                          hitText: "Email",
-                                          fieldValidator: emailValidator,
-                                        ),
-                                        CustomTextFormField(
-                                          controller: passController,
-                                          hitText: "password",
-                                          fieldValidator: passwordValidator,
-                                          password: true,
-                                        ),
-                                        ElevatedButton(
-                                          onPressed: () async {
-                                            if (_formKey.currentState!
-                                                .validate()) {
-                                              // await cubit.login(
-                                              //     email: emailController
-                                              //         .text,
-                                              //     password:
-                                              //     passController
-                                              //         .text,
-                                              //     context: context);
-                                            }
-                                          },
-                                          style: ElevatedButton.styleFrom(
-                                            primary: const Color(0xff492F24),
-                                            fixedSize: Size(width / 2, 60),
-                                            shape: RoundedRectangleBorder(
-                                              borderRadius:
-                                                  BorderRadius.circular(30.0),
-                                            ),
-                                          ),
-                                          child: AutoSizeText(
-                                            "Send",
-                                            style: GoogleFonts.lato(
-                                                color: const Color(0xffFFE3C5),
-                                                fontSize: AppSize.s28,
-                                                fontWeight: FontWeight.bold),
-                                          ),
-                                        ),
-                                        SizedBox(
-                                          height: height * .02,
-                                        ),
-                                        ElevatedButton(
-                                          onPressed: () async {
-                                            if (_formKey.currentState!
-                                                .validate()) {
-                                              // await cubit.login(
-                                              //     email: emailController
-                                              //         .text,
-                                              //     password:
-                                              //     passController
-                                              //         .text,
-                                              //     context: context);
-                                            }
-                                          },
-                                          style: ElevatedButton.styleFrom(
-                                            primary: const Color(0xffFFE3C5),
-                                            fixedSize: Size(width / 2, 60),
-                                            shape: RoundedRectangleBorder(
-                                              borderRadius:
-                                                  BorderRadius.circular(30.0),
-                                            ),
-                                          ),
-                                          child: AutoSizeText(
-                                            "Call",
-                                            style: GoogleFonts.lato(
-                                                color: const Color(0xff492F24),
-                                                fontSize: AppSize.s28,
-                                                fontWeight: FontWeight.bold),
-                                          ),
-                                        ),
-                                        SizedBox(
-                                          height: height * .02,
-                                        ),
-                                      ],
-                                    ),
-                                  ))
-                            ],
-                          ),
-                        ),
-                      ),
-                      FooterSection(height: height, width: width),
-                      SizedBox(),
-                    ],
+                    ),
                   ),
-                ),
+                  FooterSection(height: height, width: width),
+                  SizedBox(),
+                ],
               ),
-            )));
+            ),
+          ),
+        );
+      },
+    ));
   }
 }

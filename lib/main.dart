@@ -2,11 +2,10 @@ import 'package:bloc/bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
-import 'package:odc_hackathon_web_project/Adaption/view/Adaption_screen.dart';
 import 'package:odc_hackathon_web_project/Home/View/Help_them_screen.dart';
 import 'package:odc_hackathon_web_project/test.dart';
-
 import 'Adaption/controller/adaption_cubit.dart';
+import 'Adaption/view/adaption_screen.dart';
 import 'Authentication/View/login_screen.dart';
 import 'Authentication/View/registerScreen.dart';
 import 'Authentication/auth_cubit.dart';
