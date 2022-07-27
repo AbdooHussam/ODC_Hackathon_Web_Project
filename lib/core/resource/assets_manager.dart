@@ -15,7 +15,8 @@ class ImageAssets{
   static const String phoneIcon  = "$imagePath/phoneIcon.svg";
   static const String dogHand  = "$imagePath/dogHand.svg";
   static const String dogHandDown = "$imagePath/dogHandDowan.svg";
-
+  static const String dogsFeed = "$imagePath/feedDogs.png";
+  static const String dishDog = "$imagePath/dishDog.png";
 
 
 

@@ -15,6 +15,7 @@ import 'package:odc_hackathon_web_project/core/resource/assets_manager.dart';
 import 'package:odc_hackathon_web_project/core/resource/color_manager.dart';
 import 'package:odc_hackathon_web_project/core/resource/text_manager.dart';
 import 'package:odc_hackathon_web_project/core/resource/value_manager.dart';
+import 'package:odc_hackathon_web_project/core/widgets/footer_section.dart';
 
 import 'package:provider/provider.dart';
 
@@ -221,6 +222,9 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                                       ),
                                                     ),
                                                     child: Row(
+                                                      mainAxisAlignment:
+                                                      MainAxisAlignment
+                                                          .spaceAround,
                                                       children: [
                                                         SvgPicture.asset(
                                                             ImageAssets
@@ -341,7 +345,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                                   child: DropdownButton(
                                                     isExpanded: true,
                                                     isDense: false,
-                                                    underline: SizedBox(),
+                                                    underline: const SizedBox(),
 
                                                     // Initial Value
                                                     value: dropdownvalue,
@@ -411,7 +415,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                                     child: Text(
                                                         "Already have an account? Login",
                                                         style: GoogleFonts.lato(
-                                                            color: Color(
+                                                            color: const Color(
                                                                 0xff492F24),
                                                             fontSize: 10,
                                                             fontWeight:
@@ -437,147 +441,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           ),
                         ),
                       ),
-                      Container(
-                        width: double.infinity,
-                        height: height * .5,
-                        decoration: const BoxDecoration(
-                          gradient: LinearGradient(
-                            begin: Alignment(3, 1),
-                            end: Alignment(1, 1),
-                            colors: <Color>[
-                              Color(0xff56392D),
-                              Color(0xff180701),
-                            ],
-                            // Gradient from https://learnui.design/tools/gradient-generator.html
-                            tileMode: TileMode.mirror,
-                          ),
-                        ),
-                        child: Stack(
-                          clipBehavior: Clip.none,
-                          children: [
-                            Row(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              mainAxisAlignment: MainAxisAlignment.spaceAround,
-                              children: [
-                                SvgPicture.asset(ImageAssets.logoFotter),
-                                SvgPicture.asset(ImageAssets.logoFotter)
-                              ],
-                            ),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceAround,
-                              children: [
-                                Column(
-                                  mainAxisAlignment:
-                                  MainAxisAlignment.spaceAround,
-                                  children: [
-                                    AutoSizeText(
-                                      "For any questions",
-                                      style: GoogleFonts.lato(
-                                          fontSize: 54,
-                                          fontWeight: FontWeight.bold,
-                                          color: Color(0xffFFE3C5)),
-                                    ),
-                                    Row(
-                                      mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                      children: [
-                                        SvgPicture.asset(
-                                          ImageAssets.emailIcon,
-                                        ),
-                                        SizedBox(
-                                          width: 20,
-                                        ),
-                                        AutoSizeText(
-                                          "For any questions",
-                                          style: GoogleFonts.lato(
-                                              fontSize: 41,
-                                              fontWeight: FontWeight.bold,
-                                              color: Color(0xffAE957B)),
-                                        ),
-                                      ],
-                                    ),
-                                    Row(
-                                      mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                      children: [
-                                        SvgPicture.asset(
-                                          ImageAssets.phoneIcon,
-                                        ),
-                                        SizedBox(
-                                          width: 20,
-                                        ),
-                                        AutoSizeText(
-                                          "For any questions",
-                                          style: GoogleFonts.lato(
-                                              fontSize: 41,
-                                              fontWeight: FontWeight.bold,
-                                              color: Color(0xffAE957B)),
-                                        ),
-                                      ],
-                                    ),
-                                  ],
-                                ),
-                                Column(
-                                  mainAxisAlignment:
-                                  MainAxisAlignment.spaceAround,
-                                  children: [
-                                    Text(
-                                      "We are waiting you",
-                                      style: GoogleFonts.lato(
-                                          fontSize: 54,
-                                          fontWeight: FontWeight.bold,
-                                          color: Color(0xffFFE3C5)),
-                                    ),
-                                    Row(
-                                      mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                      children: [
-                                        SvgPicture.asset(
-                                          ImageAssets.locationIcon,
-                                        ),
-                                        SizedBox(
-                                          width: 20,
-                                        ),
-                                        AutoSizeText(
-                                          "For any questions",
-                                          style: GoogleFonts.lato(
-                                              fontSize: 41,
-                                              fontWeight: FontWeight.bold,
-                                              color: Color(0xffAE957B)),
-                                        ),
-                                      ],
-                                    ),
-                                    Row(
-                                      mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                      children: [
-                                        SvgPicture.asset(
-                                          ImageAssets.locationIcon,
-                                        ),
-                                        SizedBox(
-                                          width: 20,
-                                        ),
-                                        AutoSizeText(
-                                          "For any questions",
-                                          style: GoogleFonts.lato(
-                                              fontSize: 41,
-                                              fontWeight: FontWeight.bold,
-                                              color: Color(0xffAE957B)),
-                                        ),
-                                      ],
-                                    ),
-                                  ],
-                                ),
-                                const Align(
-                                  alignment: Alignment.bottomRight,
-                                  child:
-                                  Image(image: AssetImage(ImageAssets.dog)),
-                                ),
-                              ],
-                            ),
-                          ],
-                        ),
-                      )
+                      FooterSection(height: height, width: width)
                     ],
                   ),
                 ),

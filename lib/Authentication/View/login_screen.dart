@@ -189,7 +189,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                   Positioned(
                                     top: -660,
                                     right: 20,
-                                    child: Container(
+                                    child: SizedBox(
                                       width: width,
                                       height: height * 2,
                                       child: ParallaxStack(
@@ -355,6 +355,9 @@ class _LoginScreenState extends State<LoginScreen> {
                                                             ),
                                                           ),
                                                           child: Row(
+                                                            mainAxisAlignment:
+                                                            MainAxisAlignment
+                                                                .spaceAround,
                                                             children: [
                                                               SvgPicture.asset(
                                                                   ImageAssets
