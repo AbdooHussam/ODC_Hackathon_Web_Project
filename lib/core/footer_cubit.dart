@@ -15,7 +15,7 @@ class FooterCubit extends Cubit<FooterState> {
 
   Future<void> getFooterSection() async {
     try {
-      var products = await RemoteServices.fetchFooterSection();
+      var products = await RemoteServicesHome.fetchFooterSection();
       if (products != null) {
         footerSection = products;
       }

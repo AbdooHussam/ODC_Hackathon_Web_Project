@@ -28,7 +28,7 @@ class FooterSection extends StatelessWidget {
           var footer = FooterCubit.get(context);
           return Container(
             width: double.infinity,
-            height: height * .3,
+            height: height * .15,
             decoration: const BoxDecoration(
               gradient: LinearGradient(
                 begin: Alignment(3, 1),
@@ -72,7 +72,7 @@ class FooterSection extends StatelessWidget {
                           children: [
                             SvgPicture.asset(
                               ImageAssets.emailIcon,
-                                width: width * .02
+                                width: width * .015
                             ),
                             const SizedBox(
                               width: 20,
@@ -90,7 +90,7 @@ class FooterSection extends StatelessWidget {
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             SvgPicture.asset(
-                              ImageAssets.phoneIcon, width: width * .02
+                              ImageAssets.phoneIcon, width: width * .015
                             ),
                             const SizedBox(
                               width: 20,
@@ -120,7 +120,7 @@ class FooterSection extends StatelessWidget {
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             SvgPicture.asset(
-                              ImageAssets.locationIcon, width: width * .02
+                              ImageAssets.locationIcon, width: width * .015
                             ),
                             const SizedBox(
                               width: 20,
@@ -138,7 +138,7 @@ class FooterSection extends StatelessWidget {
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             SvgPicture.asset(
-                              ImageAssets.locationIcon, width: width * .02
+                              ImageAssets.locationIcon, width: width * .015
                             ),
                             const SizedBox(
                               width: 20,

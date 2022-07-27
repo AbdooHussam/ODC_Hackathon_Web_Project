@@ -27,7 +27,7 @@ class Home1Cubit extends Cubit<Home1State> {
 
   Future<void> getAllPets() async {
     try {
-      var products = await RemoteServices.fetchAllPets();
+      var products = await RemoteServicesHome.fetchAllPets();
       if (products != null) {
         allPetsList = products;
         for (int i = 0; i < allPetsList.length; i++) {
@@ -45,7 +45,7 @@ class Home1Cubit extends Cubit<Home1State> {
 
   Future<void> getPetNeeds() async {
     try {
-      var products = await RemoteServices.fetchpetNeeds();
+      var products = await RemoteServicesHome.fetchpetNeeds();
       if (products != null) {
         petNeedsList = products;
       }
@@ -56,7 +56,7 @@ class Home1Cubit extends Cubit<Home1State> {
 
   Future<void> getFirstSection() async {
     try {
-      var products = await RemoteServices.fetchFirstSection();
+      var products = await RemoteServicesHome.fetchFirstSection();
       if (products != null) {
         firstSection = products;
       }
@@ -67,7 +67,7 @@ class Home1Cubit extends Cubit<Home1State> {
 
   Future<void> getSecondSection() async {
     try {
-      var products = await RemoteServices.fetchSecondSection();
+      var products = await RemoteServicesHome.fetchSecondSection();
       if (products != null) {
         secondSection = products;
       }
