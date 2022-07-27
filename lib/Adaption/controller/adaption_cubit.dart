@@ -11,19 +11,18 @@ part 'adaption_state.dart';
 
 class AdaptionCubit extends Cubit<AdaptionState> {
   AdaptionCubit() : super(AdaptionInitial());
-  String ? title;
-  String ? body;
-  static AdaptionCubit get (BuildContext context)=>BlocProvider.of(context);
-  Future<void> getFeedData() async{
+  String? title;
+  String? body;
 
-    Dio().get('https://petology.orangedigitalcenteregypt.com/static/how-to/0').
-    then((value) {
+  static AdaptionCubit get(BuildContext context) => BlocProvider.of(context);
+
+  Future<void> getFeedData() async {
+    Dio().get('https://petology.orangedigitalcenteregypt.com/static/how-to/1').then((value) {
       title = value.data['title'];
       body = value.data['body'];
-
-    }).catchError((e){
+      emit(AdaptionSuccess());
+    }).catchError((e) {
       print(e);
     });
   }
-
 }

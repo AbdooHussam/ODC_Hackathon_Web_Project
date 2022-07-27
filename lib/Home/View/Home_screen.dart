@@ -192,7 +192,8 @@ class _HomeScreenState extends State<HomeScreen> {
                                     width: width * .22,
                                     child: ElevatedButton(
                                       onPressed: () {
-                                        GoRouter.of(context).replace('/HlepThemScreen');
+                                        GoRouter.of(context)
+                                            .replace('/HlepThemScreen');
                                       },
                                       style: ButtonStyle(
                                           shape: MaterialStateProperty.all<
@@ -399,6 +400,16 @@ class _HomeScreenState extends State<HomeScreen> {
                                         setState(() {
                                           moreAnimal -= 3;
                                         });
+                                      }else{
+                                        Fluttertoast.showToast(
+                                            msg: "Animals are finished",
+                                            toastLength: Toast.LENGTH_SHORT,
+                                            gravity: ToastGravity.CENTER,
+                                            timeInSecForIosWeb: 5,
+                                            backgroundColor: Colors.red,
+                                            webBgColor: "#F44336FF",
+                                            textColor: Colors.white,
+                                            fontSize: 16.0);
                                       }
                                     },
                                     icon: const Icon(
@@ -420,11 +431,20 @@ class _HomeScreenState extends State<HomeScreen> {
                                 backgroundColor: Colors.black,
                                 child: IconButton(
                                     onPressed: () {
-                                      if (moreAnimal <
-                                          bloc.allPetsList.length - 3) {
+                                      if (moreAnimal < bloc.allPetsList.length - 4) {
                                         setState(() {
                                           moreAnimal += 3;
                                         });
+                                      }else{
+                                        Fluttertoast.showToast(
+                                            msg: "Animals are finished",
+                                            toastLength: Toast.LENGTH_SHORT,
+                                            gravity: ToastGravity.CENTER,
+                                            timeInSecForIosWeb: 5,
+                                            backgroundColor: Colors.red,
+                                            webBgColor: "#F44336FF",
+                                            textColor: Colors.white,
+                                            fontSize: 16.0);
                                       }
                                     },
                                     icon: const Icon(

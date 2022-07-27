@@ -102,7 +102,8 @@ class Home1Cubit extends Cubit<Home1State> {
             'Authorization': 'Bearer $token',
           },
         ),
-      ).then((value) {
+      )
+          .then((value) {
         Fluttertoast.showToast(
             msg: value.data['message'].toString(),
             toastLength: Toast.LENGTH_SHORT,
@@ -128,13 +129,11 @@ class Home1Cubit extends Cubit<Home1State> {
     }
   }
 
-
-
   Future<void> postRequest({
     required String name,
     required List<String> image,
     required int year,
-    required  int month,
+    required int month,
     required String size,
     required String breed,
     required bool gender,
@@ -142,11 +141,11 @@ class Home1Cubit extends Cubit<Home1State> {
     required String color,
     required String careBehavior,
     required bool houseTrained,
-    required  String description,
+    required String description,
     required String location,
     required String phone,
     required bool vaccinated,
-    required  int categoryId,
+    required int categoryId,
   }) async {
     try {
       SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -154,7 +153,8 @@ class Home1Cubit extends Cubit<Home1State> {
       token = prefs.getString("accessToken");
       print("$token  llllllllllllllllllllllllllll");
       var response = await Dio()
-          .post('https://petology.orangedigitalcenteregypt.com/pets',
+          .post(
+        'https://petology.orangedigitalcenteregypt.com/pets',
         data: {
           "pet": {
             "name": name,
@@ -181,9 +181,12 @@ class Home1Cubit extends Cubit<Home1State> {
             'Authorization': 'Bearer $token',
           },
         ),
-      ).then((value) {
+      )
+          .then((value) {
         Fluttertoast.showToast(
-            msg: (value.data['name'].toString().isEmpty)? value.data['message'].toString() : "succeeded" ,
+            msg: (value.data['name'].toString().isEmpty)
+                ? value.data['message'].toString()
+                : "succeeded",
             toastLength: Toast.LENGTH_SHORT,
             gravity: ToastGravity.CENTER,
             timeInSecForIosWeb: 5,
@@ -206,5 +209,4 @@ class Home1Cubit extends Cubit<Home1State> {
       print(e.response!.data);
     }
   }
-
 }
