@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:meta/meta.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../Model/all_pets_model.dart';
 import '../Model/first_section_model.dart';
@@ -82,6 +83,10 @@ class Home1Cubit extends Cubit<Home1State> {
     required String phoneNumber,
   }) async {
     try {
+      SharedPreferences prefs = await SharedPreferences.getInstance();
+      String? token;
+      token = prefs.getString("accessToken");
+      print("$token  llllllllllllllllllllllllllll");
       var response = await Dio()
           .post(
         'https://petology.orangedigitalcenteregypt.com/pets/request',
@@ -93,8 +98,8 @@ class Home1Cubit extends Cubit<Home1State> {
         },
         options: Options(
           headers: {
-            'Accept': "application/json",
-            // 'Authorization': 'Bearer  $token',
+            'Content-Type': 'application/json; char=UTF-8',
+            'Authorization': 'Bearer $token',
           },
         ),
       ).then((value) {
@@ -122,4 +127,84 @@ class Home1Cubit extends Cubit<Home1State> {
       print(e.response!.data);
     }
   }
+
+
+
+  Future<void> postRequest({
+    required String name,
+    required List<String> image,
+    required int year,
+    required  int month,
+    required String size,
+    required String breed,
+    required bool gender,
+    required String hairLength,
+    required String color,
+    required String careBehavior,
+    required bool houseTrained,
+    required  String description,
+    required String location,
+    required String phone,
+    required bool vaccinated,
+    required  int categoryId,
+  }) async {
+    try {
+      SharedPreferences prefs = await SharedPreferences.getInstance();
+      String? token;
+      token = prefs.getString("accessToken");
+      print("$token  llllllllllllllllllllllllllll");
+      var response = await Dio()
+          .post('https://petology.orangedigitalcenteregypt.com/pets',
+        data: {
+          "pet": {
+            "name": name,
+            "image": image,
+            "year": year,
+            "month": month,
+            "size": size,
+            "breed": breed,
+            "gender": gender,
+            "hairLength": hairLength,
+            "color": color,
+            "careBehavior": careBehavior,
+            "houseTrained": houseTrained,
+            "description": description,
+            "location": location,
+            "phone": phone,
+            "vaccinated": vaccinated,
+            "categoryId": categoryId
+          }
+        },
+        options: Options(
+          headers: {
+            'Content-Type': 'application/json; char=UTF-8',
+            'Authorization': 'Bearer $token',
+          },
+        ),
+      ).then((value) {
+        Fluttertoast.showToast(
+            msg: (value.data['name'].toString().isEmpty)? value.data['message'].toString() : "succeeded" ,
+            toastLength: Toast.LENGTH_SHORT,
+            gravity: ToastGravity.CENTER,
+            timeInSecForIosWeb: 5,
+            backgroundColor: Colors.red,
+            webBgColor: "#F44336FF",
+            textColor: Colors.white,
+            fontSize: 16.0);
+        print(value.data);
+      });
+    } on DioError catch (e) {
+      Fluttertoast.showToast(
+          msg: e.response!.data['error']['message'].toString(),
+          toastLength: Toast.LENGTH_SHORT,
+          gravity: ToastGravity.CENTER,
+          timeInSecForIosWeb: 5,
+          backgroundColor: Colors.red,
+          webBgColor: "#F44336FF",
+          textColor: Colors.white,
+          fontSize: 16.0);
+      print(e.response!.data);
+    }
+  }
+
 }

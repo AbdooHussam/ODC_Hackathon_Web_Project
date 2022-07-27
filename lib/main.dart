@@ -11,6 +11,7 @@ import 'Authentication/View/registerScreen.dart';
 import 'Authentication/auth_cubit.dart';
 import 'Home/Controller/home1_cubit.dart';
 import 'Home/View/Home_screen.dart';
+import 'Home/View/Request_screen.dart';
 import 'core/BlocObserver.dart';
 import 'core/resource/route_manager.dart';
 
@@ -70,7 +71,6 @@ class Home extends StatelessWidget {
         builder: (BuildContext context, GoRouterState state) =>
         const HelpThemScreen(),
       ),
-
       GoRoute(
         path: '/Register',
         builder: (BuildContext context, GoRouterState state) =>
@@ -83,6 +83,11 @@ class Home extends StatelessWidget {
               create: (context) => AdaptionCubit()..getFeedData(),
               child: AdaptionScreen(),
             ),
+      ),
+      GoRoute(
+        path: '/RequestScreen',
+        builder: (BuildContext context, GoRouterState state) =>
+        const RequestScreen(),
       ),
     ],
   );

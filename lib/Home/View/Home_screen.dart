@@ -7,6 +7,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:go_router/go_router.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 import 'package:mouse_parallax/mouse_parallax.dart';
@@ -118,6 +119,7 @@ class _HomeScreenState extends State<HomeScreen> {
                               CustomTextButton(
                                   text: TextManager.request,
                                   function: () {
+                                    GoRouter.of(context).go("/RequestScreen");
                                     print("request");
                                   }),
                             ],
@@ -190,12 +192,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                     width: width * .22,
                                     child: ElevatedButton(
                                       onPressed: () {
-                                        Navigator.push(
-                                            context,
-                                            MaterialPageRoute(
-                                              builder: (context) =>
-                                                  const HelpThemScreen(),
-                                            ));
+                                        GoRouter.of(context).replace('/HlepThemScreen');
                                       },
                                       style: ButtonStyle(
                                           shape: MaterialStateProperty.all<

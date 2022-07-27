@@ -7,6 +7,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:go_router/go_router.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:mime/mime.dart';
@@ -38,8 +39,9 @@ class HelpThemScreen extends StatefulWidget {
 }
 
 class _HelpThemScreenState extends State<HelpThemScreen> {
-  final items = ["Dog", "Cat"];
-  String selectedValue = 'Dog';
+  var items = ["Dog", "Cat"];
+
+  String dropdownvalue = 'Dog';
   TextEditingController phoneController = TextEditingController();
 
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
@@ -57,7 +59,7 @@ class _HelpThemScreenState extends State<HelpThemScreen> {
 
       Uint8List imagebytes = await pickedFile.readAsBytes(); //convert to bytes
       base64string = base64.encode(imagebytes); //convert bytes to base64 string
-      print(base64string);
+      //print(base64string);
 
       setState(() {});
     } else {
@@ -124,9 +126,9 @@ class _HelpThemScreenState extends State<HelpThemScreen> {
                                 CustomTextButton(
                                     text: TextManager.aboutUs,
                                     textStyle: const TextStyle(
-                                        decoration: TextDecoration.underline,
                                         color: Colors.white),
                                     function: () {
+                                      GoRouter.of(context).go('/HomeScreen');
                                       print("AboutUs");
                                     }),
                                 CustomTextButton(
@@ -191,7 +193,7 @@ class _HelpThemScreenState extends State<HelpThemScreen> {
                             height: height * .02,
                           ),
                           Center(
-                            child: (picPath == "empty")
+                            child: (base64string == "empty")
                                 ? IconButton(
                                     iconSize: 60,
                                     onPressed: () {
@@ -213,38 +215,55 @@ class _HelpThemScreenState extends State<HelpThemScreen> {
                                 padding: const EdgeInsets.all(20.0),
                                 child: Column(
                                   children: [
-                                    Card(
-                                      elevation: 20,
-                                      shape: RoundedRectangleBorder(
-                                          borderRadius:
-                                              BorderRadius.circular(22)),
-                                      child: DropdownButtonFormField<String>(
-                                        decoration: InputDecoration(
-                                            labelText: "Category",
-                                            enabledBorder: OutlineInputBorder(
-                                                borderRadius:
-                                                    BorderRadius.circular(20),
-                                                borderSide: BorderSide(
-                                                    width: 0,
-                                                    color:
-                                                        Colors.transparent))),
-                                        value: selectedValue,
-                                        onChanged: (newValue) => setState(
-                                            () => selectedValue = newValue!),
-                                        items: items
-                                            .map<DropdownMenuItem<String>>(
-                                                (String value) =>
-                                                    DropdownMenuItem<String>(
-                                                      value: value,
-                                                      child: Text(value),
-                                                    ))
-                                            .toList(),
+                                    Padding(
+                                        padding: const EdgeInsets.symmetric(
+                                            vertical: 20),
+                                        child: Container(
+                                          decoration: BoxDecoration(
+                                            color: Colors.white,
+                                            borderRadius:
+                                                BorderRadius.circular(32),
+                                            boxShadow: const [
+                                              BoxShadow(
+                                                color: Colors.black38,
+                                                blurRadius: 15,
+                                                offset: Offset(0, 10),
+                                              ),
+                                            ],
+                                          ),
+                                          child: Padding(
+                                            padding: const EdgeInsets.symmetric(
+                                                horizontal: 8.0),
+                                            child: DropdownButton(
+                                              isExpanded: true,
+                                              isDense: false,
+                                              underline: const SizedBox(),
 
-                                        // add extra sugar..
-                                        icon: Icon(Icons.arrow_drop_down),
-                                        iconSize: 42,
-                                      ),
-                                    ),
+                                              // Initial Value
+                                              value: dropdownvalue,
+
+                                              // Down Arrow Icon
+                                              icon: const Icon(
+                                                  Icons.keyboard_arrow_down),
+
+                                              // Array list of items
+                                              items: items.map((String items) {
+                                                return DropdownMenuItem(
+                                                  value: items,
+                                                  child: Text(items),
+                                                );
+                                              }).toList(),
+                                              // After selecting the desired option,it will
+                                              // change button value to selected value
+                                              onChanged: (newValue) {
+                                                setState(() {
+                                                  dropdownvalue =
+                                                      newValue.toString();
+                                                });
+                                              },
+                                            ),
+                                          ),
+                                        )),
                                     SizedBox(
                                       height: height * .02,
                                     ),
@@ -284,7 +303,7 @@ class _HelpThemScreenState extends State<HelpThemScreen> {
                                     ),
                                     CustomTextFormField(
                                       controller: phoneController,
-                                      hitText: "Phone numbrt",
+                                      hitText: "Phone number",
                                       fieldValidator: requireValidator,
                                     ),
                                     ElevatedButton(
@@ -292,12 +311,13 @@ class _HelpThemScreenState extends State<HelpThemScreen> {
                                         if (_formKey.currentState!.validate()) {
                                           int categoryId11;
                                           String base64string22;
-                                          (selectedValue == "Dog")
+                                          (dropdownvalue == "Dog")
                                               ? categoryId11 = 1
                                               : categoryId11 = 2;
 
                                           base64string22 =
                                               "data:image/png;base64,${base64string}";
+                                          print(base64string22);
                                           await bloc.postPets(
                                               categoryId: categoryId11,
                                               imageBase64: base64string22,

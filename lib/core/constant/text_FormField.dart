@@ -4,13 +4,14 @@ class CustomTextFormField extends StatelessWidget {
   final TextEditingController controller;
   final String hitText;
   final FormFieldValidator fieldValidator;
+  final TextInputType? keyboardType;
   bool password;
 
   CustomTextFormField({
     required this.controller,
     required this.hitText,
     required this.fieldValidator,
-    this.password = false,
+    this.password = false,  this.keyboardType=TextInputType.text,
   });
 
   @override
@@ -28,6 +29,7 @@ class CustomTextFormField extends StatelessWidget {
           ],
         ),
         child: TextFormField(
+          keyboardType: keyboardType ,
           obscureText: password,
           validator: fieldValidator,
           controller: controller,

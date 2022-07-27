@@ -149,7 +149,9 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                 width: MediaQuery.of(context).size.width * .05,
                               ),
                               ElevatedButton(
-                                onPressed: () {},
+                                onPressed: () {
+                                  GoRouter.of(context).go('/loginScreen');
+                                },
                                 style: ButtonStyle(
                                     shape: MaterialStateProperty.all<
                                         RoundedRectangleBorder>(
