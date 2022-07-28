@@ -77,14 +77,24 @@ class _FilterScreenState extends State<FilterScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final height = MediaQuery.of(context).size.height -
-        MediaQuery.of(context).padding.top -
+    final height = MediaQuery
+        .of(context)
+        .size
+        .height -
+        MediaQuery
+            .of(context)
+            .padding
+            .top -
         kToolbarHeight;
-    final width = MediaQuery.of(context).size.width;
+    final width = MediaQuery
+        .of(context)
+        .size
+        .width;
     return Scaffold(
       body: BlocProvider(
         create: (context) =>
-            FilterCubit()..getAllPetsFilter(categoryId: widget.categoryId),
+        FilterCubit()
+          ..getAllPetsFilter(categoryId: widget.categoryId),
         child: BlocConsumer<FilterCubit, FilterState>(
           listener: (context, state) {
             // TODO: implement listener
@@ -94,9 +104,9 @@ class _FilterScreenState extends State<FilterScreen> {
             return Container(
               decoration: const BoxDecoration(
                   image: DecorationImage(
-                image: AssetImage('images/backHelp.png'),
-                fit: BoxFit.fill,
-              )),
+                    image: AssetImage('images/backHelp.png'),
+                    fit: BoxFit.fill,
+                  )),
               child: Column(
                 children: [
                   Container(
@@ -131,7 +141,7 @@ class _FilterScreenState extends State<FilterScreen> {
                                       color: Colors.grey,
                                     ),
                                     function: () {
-                                    Navigator.pop(context);
+                                      Navigator.pop(context);
                                       print("AboutUs ssss");
                                     }),
                                 CustomTextButton(
@@ -168,7 +178,10 @@ class _FilterScreenState extends State<FilterScreen> {
                             ),
                           ),
                           SizedBox(
-                            width: MediaQuery.of(context).size.width * .05,
+                            width: MediaQuery
+                                .of(context)
+                                .size
+                                .width * .05,
                           ),
                           CustomButton(
                             text: TextManager.signUp,
@@ -178,7 +191,10 @@ class _FilterScreenState extends State<FilterScreen> {
                             textColor: Colors.white,
                           ),
                           SizedBox(
-                            width: MediaQuery.of(context).size.width * .05,
+                            width: MediaQuery
+                                .of(context)
+                                .size
+                                .width * .05,
                           ),
                           CustomButton(
                             function: () {},
@@ -192,18 +208,19 @@ class _FilterScreenState extends State<FilterScreen> {
                   (bloc.allPetsCategoryFilterList.isEmpty)
                       ? const Center(child: CircularProgressIndicator())
                       : Expanded(
-                          child: StaggeredGridView.countBuilder(
-                            crossAxisCount: 3,
-                            itemCount: bloc.allPetsCategoryFilterList.length,
-                            crossAxisSpacing: 5,
-                            mainAxisSpacing: 16,
-                            itemBuilder: (context, index) {
-                              return AllAnimalFilterCards(bloc.allPetsCategoryFilterList[index]);
-                            },
-                            staggeredTileBuilder: (index) =>
-                                const StaggeredTile.fit(1),
-                          ),
-                        ),
+                    child: StaggeredGridView.countBuilder(
+                      crossAxisCount: 3,
+                      itemCount: bloc.allPetsCategoryFilterList.length,
+                      crossAxisSpacing: 5,
+                      mainAxisSpacing: 16,
+                      itemBuilder: (context, index) {
+                        return AllAnimalFilterCards(
+                            bloc.allPetsCategoryFilterList[index]);
+                      },
+                      staggeredTileBuilder: (index) =>
+                      const StaggeredTile.fit(1),
+                    ),
+                  ),
                   FooterSection(height: height, width: width),
                 ],
               ),
