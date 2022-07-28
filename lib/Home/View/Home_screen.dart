@@ -19,6 +19,7 @@ import 'package:odc_hackathon_web_project/core/resource/text_manager.dart';
 import 'package:odc_hackathon_web_project/core/resource/value_manager.dart';
 import 'package:odc_hackathon_web_project/core/widgets/on_hover_button.dart';
 import 'package:provider/provider.dart';
+import '../../Filter/View/Filter_screen.dart';
 import '../../core/constant/mouseRegion.dart';
 import '../../core/constant/validator.dart';
 import '../../core/resource/size_config.dart';
@@ -192,7 +193,8 @@ class _HomeScreenState extends State<HomeScreen> {
                                     width: width * .22,
                                     child: ElevatedButton(
                                       onPressed: () {
-                                        GoRouter.of(context).replace('/HlepThemScreen');
+                                        GoRouter.of(context)
+                                            .replace('/HlepThemScreen');
                                       },
                                       style: ButtonStyle(
                                           shape: MaterialStateProperty.all<
@@ -303,67 +305,89 @@ class _HomeScreenState extends State<HomeScreen> {
                       Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            OnHoverButton(builder: (isHovered) {
-                              final color = isHovered
-                                  ? const Color(0xffFFE3C5)
-                                  : Colors.transparent;
-                              return Container(
-                                decoration: BoxDecoration(
-                                    border: Border.all(
-                                        color: Colors.black, width: 2),
-                                    color: color,
-                                    borderRadius: BorderRadius.circular(10)),
-                                child: Padding(
-                                  padding: const EdgeInsets.all(15),
-                                  child: Column(
-                                    children: [
-                                      SvgPicture.asset("images/dogHome3.svg",
-                                          height: height * .1),
-                                      const AutoSizeText(
-                                        "Dogs",
-                                        maxLines: 1,
-                                        style: TextStyle(
-                                            color: Colors.black,
-                                            fontSize: 18,
-                                            fontWeight: FontWeight.bold),
-                                      ),
-                                    ],
+                            InkWell(
+                              onTap: () {
+                                Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) =>
+                                            const FilterScreen(
+                                              categoryId: 1,
+                                            )));
+                              },
+                              child: OnHoverButton(builder: (isHovered) {
+                                final color = isHovered
+                                    ? const Color(0xffFFE3C5)
+                                    : Colors.transparent;
+                                return Container(
+                                  decoration: BoxDecoration(
+                                      border: Border.all(
+                                          color: Colors.black, width: 2),
+                                      color: color,
+                                      borderRadius: BorderRadius.circular(10)),
+                                  child: Padding(
+                                    padding: const EdgeInsets.all(15),
+                                    child: Column(
+                                      children: [
+                                        SvgPicture.asset("images/dogHome3.svg",
+                                            height: height * .1),
+                                        const AutoSizeText(
+                                          "Dogs",
+                                          maxLines: 1,
+                                          style: TextStyle(
+                                              color: Colors.black,
+                                              fontSize: 18,
+                                              fontWeight: FontWeight.bold),
+                                        ),
+                                      ],
+                                    ),
                                   ),
-                                ),
-                              );
-                            }),
+                                );
+                              }),
+                            ),
                             SizedBox(
                               width: width * .05,
                             ),
-                            OnHoverButton(builder: (isHovered) {
-                              final color = isHovered
-                                  ? const Color(0xffFFE3C5)
-                                  : Colors.transparent;
-                              return Container(
-                                decoration: BoxDecoration(
-                                    border: Border.all(
-                                        color: Colors.black, width: 2),
-                                    color: color,
-                                    borderRadius: BorderRadius.circular(10)),
-                                child: Padding(
-                                  padding: const EdgeInsets.all(15),
-                                  child: Column(
-                                    children: [
-                                      SvgPicture.asset("images/catHome3.svg",
-                                          height: height * .1),
-                                      const AutoSizeText(
-                                        "Cats",
-                                        maxLines: 1,
-                                        style: TextStyle(
-                                            color: Colors.black,
-                                            fontSize: 18,
-                                            fontWeight: FontWeight.bold),
-                                      ),
-                                    ],
+                            InkWell(
+                              onTap: (){
+                                Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) =>
+                                        const FilterScreen(
+                                          categoryId: 2,
+                                        )));
+                              },
+                              child: OnHoverButton(builder: (isHovered) {
+                                final color = isHovered
+                                    ? const Color(0xffFFE3C5)
+                                    : Colors.transparent;
+                                return Container(
+                                  decoration: BoxDecoration(
+                                      border: Border.all(
+                                          color: Colors.black, width: 2),
+                                      color: color,
+                                      borderRadius: BorderRadius.circular(10)),
+                                  child: Padding(
+                                    padding: const EdgeInsets.all(15),
+                                    child: Column(
+                                      children: [
+                                        SvgPicture.asset("images/catHome3.svg",
+                                            height: height * .1),
+                                        const AutoSizeText(
+                                          "Cats",
+                                          maxLines: 1,
+                                          style: TextStyle(
+                                              color: Colors.black,
+                                              fontSize: 18,
+                                              fontWeight: FontWeight.bold),
+                                        ),
+                                      ],
+                                    ),
                                   ),
-                                ),
-                              );
-                            }),
+                                );
+                              }),
+                            ),
                           ]),
                       SizedBox(height: height * .1),
                     ],
@@ -399,6 +423,16 @@ class _HomeScreenState extends State<HomeScreen> {
                                         setState(() {
                                           moreAnimal -= 3;
                                         });
+                                      } else {
+                                        Fluttertoast.showToast(
+                                            msg: "Animals are finished",
+                                            toastLength: Toast.LENGTH_SHORT,
+                                            gravity: ToastGravity.CENTER,
+                                            timeInSecForIosWeb: 5,
+                                            backgroundColor: Colors.red,
+                                            webBgColor: "#F44336FF",
+                                            textColor: Colors.white,
+                                            fontSize: 16.0);
                                       }
                                     },
                                     icon: const Icon(
@@ -421,10 +455,20 @@ class _HomeScreenState extends State<HomeScreen> {
                                 child: IconButton(
                                     onPressed: () {
                                       if (moreAnimal <
-                                          bloc.allPetsList.length - 3) {
+                                          bloc.allPetsList.length - 4) {
                                         setState(() {
                                           moreAnimal += 3;
                                         });
+                                      } else {
+                                        Fluttertoast.showToast(
+                                            msg: "Animals are finished",
+                                            toastLength: Toast.LENGTH_SHORT,
+                                            gravity: ToastGravity.CENTER,
+                                            timeInSecForIosWeb: 5,
+                                            backgroundColor: Colors.red,
+                                            webBgColor: "#F44336FF",
+                                            textColor: Colors.white,
+                                            fontSize: 16.0);
                                       }
                                     },
                                     icon: const Icon(

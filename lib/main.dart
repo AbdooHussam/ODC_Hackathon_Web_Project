@@ -9,6 +9,7 @@ import 'Adaption/view/adaption_screen.dart';
 import 'Authentication/View/login_screen.dart';
 import 'Authentication/View/registerScreen.dart';
 import 'Authentication/auth_cubit.dart';
+import 'Filter/View/Filter_screen.dart';
 import 'Home/Controller/home1_cubit.dart';
 import 'Home/View/Home_screen.dart';
 import 'Home/View/Request_screen.dart';
@@ -89,6 +90,11 @@ class Home extends StatelessWidget {
         builder: (BuildContext context, GoRouterState state) =>
         const RequestScreen(),
       ),
+      // GoRoute(
+      //   path: '/FilterScreen',
+      //   builder: (BuildContext context, GoRouterState state) =>
+      //    FilterScreen(),
+      // ),
     ],
   );
 }

@@ -6,7 +6,7 @@ import '../Model/footer_section_model.dart';
 import '../Model/pet-needs_model.dart';
 import '../Model/second_section_model.dart';
 
-class RemoteServices {
+class RemoteServicesHome {
   // static var client = http.Client();
 
   static Future<List<AllPetsModel>> fetchAllPets() async {

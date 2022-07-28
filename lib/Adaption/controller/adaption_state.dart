@@ -4,3 +4,4 @@ part of 'adaption_cubit.dart';
 abstract class AdaptionState {}
 
 class AdaptionInitial extends AdaptionState {}
+class AdaptionSuccess extends AdaptionState {}
