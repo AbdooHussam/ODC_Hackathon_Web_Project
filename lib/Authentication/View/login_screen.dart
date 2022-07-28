@@ -15,7 +15,6 @@ import 'package:odc_hackathon_web_project/core/resource/assets_manager.dart';
 import 'package:odc_hackathon_web_project/core/resource/text_manager.dart';
 import 'package:odc_hackathon_web_project/core/resource/value_manager.dart';
 
-
 import '../../core/constant/mouseRegion.dart';
 import '../../core/constant/text_FormField.dart';
 import '../../core/constant/validator.dart';

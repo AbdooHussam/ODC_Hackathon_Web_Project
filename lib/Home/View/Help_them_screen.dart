@@ -10,7 +10,6 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:go_router/go_router.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:mime/mime.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 import 'package:mouse_parallax/mouse_parallax.dart';
 import 'package:odc_hackathon_web_project/Home/View/ui/all_animal_cards.dart';
@@ -31,6 +30,7 @@ import '../../core/widgets/footer_section.dart';
 import '../Controller/home1_cubit.dart';
 import 'ui/pet-needs_cards.dart';
 
+
 class HelpThemScreen extends StatefulWidget {
   const HelpThemScreen({Key? key}) : super(key: key);
 
@@ -40,6 +40,11 @@ class HelpThemScreen extends StatefulWidget {
 
 class _HelpThemScreenState extends State<HelpThemScreen> {
   var items = ["Dog", "Cat"];
+  // Location location = new Location();
+
+  bool  ?_serviceEnabled;
+
+
 
   String dropdownvalue = 'Dog';
   TextEditingController phoneController = TextEditingController();
@@ -50,7 +55,6 @@ class _HelpThemScreenState extends State<HelpThemScreen> {
   late String picPath = "empty";
   final picker = ImagePicker();
   String base64string = "empty";
-
   Future takePhoto() async {
     final pickedFile = await picker.getImage(source: ImageSource.gallery);
     if (pickedFile != null) {
@@ -296,7 +300,10 @@ class _HelpThemScreenState extends State<HelpThemScreen> {
                                                 ),
                                               ),
                                               IconButton(
-                                                  onPressed: () {},
+                                                  onPressed: () async{
+
+
+                                                  },
                                                   icon: Icon(Icons.location_on))
                                             ]),
                                       ),
