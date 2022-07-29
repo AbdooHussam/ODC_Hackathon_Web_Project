@@ -9,8 +9,8 @@ import '../../../core/widgets/custom_button.dart';
 import '../../Controller/home1_cubit.dart';
 
 class AllAnimalCards extends StatelessWidget {
-
-  const AllAnimalCards({Key? key, required this.allPets , required  this.cubit}) : super(key: key);
+  const AllAnimalCards({Key? key, required this.allPets, required this.cubit})
+      : super(key: key);
   final AllPetsModel allPets;
   final Home1Cubit cubit;
 
@@ -58,7 +58,8 @@ class AllAnimalCards extends StatelessWidget {
             CustomButton(
               text: "Read more",
               function: () async {
-               await cubit.getDogDetails(id: allPets.id.toString() , context: context);
+                await cubit.getDogDetails(
+                    id: allPets.id.toString(), context: context);
                 print(allPets.id);
               },
               inColor: Colors.white,

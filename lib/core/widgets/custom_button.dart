@@ -17,7 +17,6 @@ class CustomButton extends StatelessWidget {
     required this.textColor,
   }) : super(key: key);
 
-
   @override
   Widget build(BuildContext context) {
     return ElevatedButton(

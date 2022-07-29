@@ -214,22 +214,35 @@ class Home1Cubit extends Cubit<Home1State> {
       print(e.response!.data);
     }
   }
-  dogDetails ? details ;
-  Future<void> getDogDetails({ required String id ,required BuildContext context}) async{
-    try{
-      await Dio().get('https://petology.orangedigitalcenteregypt.com/pets/$id', ).then((value) {
+
+  dogDetails? details;
+
+  Future<void> getDogDetails(
+      {required String id, required BuildContext context}) async {
+    try {
+      await Dio()
+          .get(
+        'https://petology.orangedigitalcenteregypt.com/pets/$id',
+      )
+          .then((value) {
         details = dogDetails.fromJson(value.data);
-       Navigator.push(context,
-           MaterialPageRoute(builder: (context)=>
-       DogDetails(details: details,)
-       ));
+
+        for (int x = 0; x < details!.image!.length; x++) {
+          details!.image![x] =
+              details!.image![x].replaceAll("data:image/png;base64,", "");
+        }
+
+        Navigator.push(
+            context,
+            MaterialPageRoute(
+                builder: (context) => DogDetails(
+                      details: details,
+                    )));
         print(details!.size);
         // print(value.data);
       });
-    } on DioError catch(dataError)
-    {
+    } on DioError catch (dataError) {
       print(dataError);
     }
   }
-
 }

@@ -15,6 +15,7 @@ import 'package:mime/mime.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 import 'package:mouse_parallax/mouse_parallax.dart';
 import 'package:odc_hackathon_web_project/Filter/View/ui/all_animal_filter_card.dart';
+import 'package:odc_hackathon_web_project/Home/Controller/home1_cubit.dart';
 import 'package:odc_hackathon_web_project/Home/View/ui/all_animal_cards.dart';
 import 'package:odc_hackathon_web_project/core/resource/assets_manager.dart';
 import 'package:odc_hackathon_web_project/core/resource/color_manager.dart';
@@ -43,32 +44,7 @@ class FilterScreen extends StatefulWidget {
 }
 
 class _FilterScreenState extends State<FilterScreen> {
-  var categoryItems = ["Category", "Dog", "Cat"];
-  var yearItems = ["Year", "1", "2", "3", "4", "5", "6", "7"];
-  var monthItems = [
-    "Months",
-    "1",
-    "2",
-    "3",
-    "4",
-    "5",
-    "6",
-    "7",
-    "8",
-    "9",
-    "10",
-    "11"
-  ];
-  var sizeItems = ["Size", "small", "medium", "large"];
-  var hairLenghtItems = ["Hair Lenght", "short", "medium", "tall"];
-  var houseTraindItems = ["House Traind", "yes", "no"];
   var genderItems = ["Gender", "male", "female"];
-  String categoryValue = 'Category';
-  String yearValue = 'Year';
-  String monthValue = 'Months';
-  String sizeValue = 'Size';
-  String hairLenghtValue = 'Hair Lenght';
-  String houseTraindValue = 'House Traind';
   String genderValue = 'Gender';
 
   TextEditingController breedController = TextEditingController();
@@ -77,24 +53,16 @@ class _FilterScreenState extends State<FilterScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final height = MediaQuery
-        .of(context)
-        .size
-        .height -
-        MediaQuery
-            .of(context)
-            .padding
-            .top -
+    final height = MediaQuery.of(context).size.height -
+        MediaQuery.of(context).padding.top -
         kToolbarHeight;
-    final width = MediaQuery
-        .of(context)
-        .size
-        .width;
+    final width = MediaQuery.of(context).size.width;
+    var home = Home1Cubit.get(context);
     return Scaffold(
       body: BlocProvider(
-        create: (context) =>
-        FilterCubit()
-          ..getAllPetsFilter(categoryId: widget.categoryId),
+        create: (context) => FilterCubit()
+          ..getFilterControlModel(categoryId: widget.categoryId)
+          ..getAllPetsFilterCategory(categoryId: widget.categoryId.toString()),
         child: BlocConsumer<FilterCubit, FilterState>(
           listener: (context, state) {
             // TODO: implement listener
@@ -104,9 +72,9 @@ class _FilterScreenState extends State<FilterScreen> {
             return Container(
               decoration: const BoxDecoration(
                   image: DecorationImage(
-                    image: AssetImage('images/backHelp.png'),
-                    fit: BoxFit.fill,
-                  )),
+                image: AssetImage('images/backHelp.png'),
+                fit: BoxFit.fill,
+              )),
               child: Column(
                 children: [
                   Container(
@@ -171,17 +139,14 @@ class _FilterScreenState extends State<FilterScreen> {
                                           context,
                                           MaterialPageRoute(
                                               builder: (context) =>
-                                              const RequestScreen()));
+                                                  const RequestScreen()));
                                       print("request");
                                     }),
                               ],
                             ),
                           ),
                           SizedBox(
-                            width: MediaQuery
-                                .of(context)
-                                .size
-                                .width * .05,
+                            width: MediaQuery.of(context).size.width * .05,
                           ),
                           CustomButton(
                             text: TextManager.signUp,
@@ -191,10 +156,7 @@ class _FilterScreenState extends State<FilterScreen> {
                             textColor: Colors.white,
                           ),
                           SizedBox(
-                            width: MediaQuery
-                                .of(context)
-                                .size
-                                .width * .05,
+                            width: MediaQuery.of(context).size.width * .05,
                           ),
                           CustomButton(
                             function: () {},
@@ -205,22 +167,474 @@ class _FilterScreenState extends State<FilterScreen> {
                           ),
                         ]),
                   ),
-                  (bloc.allPetsCategoryFilterList.isEmpty)
-                      ? const Center(child: CircularProgressIndicator())
-                      : Expanded(
-                    child: StaggeredGridView.countBuilder(
-                      crossAxisCount: 3,
-                      itemCount: bloc.allPetsCategoryFilterList.length,
-                      crossAxisSpacing: 5,
-                      mainAxisSpacing: 16,
-                      itemBuilder: (context, index) {
-                        return AllAnimalFilterCards(
-                            bloc.allPetsCategoryFilterList[index]);
-                      },
-                      staggeredTileBuilder: (index) =>
-                      const StaggeredTile.fit(1),
-                    ),
+                  SizedBox(
+                    height: height * .05,
                   ),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 40),
+                    child: Row(children: [
+                      Flexible(
+                        child: Container(
+                          decoration: BoxDecoration(
+                            color: Colors.white,
+                            borderRadius: BorderRadius.circular(32),
+                            boxShadow: const [
+                              BoxShadow(
+                                color: Colors.black38,
+                                blurRadius: 15,
+                                offset: Offset(0, 10),
+                              ),
+                            ],
+                          ),
+                          child: Padding(
+                            padding:
+                                const EdgeInsets.symmetric(horizontal: 8.0),
+                            child: DropdownButton(
+                              isExpanded: true,
+                              isDense: false,
+                              underline: const SizedBox(),
+
+                              // Initial Value
+                              value: bloc.breedValue,
+
+                              // Down Arrow Icon
+                              icon: const Icon(Icons.keyboard_arrow_down),
+
+                              // Array list of items
+                              items:
+                                  bloc.filterControl.breed!.map((String items) {
+                                return DropdownMenuItem(
+                                  value: items,
+                                  child: Text(items),
+                                );
+                              }).toList(),
+                              // After selecting the desired option,it will
+                              // change button value to selected value
+                              onChanged: (newValue) {
+                                setState(() {
+                                  bloc.breedValue = newValue.toString();
+                                });
+                              },
+                            ),
+                          ),
+                        ),
+                      ),
+                      SizedBox(width: width * .06),
+                      Flexible(
+                        child: Container(
+                          decoration: BoxDecoration(
+                            color: Colors.white,
+                            borderRadius: BorderRadius.circular(32),
+                            boxShadow: const [
+                              BoxShadow(
+                                color: Colors.black38,
+                                blurRadius: 15,
+                                offset: Offset(0, 10),
+                              ),
+                            ],
+                          ),
+                          child: Padding(
+                            padding:
+                                const EdgeInsets.symmetric(horizontal: 8.0),
+                            child: DropdownButton(
+                              isExpanded: true,
+                              isDense: false,
+                              underline: const SizedBox(),
+
+                              // Initial Value
+                              value: bloc.ageValue,
+
+                              // Down Arrow Icon
+                              icon: const Icon(Icons.keyboard_arrow_down),
+
+                              // Array list of items
+                              items:
+                                  bloc.filterControl.ages!.map((String items) {
+                                return DropdownMenuItem(
+                                  value: items,
+                                  child: Text(items),
+                                );
+                              }).toList(),
+                              // After selecting the desired option,it will
+                              // change button value to selected value
+                              onChanged: (newValue) {
+                                setState(() {
+                                  bloc.ageValue = newValue.toString();
+                                });
+                              },
+                            ),
+                          ),
+                        ),
+                      ),
+                      SizedBox(width: width * .06),
+                      Flexible(
+                        child: Container(
+                          decoration: BoxDecoration(
+                            color: Colors.white,
+                            borderRadius: BorderRadius.circular(32),
+                            boxShadow: const [
+                              BoxShadow(
+                                color: Colors.black38,
+                                blurRadius: 15,
+                                offset: Offset(0, 10),
+                              ),
+                            ],
+                          ),
+                          child: Padding(
+                            padding:
+                                const EdgeInsets.symmetric(horizontal: 8.0),
+                            child: DropdownButton(
+                              isExpanded: true,
+                              isDense: false,
+                              underline: const SizedBox(),
+
+                              // Initial Value
+                              value: bloc.sizeValue,
+
+                              // Down Arrow Icon
+                              icon: const Icon(Icons.keyboard_arrow_down),
+
+                              // Array list of items
+                              items:
+                                  bloc.filterControl.size!.map((String items) {
+                                return DropdownMenuItem(
+                                  value: items,
+                                  child: Text(items),
+                                );
+                              }).toList(),
+                              // After selecting the desired option,it will
+                              // change button value to selected value
+                              onChanged: (newValue) {
+                                setState(() {
+                                  bloc.sizeValue = newValue.toString();
+                                });
+                              },
+                            ),
+                          ),
+                        ),
+                      ),
+                      SizedBox(width: width * .06),
+                      Flexible(
+                        child: Container(
+                          decoration: BoxDecoration(
+                            color: Colors.white,
+                            borderRadius: BorderRadius.circular(32),
+                            boxShadow: const [
+                              BoxShadow(
+                                color: Colors.black38,
+                                blurRadius: 15,
+                                offset: Offset(0, 10),
+                              ),
+                            ],
+                          ),
+                          child: Padding(
+                            padding:
+                                const EdgeInsets.symmetric(horizontal: 8.0),
+                            child: DropdownButton(
+                              isExpanded: true,
+                              isDense: false,
+                              underline: const SizedBox(),
+
+                              // Initial Value
+                              value: genderValue,
+
+                              // Down Arrow Icon
+                              icon: const Icon(Icons.keyboard_arrow_down),
+
+                              // Array list of items
+                              items: genderItems.map((String items) {
+                                return DropdownMenuItem(
+                                  value: items,
+                                  child: Text(items),
+                                );
+                              }).toList(),
+                              // After selecting the desired option,it will
+                              // change button value to selected value
+                              onChanged: (newValue) {
+                                setState(() {
+                                  genderValue = newValue.toString();
+                                });
+                              },
+                            ),
+                          ),
+                        ),
+                      ),
+                    ]),
+                  ),
+                  SizedBox(
+                    height: height * .05,
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 40),
+                    child: Row(children: [
+                      Flexible(
+                        child: Container(
+                          decoration: BoxDecoration(
+                            color: Colors.white,
+                            borderRadius: BorderRadius.circular(32),
+                            boxShadow: const [
+                              BoxShadow(
+                                color: Colors.black38,
+                                blurRadius: 15,
+                                offset: Offset(0, 10),
+                              ),
+                            ],
+                          ),
+                          child: Padding(
+                            padding:
+                                const EdgeInsets.symmetric(horizontal: 8.0),
+                            child: DropdownButton(
+                              isExpanded: true,
+                              isDense: false,
+                              underline: const SizedBox(),
+
+                              // Initial Value
+                              value: bloc.colorValue,
+
+                              // Down Arrow Icon
+                              icon: const Icon(Icons.keyboard_arrow_down),
+
+                              // Array list of items
+                              items: bloc.filterControl.colors!
+                                  .map((String items) {
+                                return DropdownMenuItem(
+                                  value: items,
+                                  child: Text(items),
+                                );
+                              }).toList(),
+                              // After selecting the desired option,it will
+                              // change button value to selected value
+                              onChanged: (newValue) {
+                                setState(() {
+                                  bloc.colorValue = newValue.toString();
+                                });
+                              },
+                            ),
+                          ),
+                        ),
+                      ),
+                      SizedBox(width: width * .06),
+                      Flexible(
+                        child: Container(
+                          decoration: BoxDecoration(
+                            color: Colors.white,
+                            borderRadius: BorderRadius.circular(32),
+                            boxShadow: const [
+                              BoxShadow(
+                                color: Colors.black38,
+                                blurRadius: 15,
+                                offset: Offset(0, 10),
+                              ),
+                            ],
+                          ),
+                          child: Padding(
+                            padding:
+                                const EdgeInsets.symmetric(horizontal: 8.0),
+                            child: DropdownButton(
+                              isExpanded: true,
+                              isDense: false,
+                              underline: const SizedBox(),
+
+                              // Initial Value
+                              value: bloc.hairLenghtValue,
+
+                              // Down Arrow Icon
+                              icon: const Icon(Icons.keyboard_arrow_down),
+
+                              // Array list of items
+                              items: bloc.filterControl.hairLength!
+                                  .map((String items) {
+                                return DropdownMenuItem(
+                                  value: items,
+                                  child: Text(items),
+                                );
+                              }).toList(),
+                              // After selecting the desired option,it will
+                              // change button value to selected value
+                              onChanged: (newValue) {
+                                setState(() {
+                                  bloc.hairLenghtValue = newValue.toString();
+                                });
+                              },
+                            ),
+                          ),
+                        ),
+                      ),
+                      SizedBox(width: width * .06),
+                      Flexible(
+                        child: Container(
+                          decoration: BoxDecoration(
+                            color: Colors.white,
+                            borderRadius: BorderRadius.circular(32),
+                            boxShadow: const [
+                              BoxShadow(
+                                color: Colors.black38,
+                                blurRadius: 15,
+                                offset: Offset(0, 10),
+                              ),
+                            ],
+                          ),
+                          child: Padding(
+                            padding:
+                                const EdgeInsets.symmetric(horizontal: 8.0),
+                            child: DropdownButton(
+                              isExpanded: true,
+                              isDense: false,
+                              underline: const SizedBox(),
+
+                              // Initial Value
+                              value: bloc.behaviourValue,
+
+                              // Down Arrow Icon
+                              icon: const Icon(Icons.keyboard_arrow_down),
+
+                              // Array list of items
+                              items: bloc.filterControl.behaviour!
+                                  .map((String items) {
+                                return DropdownMenuItem(
+                                  value: items,
+                                  child: Text(items),
+                                );
+                              }).toList(),
+                              // After selecting the desired option,it will
+                              // change button value to selected value
+                              onChanged: (newValue) {
+                                setState(() {
+                                  bloc.behaviourValue = newValue.toString();
+                                });
+                              },
+                            ),
+                          ),
+                        ),
+                      ),
+                      SizedBox(width: width * .05),
+                      Flexible(
+                        child: SizedBox(
+                          width: double.infinity,
+                          height: height * .08,
+                          child: ElevatedButton(
+                            onPressed: () async {
+                              String? age2;
+                              String? size2;
+                              String? breed2;
+                              String? gender2;
+                              String? hairLength2;
+                              String? color2;
+                              String? careBehavior2;
+
+                              if (bloc.ageValue == "Age" &&
+                                  bloc.breedValue == "Breed" &&
+                                  bloc.sizeValue == "Size" &&
+                                  bloc.colorValue == "Color" &&
+                                  bloc.hairLenghtValue == "Hair Lenght" &&
+                                  bloc.behaviourValue == "Care & behavior" &&
+                                  genderValue == "Gender") {
+                                bloc.allPetsCategoryFilterList.clear();
+                                bloc.getAllPetsFilterCategory(
+                                    categoryId: widget.categoryId.toString());
+                                Fluttertoast.showToast(
+                                    msg: "No filter selected",
+                                    toastLength: Toast.LENGTH_SHORT,
+                                    gravity: ToastGravity.CENTER,
+                                    timeInSecForIosWeb: 5,
+                                    backgroundColor: Colors.red,
+                                    webBgColor: "#F44336FF",
+                                    textColor: Colors.white,
+                                    fontSize: 16.0);
+                              } else {
+                                if (bloc.ageValue == "Age") {
+                                  age2 = null;
+                                } else {
+                                  age2 = bloc.ageValue!;
+                                }
+                                if (bloc.sizeValue == "Size") {
+                                  size2 = null;
+                                } else {
+                                  size2 = bloc.sizeValue!;
+                                }
+                                if (bloc.breedValue == "Breed") {
+                                  breed2 = null;
+                                } else {
+                                  breed2 = bloc.breedValue;
+                                }
+                                if (genderValue == "Gender") {
+                                  gender2 = null;
+                                } else {
+                                  genderValue == "male"
+                                      ? gender2 = "true"
+                                      : gender2 = "false";
+                                }
+                                if (bloc.hairLenghtValue == "Hair Lenght") {
+                                  hairLength2 = null;
+                                } else {
+                                  hairLength2 = bloc.hairLenghtValue;
+                                }
+                                if (bloc.colorValue == "Color") {
+                                  color2 = null;
+                                } else {
+                                  color2 = bloc.colorValue;
+                                }
+                                if (bloc.behaviourValue == "Care & behavior") {
+                                  careBehavior2 = null;
+                                } else {
+                                  careBehavior2 = bloc.behaviourValue;
+                                }
+                                bloc.allPetsCategoryFilterList.clear();
+                                bloc.getAllPetsFilterCategory(
+                                    gender: gender2,
+                                    breed: breed2,
+                                    size: size2,
+                                    color: color2,
+                                    careBehavior: careBehavior2,
+                                    hairLength: hairLength2,
+                                    categoryId: widget.categoryId.toString());
+                              }
+                            },
+                            style: ElevatedButton.styleFrom(
+                              primary: const Color(0xff492F24),
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(30.0),
+                              ),
+                            ),
+                            child: AutoSizeText(
+                              "Filter",
+                              style: GoogleFonts.lato(
+                                  color: const Color(0xffFFE3C5),
+                                  fontSize: AppSize.s28,
+                                  fontWeight: FontWeight.bold),
+                            ),
+                          ),
+                        ),
+                      ),
+                    ]),
+                  ),
+                  SizedBox(
+                    height: height * .01,
+                  ),
+                  (bloc.allPetsCategoryFilterList.isEmpty)
+                      ? Center(
+                          child: Container(
+                              margin:
+                                  EdgeInsets.symmetric(vertical: height * .18),
+                              child: const AutoSizeText(
+                                "No Result",
+                                style: TextStyle(
+                                    fontSize: 100, fontWeight: FontWeight.bold),
+                              )))
+                      : Expanded(
+                          child: StaggeredGridView.countBuilder(
+                            crossAxisCount: 3,
+                            itemCount: bloc.allPetsCategoryFilterList.length,
+                            crossAxisSpacing: 5,
+                            mainAxisSpacing: 16,
+                            itemBuilder: (context, index) {
+                              return AllAnimalFilterCards(
+                                  bloc.allPetsCategoryFilterList[index], home);
+                            },
+                            staggeredTileBuilder: (index) =>
+                                const StaggeredTile.fit(1),
+                          ),
+                        ),
                   FooterSection(height: height, width: width),
                 ],
               ),

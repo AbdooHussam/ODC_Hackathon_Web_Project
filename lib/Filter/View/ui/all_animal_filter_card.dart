@@ -5,12 +5,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:odc_hackathon_web_project/Home/Model/all_pets_model.dart';
 
+import '../../../Home/Controller/home1_cubit.dart';
 import '../../../core/widgets/custom_button.dart';
 
 class AllAnimalFilterCards extends StatelessWidget {
-  const AllAnimalFilterCards(this.allPets);
+  const AllAnimalFilterCards(this.allPets, this.cubit);
 
   final AllPetsModel allPets;
+  final Home1Cubit cubit;
 
   @override
   Widget build(BuildContext context) {
@@ -19,10 +21,9 @@ class AllAnimalFilterCards extends StatelessWidget {
         kToolbarHeight;
     final width = MediaQuery.of(context).size.width;
     return Container(
-      margin: const EdgeInsets.only(left: 75,right: 75,top: 40),
+      margin: const EdgeInsets.only(left: 75, right: 75, top: 40),
       decoration: BoxDecoration(
-          color: Color(0xffEAEAEA),
-          borderRadius: BorderRadius.circular(20)),
+          color: Color(0xffEAEAEA), borderRadius: BorderRadius.circular(20)),
       child: Padding(
         padding: const EdgeInsets.all(20),
         child: Column(
@@ -51,7 +52,11 @@ class AllAnimalFilterCards extends StatelessWidget {
             SizedBox(
               width: double.infinity,
               child: ElevatedButton(
-                onPressed: () {},
+                onPressed: () async {
+                  await cubit.getDogDetails(
+                      id: allPets.id.toString(), context: context);
+                  print(allPets.id);
+                },
                 style: ButtonStyle(
                     shape: MaterialStateProperty.all<RoundedRectangleBorder>(
                         RoundedRectangleBorder(
@@ -72,9 +77,9 @@ class AllAnimalFilterCards extends StatelessWidget {
               "by ${allPets.user!.firstName}",
               maxLines: 1,
               style: const TextStyle(
-                  color: Colors.black,
-                  fontSize: 17,
-                  ),
+                color: Colors.black,
+                fontSize: 17,
+              ),
             ),
           ],
         ),

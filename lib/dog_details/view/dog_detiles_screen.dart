@@ -13,16 +13,16 @@ import 'package:odc_hackathon_web_project/Home/Controller/home1_cubit.dart';
 import 'package:odc_hackathon_web_project/core/resource/assets_manager.dart';
 
 import '../../Home/Model/dog_details_model.dart';
+import '../../Home/View/Home_screen.dart';
 import '../../core/resource/text_manager.dart';
 import '../../core/resource/value_manager.dart';
 import '../../core/widgets/custom_text_button.dart';
 import '../../core/widgets/footer_section.dart';
 
-
 class DogDetails extends StatefulWidget {
-  const DogDetails({ required this.details}) ;
-  final dogDetails ? details ;
+  const DogDetails({required this.details});
 
+  final dogDetails? details;
 
   @override
   State<DogDetails> createState() => _DogDetailsState();
@@ -33,13 +33,12 @@ class _DogDetailsState extends State<DogDetails> {
     ImageAssets.dogImage,
     ImageAssets.dogImage,
     ImageAssets.dogImage,
-
   ];
 
   CarouselController carouselController = CarouselController();
   int _dotindicatoR = 0;
-   Color primaryColor = Color(0xff56392D);
-   Color secondaryColor = Color(0xffFFE3C5);
+  Color primaryColor = Color(0xff56392D);
+  Color secondaryColor = Color(0xffFFE3C5);
 
   @override
   Widget build(BuildContext context) {
@@ -48,20 +47,19 @@ class _DogDetailsState extends State<DogDetails> {
     final screenSize = MediaQuery.of(context).size;
 
     return Scaffold(
-
         body: BlocConsumer<Home1Cubit, Home1State>(
-  listener: (context, state) {
-    // TODO: implement listener
-  },
-  builder: (context, state) {
-  var cubit = Home1Cubit.get(context);
+      listener: (context, state) {
+        // TODO: implement listener
+      },
+      builder: (context, state) {
+        var cubit = Home1Cubit.get(context);
 
-  return SingleChildScrollView(
+        return SingleChildScrollView(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Container(
-                padding:  const EdgeInsets.only(bottom: 20),
+                padding: const EdgeInsets.only(bottom: 20),
                 decoration: const BoxDecoration(
                   gradient: LinearGradient(
                     begin: Alignment(3, 1),
@@ -95,7 +93,7 @@ class _DogDetailsState extends State<DogDetails> {
                             Flexible(
                               child: Row(
                                 mainAxisAlignment:
-                                MainAxisAlignment.spaceAround,
+                                    MainAxisAlignment.spaceAround,
                                 children: [
                                   Flexible(
                                     child: Image.asset(
@@ -106,6 +104,11 @@ class _DogDetailsState extends State<DogDetails> {
                                   CustomTextButton(
                                       text: TextManager.aboutUs,
                                       function: () {
+                                        Navigator.push(
+                                            context,
+                                            MaterialPageRoute(
+                                                builder: (context) =>
+                                                    const HomeScreen()));
                                         print("AboutUs");
                                       }),
                                   CustomTextButton(
@@ -121,6 +124,8 @@ class _DogDetailsState extends State<DogDetails> {
                                   CustomTextButton(
                                       text: TextManager.request,
                                       function: () {
+                                        GoRouter.of(context)
+                                            .go("/RequestScreen");
                                         print("request");
                                       }),
                                 ],
@@ -133,15 +138,15 @@ class _DogDetailsState extends State<DogDetails> {
                               onPressed: () {},
                               style: ButtonStyle(
                                   shape: MaterialStateProperty.all<
-                                      RoundedRectangleBorder>(
+                                          RoundedRectangleBorder>(
                                       RoundedRectangleBorder(
                                           borderRadius: BorderRadius.circular(
                                               AppSize.s28),
                                           side: const BorderSide(
                                               color: Colors.white))),
                                   backgroundColor:
-                                  MaterialStateProperty.all<Color>(
-                                      Colors.transparent)),
+                                      MaterialStateProperty.all<Color>(
+                                          Colors.transparent)),
                               child: const AutoSizeText(TextManager.signUp),
                             ),
                             SizedBox(
@@ -153,15 +158,15 @@ class _DogDetailsState extends State<DogDetails> {
                               },
                               style: ButtonStyle(
                                   shape: MaterialStateProperty.all<
-                                      RoundedRectangleBorder>(
+                                          RoundedRectangleBorder>(
                                       RoundedRectangleBorder(
                                           borderRadius:
-                                          BorderRadius.circular(18.0),
+                                              BorderRadius.circular(18.0),
                                           side: const BorderSide(
                                               color: Colors.white))),
                                   backgroundColor:
-                                  MaterialStateProperty.all<Color>(
-                                      Colors.white)),
+                                      MaterialStateProperty.all<Color>(
+                                          Colors.white)),
                               child: const AutoSizeText(TextManager.login,
                                   style: TextStyle(
                                       color: Colors.black,
@@ -175,23 +180,36 @@ class _DogDetailsState extends State<DogDetails> {
                         children: [
                           Align(
                             alignment: AlignmentDirectional.topCenter,
-                            child: CarouselSlider(
-                              carouselController: carouselController,
-                              // Give the controller
-                              options: CarouselOptions(
-                                  autoPlay: false,
-                                  onPageChanged: (index, reason) {
-                                    print('index ${index}');
-                                    setState(() {
-                                      _dotindicatoR = index;
-                                      print('_current ${_dotindicatoR}');
-                                    });
-                                  }),
+                            child: cubit.details!.image![0].isEmpty
+                                ? Center(
+                                    child: Container(
+                                        margin: EdgeInsets.symmetric(
+                                            vertical: height * .18),
+                                        child: const AutoSizeText(
+                                          "no available images",
+                                          style: TextStyle(
+                                              fontSize: 30,
+                                              fontWeight: FontWeight.bold,
+                                              color: Color(0xffFFE3C5)),
+                                        )))
+                                : CarouselSlider(
+                                    carouselController: carouselController,
+                                    // Give the controller
+                                    options: CarouselOptions(
+                                        autoPlay: false,
+                                        onPageChanged: (index, reason) {
+                                          print('index ${index}');
+                                          setState(() {
+                                            _dotindicatoR = index;
+                                            print('_current ${_dotindicatoR}');
+                                          });
+                                        }),
 
-                              items: [
-                                Image.memory(base64Decode(cubit.details!.image![0]))
-                              ],
-                            ),
+                                    items: [
+                                      Image.memory(base64Decode(
+                                          cubit.details!.image![0]))
+                                    ],
+                                  ),
                           ),
                           Align(
                               alignment: Alignment.centerLeft,
@@ -201,7 +219,7 @@ class _DogDetailsState extends State<DogDetails> {
                                 width: 50,
                                 decoration: BoxDecoration(
                                     borderRadius: BorderRadius.circular(50),
-                                    color:  Color(0xffFFE3C5)),
+                                    color: Color(0xffFFE3C5)),
                                 child: IconButton(
                                   onPressed: () {
                                     // Use the controller to change the current page
@@ -219,7 +237,7 @@ class _DogDetailsState extends State<DogDetails> {
                                 width: 50,
                                 decoration: BoxDecoration(
                                     borderRadius: BorderRadius.circular(40),
-                                    color:  Color(0xffFFE3C5)),
+                                    color: Color(0xffFFE3C5)),
                                 child: IconButton(
                                   onPressed: () {
                                     // Use the controller to change the current page
@@ -253,7 +271,6 @@ class _DogDetailsState extends State<DogDetails> {
                                     ? secondaryColor
                                     : Color.fromRGBO(0, 0, 0, 0.4),
                               ),
-
                             );
                           }),
                     ),
@@ -300,58 +317,57 @@ class _DogDetailsState extends State<DogDetails> {
                           onPressed: () {
                             showDialog(
                               context: context,
-                              builder: (ctx) =>
-
-                                  AlertDialog(
-                                      elevation: 6,
-                                      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(30)),
-                                      content: Container(
-
-                                        height: 270,
-                                        width: 400,
-                                        padding: EdgeInsets.only(top: 15),
-                                        child: Column(
-                                          mainAxisAlignment:
+                              builder: (ctx) => AlertDialog(
+                                  elevation: 6,
+                                  shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(30)),
+                                  content: Container(
+                                    height: 270,
+                                    width: 400,
+                                    padding: EdgeInsets.only(top: 15),
+                                    child: Column(
+                                      mainAxisAlignment:
                                           MainAxisAlignment.center,
-                                          children: [
-                                            CircleAvatar(
-                                              backgroundImage: AssetImage(
-                                                  'assets/image/profile.png'),
-                                              radius: 60,
-                                            ),
-                                            SizedBox(
-                                              height: 10,
-                                            ),
-                                            Text(
-                                              cubit.details!.user!.firstName.toString(),
-                                              style: TextStyle(
-                                                  fontSize: 30,
-                                                  color: primaryColor,
-                                                  fontWeight: FontWeight.bold),
-                                            ),
-                                            SizedBox(
-                                              height: 10,
-                                            ),
-                                            Text(
-                                              'Phone',
-                                              style: TextStyle(
-                                                fontSize: 22,
-                                                color: primaryColor,
-                                              ),
-                                            ),
-                                            SizedBox(
-                                              height: 10,
-                                            ),
-                                            Text(
-                                              cubit.details!.phone.toString(),
-                                              style: TextStyle(
-                                                  fontSize: 17,
-                                                  color: Color(0xffAE957B),fontWeight: FontWeight.bold
-                                              ),
-                                            ),
-                                          ],
+                                      children: [
+                                        // CircleAvatar(
+                                        //   backgroundImage: AssetImage(
+                                        //       'assets/image/profile.png'),
+                                        //   radius: 60,
+                                        // ),
+                                        SizedBox(
+                                          height: 10,
                                         ),
-                                      )),
+                                        Text(
+                                          cubit.details!.user!.firstName
+                                              .toString(),
+                                          style: TextStyle(
+                                              fontSize: 30,
+                                              color: primaryColor,
+                                              fontWeight: FontWeight.bold),
+                                        ),
+                                        SizedBox(
+                                          height: 10,
+                                        ),
+                                        Text(
+                                          'Phone',
+                                          style: TextStyle(
+                                            fontSize: 22,
+                                            color: primaryColor,
+                                          ),
+                                        ),
+                                        SizedBox(
+                                          height: 10,
+                                        ),
+                                        Text(
+                                          cubit.details!.phone.toString(),
+                                          style: TextStyle(
+                                              fontSize: 17,
+                                              color: Color(0xffAE957B),
+                                              fontWeight: FontWeight.bold),
+                                        ),
+                                      ],
+                                    ),
+                                  )),
                             );
                           },
                           icon: Icon(
@@ -408,7 +424,7 @@ class _DogDetailsState extends State<DogDetails> {
               ),
               Padding(
                 child: Text(
-              cubit.details!.description.toString(),
+                  cubit.details!.description.toString(),
                   style: TextStyle(
                     fontSize: 20,
                     color: primaryColor,
@@ -450,19 +466,18 @@ class _DogDetailsState extends State<DogDetails> {
               ),
               Padding(
                 child: Text(
-    cubit.details!.description.toString(),
+                  cubit.details!.description.toString(),
                   style: TextStyle(
                       fontSize: 20, color: primaryColor, letterSpacing: 2),
                 ),
                 padding: EdgeInsets.only(left: 30, top: 20),
               ),
-
+              SizedBox(height: height*.1),
               FooterSection(height: height, width: width)
-
             ],
           ),
         );
-  },
-));
+      },
+    ));
   }
 }

@@ -349,14 +349,14 @@ class _HomeScreenState extends State<HomeScreen> {
                               width: width * .05,
                             ),
                             InkWell(
-                              onTap: (){
+                              onTap: () {
                                 Navigator.push(
                                     context,
                                     MaterialPageRoute(
                                         builder: (context) =>
-                                        const FilterScreen(
-                                          categoryId: 2,
-                                        )));
+                                            const FilterScreen(
+                                              categoryId: 2,
+                                            )));
                               },
                               child: OnHoverButton(builder: (isHovered) {
                                 final color = isHovered
@@ -447,8 +447,10 @@ class _HomeScreenState extends State<HomeScreen> {
                                           ? bloc.allPetsList.length
                                           : 3,
                                       (index) => AllAnimalCards(
-                                          allPets: bloc.allPetsList[
-                                              index + moreAnimal],cubit: bloc,))),
+                                            allPets: bloc.allPetsList[
+                                                index + moreAnimal],
+                                            cubit: bloc,
+                                          ))),
                             ),
                             CircleAvatar(
                                 backgroundColor: Colors.black,
