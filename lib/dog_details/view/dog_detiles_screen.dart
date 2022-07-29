@@ -205,10 +205,9 @@ class _DogDetailsState extends State<DogDetails> {
                                           });
                                         }),
 
-                                    items: [
-                                      Image.memory(base64Decode(
-                                          cubit.details!.image![0]))
-                                    ],
+                                    items: cubit.details!.image!.map((e) =>
+                                        Image.memory(base64Decode(e))
+                                    ).toList(),
                                   ),
                           ),
                           Align(
@@ -243,7 +242,7 @@ class _DogDetailsState extends State<DogDetails> {
                                     // Use the controller to change the current page
                                     carouselController.nextPage();
                                   },
-                                  icon: Icon(
+                                  icon: const Icon(
                                     Icons.arrow_forward_ios,
                                     color: Color(0xff56392D),
                                     size: 25,
@@ -263,7 +262,7 @@ class _DogDetailsState extends State<DogDetails> {
                             return Container(
                               width: 30.0,
                               height: 30.0,
-                              margin: EdgeInsets.symmetric(
+                              margin: const EdgeInsets.symmetric(
                                   vertical: 10.0, horizontal: 20.0),
                               decoration: BoxDecoration(
                                 shape: BoxShape.circle,
