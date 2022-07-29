@@ -448,7 +448,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                           : 3,
                                       (index) => AllAnimalCards(
                                           allPets: bloc.allPetsList[
-                                              index + moreAnimal]))),
+                                              index + moreAnimal],cubit: bloc,))),
                             ),
                             CircleAvatar(
                                 backgroundColor: Colors.black,

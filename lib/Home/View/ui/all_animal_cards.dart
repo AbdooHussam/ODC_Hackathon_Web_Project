@@ -6,10 +6,13 @@ import 'package:flutter_svg/svg.dart';
 import 'package:odc_hackathon_web_project/Home/Model/all_pets_model.dart';
 
 import '../../../core/widgets/custom_button.dart';
+import '../../Controller/home1_cubit.dart';
 
 class AllAnimalCards extends StatelessWidget {
-  const AllAnimalCards({Key? key, required this.allPets}) : super(key: key);
+
+  const AllAnimalCards({Key? key, required this.allPets , required  this.cubit}) : super(key: key);
   final AllPetsModel allPets;
+  final Home1Cubit cubit;
 
   // Image imageFromBase64String(String base64String) {
   //   return Image.memory(base64Decode(base64String));
@@ -54,7 +57,10 @@ class AllAnimalCards extends StatelessWidget {
             SizedBox(height: height * .02),
             CustomButton(
               text: "Read more",
-              function: () {},
+              function: () async {
+               await cubit.getDogDetails(id: allPets.id.toString() , context: context);
+                print(allPets.id);
+              },
               inColor: Colors.white,
               outColor: const Color(0xffFFE3C5),
               textColor: Colors.black,

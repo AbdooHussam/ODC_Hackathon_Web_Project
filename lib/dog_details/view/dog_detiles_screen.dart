@@ -1,12 +1,28 @@
+import 'dart:convert';
+import 'dart:typed_data';
+
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:go_router/go_router.dart';
+import 'package:odc_hackathon_web_project/Home/Controller/home1_cubit.dart';
+import 'package:odc_hackathon_web_project/core/resource/assets_manager.dart';
+
+import '../../Home/Model/dog_details_model.dart';
+import '../../core/resource/text_manager.dart';
+import '../../core/resource/value_manager.dart';
+import '../../core/widgets/custom_text_button.dart';
+import '../../core/widgets/footer_section.dart';
 
 
 class DogDetails extends StatefulWidget {
-  const DogDetails({Key? key}) : super(key: key);
+  const DogDetails({ required this.details}) ;
+  final dogDetails ? details ;
+
 
   @override
   State<DogDetails> createState() => _DogDetailsState();
@@ -14,27 +30,39 @@ class DogDetails extends StatefulWidget {
 
 class _DogDetailsState extends State<DogDetails> {
   final featuredImages = [
-    'assets/image/dogType.svg',
-    'assets/image/dogType.svg',
-    'assets/image/dogType.svg'
+    ImageAssets.dogImage,
+    ImageAssets.dogImage,
+    ImageAssets.dogImage,
+
   ];
+
   CarouselController carouselController = CarouselController();
   int _dotindicatoR = 0;
    Color primaryColor = Color(0xff56392D);
    Color secondaryColor = Color(0xffFFE3C5);
+
   @override
   Widget build(BuildContext context) {
+    var height = MediaQuery.of(context).size.height;
+    var width = MediaQuery.of(context).size.width;
     final screenSize = MediaQuery.of(context).size;
 
     return Scaffold(
 
-        body: SingleChildScrollView(
+        body: BlocConsumer<Home1Cubit, Home1State>(
+  listener: (context, state) {
+    // TODO: implement listener
+  },
+  builder: (context, state) {
+  var cubit = Home1Cubit.get(context);
+
+  return SingleChildScrollView(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Container(
-                padding: const EdgeInsets.only(bottom: 20),
-                decoration: BoxDecoration(
+                padding:  const EdgeInsets.only(bottom: 20),
+                decoration: const BoxDecoration(
                   gradient: LinearGradient(
                     begin: Alignment(3, 1),
                     end: Alignment(1, 1),
@@ -48,6 +76,99 @@ class _DogDetailsState extends State<DogDetails> {
                 ),
                 child: Column(
                   children: [
+                    Container(
+                      decoration: const BoxDecoration(
+                        gradient: LinearGradient(
+                          begin: Alignment(3, 1),
+                          end: Alignment(1, 1),
+                          colors: <Color>[
+                            Color(0xff56392D),
+                            Color(0xff180701),
+                          ],
+                          // Gradient from https://learnui.design/tools/gradient-generator.html
+                          tileMode: TileMode.mirror,
+                        ),
+                      ),
+                      child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Flexible(
+                              child: Row(
+                                mainAxisAlignment:
+                                MainAxisAlignment.spaceAround,
+                                children: [
+                                  Flexible(
+                                    child: Image.asset(
+                                      ImageAssets.logoAppBar,
+                                      fit: BoxFit.cover,
+                                    ),
+                                  ),
+                                  CustomTextButton(
+                                      text: TextManager.aboutUs,
+                                      function: () {
+                                        print("AboutUs");
+                                      }),
+                                  CustomTextButton(
+                                      text: TextManager.categories,
+                                      function: () {
+                                        print("categories");
+                                      }),
+                                  CustomTextButton(
+                                      text: TextManager.services,
+                                      function: () {
+                                        print("services");
+                                      }),
+                                  CustomTextButton(
+                                      text: TextManager.request,
+                                      function: () {
+                                        print("request");
+                                      }),
+                                ],
+                              ),
+                            ),
+                            SizedBox(
+                              width: MediaQuery.of(context).size.width * .05,
+                            ),
+                            ElevatedButton(
+                              onPressed: () {},
+                              style: ButtonStyle(
+                                  shape: MaterialStateProperty.all<
+                                      RoundedRectangleBorder>(
+                                      RoundedRectangleBorder(
+                                          borderRadius: BorderRadius.circular(
+                                              AppSize.s28),
+                                          side: const BorderSide(
+                                              color: Colors.white))),
+                                  backgroundColor:
+                                  MaterialStateProperty.all<Color>(
+                                      Colors.transparent)),
+                              child: const AutoSizeText(TextManager.signUp),
+                            ),
+                            SizedBox(
+                              width: MediaQuery.of(context).size.width * .05,
+                            ),
+                            ElevatedButton(
+                              onPressed: () {
+                                GoRouter.of(context).go('/loginScreen');
+                              },
+                              style: ButtonStyle(
+                                  shape: MaterialStateProperty.all<
+                                      RoundedRectangleBorder>(
+                                      RoundedRectangleBorder(
+                                          borderRadius:
+                                          BorderRadius.circular(18.0),
+                                          side: const BorderSide(
+                                              color: Colors.white))),
+                                  backgroundColor:
+                                  MaterialStateProperty.all<Color>(
+                                      Colors.white)),
+                              child: const AutoSizeText(TextManager.login,
+                                  style: TextStyle(
+                                      color: Colors.black,
+                                      fontWeight: FontWeight.bold)),
+                            ),
+                          ]),
+                    ),
                     SizedBox(
                       height: 400,
                       child: Stack(
@@ -67,11 +188,9 @@ class _DogDetailsState extends State<DogDetails> {
                                     });
                                   }),
 
-                              items: featuredImages.map((featuredImage) {
-                                return SvgPicture.asset(
-                                  featuredImage,
-                                );
-                              }).toList(),
+                              items: [
+                                Image.memory(base64Decode(cubit.details!.image![0]))
+                              ],
                             ),
                           ),
                           Align(
@@ -134,6 +253,7 @@ class _DogDetailsState extends State<DogDetails> {
                                     ? secondaryColor
                                     : Color.fromRGBO(0, 0, 0, 0.4),
                               ),
+
                             );
                           }),
                     ),
@@ -143,7 +263,7 @@ class _DogDetailsState extends State<DogDetails> {
               Padding(
                 padding: EdgeInsets.only(left: 30, top: 30),
                 child: Text(
-                  'Elsa',
+                  cubit.details!.name.toString(),
                   style: TextStyle(
                       fontSize: 30,
                       color: primaryColor,
@@ -166,7 +286,7 @@ class _DogDetailsState extends State<DogDetails> {
                           ),
                         ),
                         Text(
-                          'Kamal magdy ',
+                          cubit.details!.user!.firstName.toString(),
                           style: TextStyle(
                               fontSize: 23,
                               color: primaryColor,
@@ -203,7 +323,7 @@ class _DogDetailsState extends State<DogDetails> {
                                               height: 10,
                                             ),
                                             Text(
-                                              'Kamal Magdy',
+                                              cubit.details!.user!.firstName.toString(),
                                               style: TextStyle(
                                                   fontSize: 30,
                                                   color: primaryColor,
@@ -223,7 +343,7 @@ class _DogDetailsState extends State<DogDetails> {
                                               height: 10,
                                             ),
                                             Text(
-                                              '(+20)01148293938',
+                                              cubit.details!.phone.toString(),
                                               style: TextStyle(
                                                   fontSize: 17,
                                                   color: Color(0xffAE957B),fontWeight: FontWeight.bold
@@ -255,7 +375,7 @@ class _DogDetailsState extends State<DogDetails> {
               ),
               Padding(
                 child: Text(
-                  'Domestic Short Hair  Fredericton, NB',
+                  cubit.details!.description.toString(),
                   style: TextStyle(
                     fontSize: 17,
                     color: primaryColor,
@@ -269,7 +389,7 @@ class _DogDetailsState extends State<DogDetails> {
                   margin: EdgeInsets.only(top: 20),
                   padding: EdgeInsets.only(left: 30, top: 15, bottom: 15),
                   child: Text(
-                    'Adult  Female  Medium  Tabby (Brown / Chocolate)',
+                    cubit.details!.gender.toString(),
                     style: TextStyle(
                       fontSize: 17,
                       fontWeight: FontWeight.bold,
@@ -288,18 +408,7 @@ class _DogDetailsState extends State<DogDetails> {
               ),
               Padding(
                 child: Text(
-                  '''
-HOUSE-TRAINED
-Yes
-HEALTH
-Vaccinations up to date, spayed / neutered.
-GOOD IN A HOME WITH
-Other cats.
-PREFERS A HOME WITHOUT
-Children.
-                  
-                  
-                  ''',
+              cubit.details!.description.toString(),
                   style: TextStyle(
                     fontSize: 20,
                     color: primaryColor,
@@ -320,11 +429,7 @@ Children.
                         color: primaryColor,
                       ),
                       Text(
-                        ''' 
-                        
-    Petfinder recommends that you should always take reasonable
-    security steps before making adabtion.
-                    ''',
+                        cubit.details!.careBehavior.toString(),
                         style: TextStyle(
                           fontSize: 17,
                           fontWeight: FontWeight.bold,
@@ -345,25 +450,19 @@ Children.
               ),
               Padding(
                 child: Text(
-                  '''
-Hi,
-Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita
- kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.
-Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.
-Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea.
-                  
-                  ''',
+    cubit.details!.description.toString(),
                   style: TextStyle(
                       fontSize: 20, color: primaryColor, letterSpacing: 2),
                 ),
                 padding: EdgeInsets.only(left: 30, top: 20),
               ),
-              Image.asset(
-                'assets/image/footer3.jpg',
-                fit: BoxFit.fill,
-              )
+
+              FooterSection(height: height, width: width)
+
             ],
           ),
-        ));
+        );
+  },
+));
   }
 }
