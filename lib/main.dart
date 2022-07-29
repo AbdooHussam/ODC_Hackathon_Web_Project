@@ -91,11 +91,11 @@ class Home extends StatelessWidget {
         builder: (BuildContext context, GoRouterState state) =>
         const RequestScreen(),
       ),
-      GoRoute(
-        path: '/dog',
-        builder: (BuildContext context, GoRouterState state) =>
-            DogDetails(),
-      ),
+      // GoRoute(
+      //   path: '/dog',
+      //   builder: (BuildContext context, GoRouterState state) =>
+      //       DogDetails(),
+      // ),
     ],
   );
 }

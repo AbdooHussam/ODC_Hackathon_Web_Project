@@ -1,12 +1,17 @@
+import 'dart:js';
+
 import 'package:bloc/bloc.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:go_router/go_router.dart';
 import 'package:meta/meta.dart';
+import 'package:odc_hackathon_web_project/dog_details/view/dog_detiles_screen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../Model/all_pets_model.dart';
+import '../Model/dog_details_model.dart';
 import '../Model/first_section_model.dart';
 import '../Model/footer_section_model.dart';
 import '../Model/pet-needs_model.dart';
@@ -209,4 +214,22 @@ class Home1Cubit extends Cubit<Home1State> {
       print(e.response!.data);
     }
   }
+  dogDetails ? details ;
+  Future<void> getDogDetails({ required String id ,required BuildContext context}) async{
+    try{
+      await Dio().get('https://petology.orangedigitalcenteregypt.com/pets/$id', ).then((value) {
+        details = dogDetails.fromJson(value.data);
+       Navigator.push(context,
+           MaterialPageRoute(builder: (context)=>
+       DogDetails(details: details,)
+       ));
+        print(details!.size);
+        // print(value.data);
+      });
+    } on DioError catch(dataError)
+    {
+      print(dataError);
+    }
+  }
+
 }

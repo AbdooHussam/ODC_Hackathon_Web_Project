@@ -396,7 +396,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                                   ),
                                                 ),
                                                 child: AutoSizeText(
-                                                  "Sign In ",
+                                                  "Sign up ",
                                                   style: GoogleFonts.lato(
                                                       color: const Color(
                                                           0xffFFE3C5),
