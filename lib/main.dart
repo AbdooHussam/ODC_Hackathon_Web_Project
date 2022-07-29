@@ -15,6 +15,7 @@ import 'Home/View/Home_screen.dart';
 import 'Home/View/Request_screen.dart';
 import 'core/BlocObserver.dart';
 import 'core/resource/route_manager.dart';
+import 'dog_details/view/dog_detiles_screen.dart';
 
 main() {
   WidgetsFlutterBinding.ensureInitialized();
@@ -90,11 +91,11 @@ class Home extends StatelessWidget {
         builder: (BuildContext context, GoRouterState state) =>
         const RequestScreen(),
       ),
-      // GoRoute(
-      //   path: '/FilterScreen',
-      //   builder: (BuildContext context, GoRouterState state) =>
-      //    FilterScreen(),
-      // ),
+      GoRoute(
+        path: '/dog',
+        builder: (BuildContext context, GoRouterState state) =>
+            DogDetails(),
+      ),
     ],
   );
 }
