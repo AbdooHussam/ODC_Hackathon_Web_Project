@@ -313,6 +313,7 @@ class _DogDetailsState extends State<DogDetails> {
                     Row(
                       children: [
                         IconButton(
+
                           onPressed: () {
                             showDialog(
                               context: context,

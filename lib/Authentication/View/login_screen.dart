@@ -375,7 +375,8 @@ class _LoginScreenState extends State<LoginScreen> {
                                                           ),
                                                         ),
                                                         ElevatedButton(
-                                                          onPressed: () {
+                                                          onPressed: ()async {
+                                                            await cubit.loginGoogle(context: context);
                                                           },
                                                           style: ElevatedButton
                                                               .styleFrom(

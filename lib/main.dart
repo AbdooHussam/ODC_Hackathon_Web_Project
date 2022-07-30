@@ -13,6 +13,7 @@ import 'Filter/View/Filter_screen.dart';
 import 'Home/Controller/home1_cubit.dart';
 import 'Home/View/Home_screen.dart';
 import 'Home/View/Request_screen.dart';
+import 'Home/View/faceBook.dart';
 import 'core/BlocObserver.dart';
 import 'core/resource/route_manager.dart';
 import 'dog_details/view/dog_detiles_screen.dart';
@@ -91,6 +92,13 @@ class Home extends StatelessWidget {
         builder: (BuildContext context, GoRouterState state) =>
         const RequestScreen(),
       ),
+      GoRoute(
+        path: '/token',
+        builder: (BuildContext context, GoRouterState state) {
+          final query = state.queryParams['accessToken']; // may be null
+          return FaceBook(queryAuth: query,);
+        }
+      )
       // GoRoute(
       //   path: '/dog',
       //   builder: (BuildContext context, GoRouterState state) =>

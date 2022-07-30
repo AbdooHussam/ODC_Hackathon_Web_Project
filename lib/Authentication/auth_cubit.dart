@@ -3,6 +3,7 @@ import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_web_auth/flutter_web_auth.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:go_router/go_router.dart';
 import 'package:meta/meta.dart';
@@ -58,32 +59,30 @@ class AuthCubit extends Cubit<AuthState> {
   }
 
   Future<void> loginFaceBook({required BuildContext context}) async {
-    //   try{
-    //
-    //     var response = await Dio().get('https://petology.orangedigitalcenteregypt.com/auth/oauth2/facebook',
-    //       options: Options(
-    //         headers: {
-    //           'Accept': "application/json",
-    //           // 'Authorization': 'Bearer  $token',
-    //         },
-    //       ),
-    //     ).then((value) {
-    //       if (kDebugMode)
-    //       {
-    //         print(     value.statusMessage);
-    //         // /
-    //       }
-    //
-    //     });
-    //   } on DioError catch(e){
-    //     print('Amr');
-    //     print(e.response!.data);
-    //
-    //
-    //
-    //   }
-    //
-    //
+    final result = await FlutterWebAuth.authenticate(
+        url: "https://petology.orangedigitalcenteregypt.com/auth/oauth2/facebook",
+        callbackUrlScheme: "https://petology.orangedigitalcenteregypt.com/auth/oauth2/facebook/callback",preferEphemeral: true);
+    final token = Uri
+        .parse(result)
+        .queryParameters['accessToken'];
+
+      print(token);
+      GoRouter.of(context).replace('/HomeScreen');
+
+  }
+  Future<void> loginGoogle({required BuildContext context}) async {
+    final result = await FlutterWebAuth.authenticate(
+        url: "https://petology.orangedigitalcenteregypt.com/auth/oauth2/google",
+        callbackUrlScheme: "https://petology.orangedigitalcenteregypt.com/auth/oauth2/google/callback"
+        ,preferEphemeral: true,
+    );
+    final token = Uri
+        .parse(result)
+        .queryParameters['accessToken'];
+
+    print(token);
+    GoRouter.of(context).replace('/HomeScreen');
+
   }
 
   Future<void> register(
